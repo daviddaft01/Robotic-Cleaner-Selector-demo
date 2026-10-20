@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Robotic Cleaner Selector · Counter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0075BB}a:hover{color:#005A90}
+select:focus,button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #EEF3F6; color: #0C2236; font-family: 'Barlow', system-ui, sans-serif">
+  <header style="background: #0075BB; color: #FFFFFF">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 24px 32px 28px; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+        <img src="images/568c0d95c4f9a26b5375c259a18dc8ac.png" alt="Swimart — Pool care made easy!" style="width: 220px; height: auto; display: block">
+        <div style="width: 1px; align-self: stretch; background: rgba(255,255,255,0.35)"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <div style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #FFFFFF; font-weight: 600">Pool counter · AU &amp; NZ · FY27 core range</div>
+          <h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 46px; font-weight: 700; line-height: 1">Robotic Cleaner Selector</h1>
+          <p style="margin: 0; color: #FFFFFF; font-size: 17px">Not “which cleaner has the most features?” — but <strong>which cleaner best suits this pool and this owner?</strong></p>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; max-width: 560px">
+        <span id="brands-label" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600">Brands stocked in this store</span>
+        <div role="group" aria-labelledby="brands-label" style="display: flex; flex-wrap: wrap; gap: 8px">
+          <sc-for list="{{brandChips}}" as="bc" hint-placeholder-count="6">
+            <button type="button" onClick="{{bc.pick}}" aria-pressed="{{bc.pressed}}" style="min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid #FFFFFF; background: {{bc.bg}}; color: {{bc.fg}}; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">{{bc.t}}</button>
+          </sc-for>
+        </div>
+        <span style="font-size: 13px; color: #FFFFFF">{{brandNote}}</span>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{noMode}}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Choose how to assess this pool" style="max-width: 1100px; margin: 0 auto; padding: 40px 32px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 36px; font-weight: 700; line-height: 1.05">How much checking does this pool need?</h2>
+        <p style="margin: 0; font-size: 17px; color: #33475A; line-height: 1.45">Start with Quick Match for a standard pool. If anything on the Full Assessment list applies, use that instead. You can switch at any time and keep your answers.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px">
+        <div style="background: #FFFFFF; border: 2px solid {{accent}}; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+          <span style="align-self: flex-start; background: #EAF4FB; color: #005A90; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">Standard pool</span>
+          <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700; line-height: 1">Quick Match</h3>
+          <p style="margin: 0; font-size: 16px; color: #33475A">About 2 minutes · {{quickCount}} key questions</p>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <sc-for list="{{quickUse}}" as="u" hint-placeholder-count="4">
+              <div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.35"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C7C4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px"><path d="M5 12l5 5L20 7"></path></svg><span>{{u}}</span></div>
+            </sc-for>
+          </div>
+          <button type="button" onClick="{{pickQuick}}" style="margin-top: auto; height: 52px; border-radius: 12px; border: none; background: {{accent}}; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 17px; font-weight: 700; cursor: pointer">Start Quick Match</button>
+        </div>
+        <div style="background: #FFFFFF; border: 2px solid #0C2236; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+          <span style="align-self: flex-start; background: #0C2236; color: #FFFFFF; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">Difficult pool</span>
+          <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700; line-height: 1">Full Assessment</h3>
+          <p style="margin: 0; font-size: 16px; color: #33475A">About 10 minutes · all {{fullSections}} sections, cable reach and trial checklist</p>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="font-size: 15px; font-weight: 700">Use it if any of these apply:</span>
+            <sc-for list="{{fullUse}}" as="u" hint-placeholder-count="4">
+              <div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.35"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B4560F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px"><path d="M12 8v5M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg><span>{{u}}</span></div>
+            </sc-for>
+          </div>
+          <button type="button" onClick="{{pickFull}}" style="margin-top: auto; height: 52px; border-radius: 12px; border: none; background: #0C2236; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 17px; font-weight: 700; cursor: pointer">Start Full Assessment</button>
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{hasMode}}" hint-placeholder-val="{{ true }}">
+  <main style="max-width: 1360px; margin: 0 auto; padding: 28px 32px 56px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start">
+    <section aria-label="Customer selection checklist" style="flex: 1 1 500px; min-width: 0; display: flex; flex-direction: column; gap: 14px">
+      <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px">
+        <div style="display: flex; flex-direction: column; gap: 1px">
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700">{{modeName}}</span>
+          <span style="font-size: 14px; color: #4A5D6E">{{modeShort}} · answers carry across if you switch</span>
+        </div>
+        <button type="button" onClick="{{switchMode}}" style="height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid {{accent}}; background: #FFFFFF; color: {{accent}}; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">{{switchLabel}}</button>
+      </div>
+      <sc-for list="{{items}}" as="it" hint-placeholder-count="8">
+        <div style="background: #FFFFFF; border: 1px solid {{it.border}}; border-radius: 14px; padding: 18px 20px">
+          <div style="display: flex; align-items: flex-start; gap: 14px">
+            <span style="flex: none; width: 34px; height: 34px; border-radius: 50%; background: {{it.badgeBg}}; color: {{it.badgeFg}}; border: 2px solid {{accent}}; box-sizing: border-box; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px">{{it.n}}</span>
+            <div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+              <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; line-height: 1.1">{{it.title}}</h2>
+              <span style="font-size: 14px; color: #4A5D6E; line-height: 1.35">{{it.sub}}</span>
+            </div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-top: 14px; padding-left: 48px">
+            <sc-for list="{{it.qs}}" as="q" hint-placeholder-count="2">
+              <label style="display: flex; flex-direction: column; gap: 6px; font-size: 15px; font-weight: 600; color: #22384C">
+                {{q.label}}
+                <select value="{{q.value}}" onChange="{{q.change}}" style="height: 46px; padding: 0 12px; border: 1px solid #A9B9C6; border-radius: 10px; background: #F8FAFC; color: #0C2236; font-family: 'Barlow', sans-serif; font-size: 16px">
+                  <sc-for list="{{q.opts}}" as="o" hint-placeholder-count="3">
+                    <option value="{{o.v}}">{{o.t}}</option>
+                  </sc-for>
+                </select>
+              </label>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section aria-label="Recommendations" style="flex: 1.15 1 540px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+      <div style="background: #0C2236; color: #FFFFFF; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #9CC9E2">Customer checklist</span>
+            <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1">{{doneCount}} of {{coreCount}} covered</span>
+          </div>
+          <button type="button" onClick="{{reset}}" style="height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.5); background: transparent; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer">New customer</button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 8px 18px">
+          <sc-for list="{{items}}" as="it" hint-placeholder-count="8">
+            <div style="display: flex; gap: 10px; align-items: flex-start">
+              <span style="flex: none; width: 22px; height: 22px; border-radius: 50%; background: {{it.dotBg}}; border: 2px solid {{it.dotBorder}}; box-sizing: border-box; color: #0C2236; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 1px">{{it.n}}</span>
+              <div style="display: flex; flex-direction: column; min-width: 0">
+                <span style="font-size: 14px; font-weight: 700">{{it.title}}</span>
+                <span style="font-size: 13px; color: {{it.sumColor}}; line-height: 1.3">{{it.summary}}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="font-size: 17px"><strong style="font-size: 22px; font-family: 'Barlow Condensed', sans-serif">{{fitCount}} of {{total}}</strong> robots in the FY27 range suit this {{bodyWord}} and owner</div>
+      <sc-if value="{{isQuick}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #EAF4FB; border: 1px solid #9CC3DD; border-radius: 12px; padding: 12px 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px">
+          <span style="flex: 1 1 300px; font-size: 15px; line-height: 1.4">Quick Match assumes a standard pool: simple layout, sound finish, power point near the pool. Ledges, mixed finishes or a long cable run need the Full Assessment.</span>
+          <button type="button" onClick="{{switchMode}}" style="height: 44px; padding: 0 16px; border-radius: 10px; border: none; background: #0C2236; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">Switch to Full Assessment</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{hasPool}}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top: -10px; font-size: 15px; color: #33475A">Pool: <strong>{{poolLine}}</strong></div>
+      </sc-if>
+
+      <sc-if value="{{noFit}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; padding: 24px">
+          <h3 style="margin: 0 0 8px; font-size: 21px">No cleaner in the range ticks every box</h3>
+          <p style="margin: 0; color: #4A5D6E; font-size: 16px; line-height: 1.4">Relax the coverage requirement, choose “No preference” for cable or cordless, move the power supply closer, or check the pool size and finishes. If only some brands are selected for this store, try All brands.</p>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{hasTop}}" hint-placeholder-val="{{ true }}">
+        <article style="background: #FFFFFF; border: 2px solid {{accent}}; border-radius: 16px; overflow: hidden">
+          <div style="background: {{accent}}; color: #FFFFFF; padding: 10px 22px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase">
+            <span>{{topLabel}}</span>
+            <span>{{top.pct}}% fit</span>
+          </div>
+          <div style="padding: 22px; display: flex; flex-direction: column; gap: 18px">
+            <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: center">
+              <div style="flex: 0 0 200px; height: 160px; border-radius: 14px; background: #F3F6F9; display: flex; align-items: center; justify-content: center; overflow: hidden">
+                <sc-if value="{{top.hasImg}}" hint-placeholder-val="{{ false }}">
+                  <img data-src="{{top.img}}" alt="{{top.name}}" style="width: 100%; height: 100%; object-fit: contain">
+                </sc-if>
+                <sc-if value="{{top.noImg}}" hint-placeholder-val="{{ true }}">
+                  <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; color: #7A8B99; font-size: 13px; text-align: center; padding: 12px">
+                    <svg aria-hidden="true" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="9" cy="10" r="2"></circle><path d="M21 16l-5-5-9 9"></path></svg>
+                    <span>{{top.name}}<br>product image</span>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <div style="display: flex; align-items: center; gap: 10px">
+                  <span style="font-size: 14px; font-weight: 700; color: #4A5D6E; text-transform: uppercase; letter-spacing: 0.08em">{{top.brand}}</span>
+                  <sc-if value="{{top.isNew}}" hint-placeholder-val="{{ false }}">
+                    <span style="background: #F2A93B; color: #0C2236; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase">New to range</span>
+                  </sc-if>
+                </div>
+                <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 42px; line-height: 1; font-weight: 700">{{top.name}}</h3>
+                <span style="font-size: 16px; color: #22384C">{{top.powerLabel}}</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px">
+                <span style="font-size: 13px; color: #4A5D6E">RRP</span>
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 34px; font-weight: 700; line-height: 1">{{top.priceLabel}}</span>
+              </div>
+            </div>
+            <div style="height: 10px; background: #E1E8EE; border-radius: 999px; overflow: hidden">
+              <div style="height: 10px; width: {{top.pct}}%; background: {{accent}}; border-radius: 999px"></div>
+            </div>
+            <div style="background: #F3F8FC; border: 1px solid #CFE2EF; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <h4 style="margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: #22384C">Key features</h4>
+              <sc-if value="{{top.hasBen}}" hint-placeholder-val="{{ false }}">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 18px">
+                  <sc-for list="{{top.benefits}}" as="bf" hint-placeholder-count="4">
+                    <div style="display: flex; gap: 8px; font-size: 15px; line-height: 1.35">
+                      <span aria-hidden="true" style="flex: none; width: 6px; height: 6px; border-radius: 50%; background: {{accent}}; margin-top: 8px"></span>
+                      <span>{{bf}}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{top.noBen}}" hint-placeholder-val="{{ true }}">
+                <span style="font-size: 15px; color: #8A5A00">[Key features from the {{top.name}} brochure]</span>
+              </sc-if>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px">
+              <sc-for list="{{top.specs}}" as="s" hint-placeholder-count="12">
+                <div style="background: #F3F6F9; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-size: 13px; color: #4A5D6E">{{s.k}}</span>
+                  <span style="font-size: 17px; font-weight: 700; color: {{s.c}}">{{s.v}}</span>
+                </div>
+              </sc-for>
+            </div>
+            <sc-if value="{{top.hasFit}}" hint-placeholder-val="{{ false }}">
+              <div style="border: 1px solid #CFE2EF; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px">
+                <h4 style="margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: #22384C">Pool fit check</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+                  <div style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 13px; color: #4A5D6E">This pool</span>
+                    <span style="font-size: 18px; font-weight: 700">{{top.fit.areaTxt}}</span>
+                    <span style="font-size: 13px; color: #4A5D6E; line-height: 1.35">{{top.fit.allowTxt}}</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 13px; color: #4A5D6E">Maker’s rated size</span>
+                    <span style="font-size: 18px; font-weight: 700">{{top.fit.ratingTxt}}</span>
+                    <div style="height: 8px; background: #E1E8EE; border-radius: 999px; overflow: hidden"><div style="height: 8px; width: {{top.fit.utilW}}%; background: {{top.fit.utilColor}}; border-radius: 999px"></div></div>
+                    <span style="font-size: 13px; color: #4A5D6E; line-height: 1.35">{{top.fit.utilTxt}}</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 4px">
+                    <span style="font-size: 13px; color: #4A5D6E">{{top.fit.powerK}}</span>
+                    <span style="font-size: 18px; font-weight: 700">{{top.fit.powerV}}</span>
+                    <span style="font-size: 13px; color: #4A5D6E; line-height: 1.35">{{top.fit.powerNote}}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px">
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <h4 style="margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: #22384C">Why it suits this pool and owner</h4>
+                <sc-for list="{{top.why}}" as="w" hint-placeholder-count="3">
+                  <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.35">
+                    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1C7C4A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px"><path d="M5 12l5 5L20 7"></path></svg>
+                    <span>{{w}}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{top.hasChk}}" hint-placeholder-val="{{ true }}">
+                <div style="display: flex; flex-direction: column; gap: 10px">
+                  <h4 style="margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: #22384C">Check before quoting</h4>
+                  <sc-for list="{{top.chk}}" as="c" hint-placeholder-count="2">
+                    <div style="display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.35">
+                      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B4560F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex: none; margin-top: 1px"><path d="M12 8v5M12 17h.01"></path><circle cx="12" cy="12" r="9"></circle></svg>
+                      <span>{{c}}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </article>
+      </sc-if>
+
+      <sc-if value="{{showSkim}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFF6E6; border: 2px solid #F2A93B; border-radius: 16px; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+            <span style="background: #F2A93B; color: #0C2236; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">Add-on</span>
+            <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700">Floating skimmer to pair with {{skimFor}}</h3>
+          </div>
+          <p style="margin: 0; font-size: 16px; line-height: 1.4">{{skimReason}}</p>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <sc-for list="{{skims}}" as="k" hint-placeholder-count="5">
+              <div style="background: #FFFFFF; border: 1px solid {{k.border}}; border-radius: 12px; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
+                <div style="flex: none; width: 84px; height: 64px; border-radius: 8px; background: #F3F6F9; overflow: hidden; display: flex; align-items: center; justify-content: center">
+                  <sc-if value="{{k.hasImg}}" hint-placeholder-val="{{ false }}"><img data-src="{{k.img}}" alt="{{k.name}}" style="width: 100%; height: 100%; object-fit: cover"></sc-if>
+                </div>
+                <div style="flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                  <span style="font-size: 13px; font-weight: 700; color: #4A5D6E; text-transform: uppercase; letter-spacing: 0.08em">{{k.b}}</span>
+                  <span style="font-size: 19px; font-weight: 700">{{k.name}}</span>
+                  <span style="font-size: 13px; color: #4A5D6E">{{k.infoText}}</span>
+                  <sc-for list="{{k.pairs}}" as="pp" hint-placeholder-count="2">
+                    <span style="display: flex; gap: 6px; font-size: 13px; line-height: 1.35; color: {{pp.c}}"><span aria-hidden="true" style="flex: none; font-weight: 700">{{pp.i}}</span><span>{{pp.t}}</span></span>
+                  </sc-for>
+                </div>
+                <sc-if value="{{k.match}}" hint-placeholder-val="{{ false }}">
+                  <span style="background: {{accent}}; color: #FFFFFF; border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em">Best pairing</span>
+                </sc-if>
+                <sc-if value="{{k.isNew}}" hint-placeholder-val="{{ false }}">
+                  <span style="border: 1px solid #B4560F; color: #8A3F08; border-radius: 999px; padding: 2px 10px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em">New</span>
+                </sc-if>
+                <span style="flex: 0 0 auto; font-size: 15px; color: #33475A">{{k.wty}} warranty</span>
+                <span style="flex: 0 0 72px; text-align: right; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700">{{k.priceLabel}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{showSpa}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #EAF4FB; border: 2px solid {{accent}}; border-radius: 16px; padding: 18px 22px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center">
+          <span style="background: {{accent}}; color: #FFFFFF; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em">Spa add-on</span>
+          <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 20px; font-weight: 700">Zodiac Spa Bot</span>
+            <span style="font-size: 15px; color: #33475A; line-height: 1.4">Cordless spa cleaner for the attached spa · 1 hr cycle · 2 yr warranty</span>
+          </div>
+          <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700">$549</span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{hasOthers}}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <h3 style="margin: 4px 0 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px">Also worth showing</h3>
+          <sc-for list="{{others}}" as="m" hint-placeholder-count="3">
+            <article style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center">
+              <div style="flex: none; width: 96px; height: 76px; border-radius: 10px; background: #F3F6F9; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #7A8B99">
+                <sc-if value="{{m.hasImg}}" hint-placeholder-val="{{ false }}"><img data-src="{{m.img}}" alt="{{m.name}}" style="width: 100%; height: 100%; object-fit: contain"></sc-if>
+                <sc-if value="{{m.noImg}}" hint-placeholder-val="{{ true }}"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><circle cx="9" cy="10" r="2"></circle><path d="M21 16l-5-5-9 9"></path></svg></sc-if>
+              </div>
+              <div style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 13px; font-weight: 700; color: #4A5D6E; text-transform: uppercase; letter-spacing: 0.08em">{{m.brand}}{{m.newTag}}</span>
+                <span style="font-size: 22px; font-weight: 700">{{m.name}}</span>
+                <span style="font-size: 15px; color: #22384C">{{m.powerLabel}} · {{m.wtyL}} warranty</span>
+                <span style="font-size: 14px; color: #4A5D6E">{{m.summary}}</span>
+                <span style="font-size: 13px; color: #4A5D6E">{{m.fitLine}}</span>
+              </div>
+              <div style="flex: 0 0 150px; display: flex; flex-direction: column; gap: 6px">
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; line-height: 1">{{m.priceLabel}}</span>
+                <div style="height: 8px; background: #E1E8EE; border-radius: 999px; overflow: hidden">
+                  <div style="height: 8px; width: {{m.pct}}%; background: #5E8FB0; border-radius: 999px"></div>
+                </div>
+                <span style="font-size: 14px; color: #4A5D6E">{{m.pct}}% fit</span>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+        <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px">Talk the customer through</h3>
+        <sc-for list="{{siteNotes}}" as="n" hint-placeholder-count="3">
+          <div style="display: flex; gap: 10px; font-size: 16px; line-height: 1.4">
+            <span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 50%; background: {{accent}}; margin-top: 8px"></span>
+            <span>{{n}}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{showCompare}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px">Corded or cordless?</h3>
+          <p style="margin: 0; font-size: 15px; color: #4A5D6E; line-height: 1.4">Neither is automatically better. Match the power arrangement to the pool and the owner’s routine.</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #D5DEE5; border-radius: 10px; overflow: hidden; font-size: 15px; line-height: 1.35">
+            <div style="padding: 8px 12px; background: #F3F6F9; font-weight: 700">Corded</div>
+            <div style="padding: 8px 12px; background: #F3F6F9; font-weight: 700; border-left: 1px solid #D5DEE5">Cordless</div>
+            <sc-for list="{{compare}}" as="r" hint-placeholder-count="3">
+              <div style="padding: 8px 12px; border-top: 1px solid #D5DEE5">{{r.c}}</div>
+              <div style="padding: 8px 12px; border-top: 1px solid #D5DEE5; border-left: 1px solid #D5DEE5">{{r.b}}</div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 2px">
+            <h3 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px">Prove it: pool trial checklist</h3>
+            <span style="font-size: 14px; color: #4A5D6E">For complex pools or surfaces where performance is uncertain. Swimart training practice, not a maker’s test protocol.</span>
+          </div>
+          <button type="button" onClick="{{toggleTrial}}" aria-expanded="{{trialOpen}}" style="height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid {{accent}}; background: #FFFFFF; color: {{accent}}; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">{{trialBtn}}</button>
+        </div>
+        <sc-if value="{{trialOpen}}" hint-placeholder-val="{{ false }}">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px">
+            <sc-for list="{{trial}}" as="tg" hint-placeholder-count="3">
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <h4 style="margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: #22384C">{{tg.h}}</h4>
+                <sc-for list="{{tg.items}}" as="ti" hint-placeholder-count="5">
+                  <label style="display: flex; gap: 8px; align-items: flex-start; font-size: 15px; line-height: 1.35"><input type="checkbox" style="width: 18px; height: 18px; margin: 1px 0 0; flex: none; accent-color: {{accent}}"><span>{{ti}}</span></label>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid #E1E8EE; padding-top: 12px">
+            <h4 style="margin: 0; font-size: 15px; text-transform: uppercase; letter-spacing: 0.08em; color: #22384C">Questions for the supplier</h4>
+            <sc-for list="{{supplier}}" as="sq" hint-placeholder-count="5">
+              <div style="display: flex; gap: 10px; font-size: 15px; line-height: 1.4"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 50%; background: {{accent}}; margin-top: 7px"></span><span>{{sq}}</span></div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #4A5D6E; line-height: 1.4">RRP and warranty from the Swimart FY27 Robot Ready Reckoner. Specifications, images and key features from supplier brochures. Rated sizes, cable lengths, ledge depths and surfaces are the maker’s published figures. Layout allowances and cable-reach estimates are Swimart planning guides; confirm on site. [Confirm] = not stated by the maker.</p>
+    </section>
+  </main>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#0075BB","options":["#0075BB","#0E7C86","#1D4E89","#C2410C"]},"$preview":{"width":1440,"height":2100}}'>
+const BANDS = {1: 'under $1,000', 2: '$1,000–$2,000', 3: '$2,000–$3,000', 4: '$3,000–$4,000'};
+function band(p) { return p < 1000 ? 1 : (p < 2000 ? 2 : (p < 3000 ? 3 : 4)); }
+function money(p) { return '$' + p.toLocaleString('en-AU'); }
+/* FY27 core range. RRP + warranty: Swimart Ready Reckoner. Specs, images and key features: supplier brochures. 0, null or '' = to confirm. */
+const IMG_EXT = {"20fe38f90deec81644e080739213ea61": ".jpg", "65b83d4c7b0c1f35bee17ec114ef985c": ".jpg", "7a3c631b4325088389192ef24f05881d": ".png", "3b09c7c995344ccab1e1c52b1f6d99e2": ".png", "59d60744ea1d0334c6ef4a2dd798fe61": ".jpg", "4951753b7383f811df493697603733b2": ".png", "6572d727d84e03d34c0e7d77b5469c71": ".png", "d271b800558d604df8a890d48e918bab": ".png", "35ff23357dc42ee6306f0113e6a99bdc": ".png", "83b473e348d2b714e8c05ca0506d3d39": ".png", "01980d75074981b5910da8d95094b65c": ".jpg", "3304576fd42f743d748327151e49341c": ".png", "7a33f26556e590ae0c965221fb19e2b8": ".png", "34a2119df028c5756f77ade032076cb6": ".png", "568c0d95c4f9a26b5375c259a18dc8ac": ".png", "e1669994fb20f39279d6bac5d3fd212e": ".png", "b6a9a2b5ef49e19123cf3c5770221231": ".jpg", "c5e020dc92f8ad4590158008320de277": ".jpg", "7b1e2781bc54d8d15cbb3727d45271ca": ".png", "b5d12b36915ad1b9d671fc1fe95aaffa": ".png", "c317b350bd92ae10f45f169e44ecb263": ".png", "5da4fe3edf24c979d642adefa23a7e52": ".png", "e507fb6c4a0b66e5eafe81fb271eb07d": ".jpg", "4e6e97ecc110d1d3136320606801be17": ".jpg", "c7c77f88c8d1ce92da4516bbc486f3d3": ".png", "740b39384df94d4e9d158710b76560da": ".png", "db0abce16f5c678d610b8af514024f73": ".png", "30f76730ef4112e9d1692ab304e7d3de": ".png", "d08e1d308c76adf820ed223165c3737b": ".png", "572a68051db0369c4865c9e01ca6cbc6": ".png", "62e9981b89f86926f13fa4be7827c8cc": ".png", "65f7f24e2152e7d9d31589abe931dbe1": ".png"};
+const IMG = id => 'images/' + id + (IMG_EXT[id] || '.png');
+const MODELS = [
+  {brand: 'Maytronics', name: 'Dolphin Premium 1000', img: IMG('3304576fd42f743d748327151e49341c'), power: 'corded', price: 1699, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 10, basket: 5.5, weight: 8, caddy: 'opt', cable: '12 m', types: ['in'], isNew: 1, cycle: '2.5 hr', brushes: 'Front active + rear combined', filter: 'Top-access fine basket, 5.5 L', floorMode: 'No (full coverage only)', app: 'no', timer: 'no', ledges: 1,
+    benefits: ['Cleans floor, walls, waterline, steps and sun ledges from 30 cm deep', 'Step jets loosen debris from hard-to-reach steps', 'Maze navigation systematically maps the pool for full coverage', 'Simple on/off power button with one full-coverage mode; corded for pools up to 10 m']},
+  {brand: 'Maytronics', name: 'Dolphin Premium 2000', timer: 'yes', power: 'corded', price: 2199, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 12, basket: 5.5, weight: 8.13, caddy: 'opt', cable: '15 m', types: ['in'], isNew: 1, cycle: '1 / 2 / 2.5 / 3 hr', brushes: 'Front active + rear combined', filter: '5.5 L top-load, fine & ultra-fine panels', ultra: 1, floorMode: 'yes', app: 'yes', ledges: 1, img: IMG('6572d727d84e03d34c0e7d77b5469c71'),
+    benefits: ['Cleans floor, walls, waterline, steps and sun ledges from 30 cm deep', 'Swap between fine and ultra-fine filters as the seasons change', 'Regular, full, floor-only and fast modes; cycles from 1 to 3 hours', 'MyDolphin Plus app control for pools up to 12 m']},
+  {brand: 'Maytronics', name: 'Dolphin Premium 3000', power: 'corded', price: 2699, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 5, weight: 8.39, caddy: 'yes', cable: '17 m', types: ['in'], isNew: 1, cycle: '1 hr quick / 2 hr standard', brushes: '2 (1 active scrubber)', filter: '5 L top-access multi-layer: coarse insert in fine outer basket, ultra-fine panels', ultra: 1, floorMode: 'yes', timer: 'yes', app: 'yes', ledges: 1, img: IMG('65f7f24e2152e7d9d31589abe931dbe1'),
+    benefits: ['Cleans floor, walls, waterline, steps and sun ledges (from 25 cm deep)', 'Wi-Fi app: start, stop, steer and set a weekly schedule', '6 routines: regular, fast, floor-only, waterline-only, ultra-clean and full coverage', 'Premium transport caddy and protective cover included']},
+  {brand: 'Maytronics', name: 'Dolphin Ultimate', power: 'corded', price: 3699, wty: 3, wtyL: '3 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 4, weight: 11.5, caddy: 'yes', types: ['in'], cable: '18 m swivel', cycle: '1 / 1.5 / 2 / 2.5 hr', brushes: 'Dual active scrubbers', filter: 'Top-access multi-layer 4 L, fine & ultra-fine panels', floorMode: 'yes', ultra: 1, timer: 'yes', app: 'yes', park: 1, img: IMG('62e9981b89f86926f13fa4be7827c8cc'),
+    benefits: ['Pick-Me-Up mode brings it to the surface for easy lifting', 'Multi-layer basket handles leaves through to ultra-fine dust', 'MyDolphin Plus app with weekly timer, delay start and filter indicator', 'Swivel cable and caddy included; 3-year warranty']},
+  {brand: 'BWT', name: 'Sonic Pro Plus', power: 'corded', price: 1549, wty: 3, wtyL: '3 yr (Sept–Feb)', wall: 1, water: 1, skim: 0, maxLen: 12, basket: 4, weight: 7.5, caddy: 'no', types: ['in'], isNew: 1, cable: '18 m floating', cycle: 'Auto, 30–150 min', brushes: '2 PVC', filter: 'Dual-layer 4 L baskets', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('d271b800558d604df8a890d48e918bab'),
+    benefits: ['Corded power: unlimited runtime, no charging', 'Wi-Fi app with schedules, vacation mode and joystick control', 'Radar navigation cleans in a structured pattern', 'Dual-layer 4 L baskets catch coarse and fine debris']},
+  {brand: 'BWT', name: 'F1 R', power: 'corded', price: 1899, wty: 3, wtyL: '2 + 1 yr', wall: 1, water: 1, skim: 0, maxLen: 12, basket: 4, weight: 5.75, caddy: 'no', floorMode: 'No (full clean only)', types: ['in'], cable: '16 m', cycle: '1.5 / 2 / 2.5 hr', brushes: '2 PVC', filter: 'Ultrathin double filter', ultra: 1, timer: 'yes', app: 'yes', img: IMG('4951753b7383f811df493697603733b2'),
+    benefits: ['Just 5.75 kg with quick water release: easy to lift out', 'Ultrathin filtration for fine dust and particles', 'Bluetooth app: remote control, scheduling and notifications', 'Filter-full light and one-touch top-access filter']},
+  {brand: 'BWT', name: 'F1 RX', power: 'corded', price: 2049, wty: 4, wtyL: '3 + 1 yr', wall: 1, water: 1, skim: 0, maxLen: 14, basket: 4, weight: 5.75, caddy: 'no', floorMode: 'Yes (1.5 hr, or 45 min turbo)', types: ['in'], cable: '18 m', cycle: '1.5 / 2 / 2.5 hr', brushes: '2 PVC', filter: 'Ultrathin double filter', ultra: 1, timer: 'yes', app: 'yes', img: IMG('30f76730ef4112e9d1692ab304e7d3de'),
+    benefits: ['Lightweight 5.75 kg, up to 14 m pools', 'Premium app adds spot cleaning to scheduling and remote control', 'Planetary-gear drive grips steep slopes on any finish', '3 + 1 year warranty']},
+  {brand: 'BWT', name: 'F1 RXT', power: 'corded', price: 2800, wty: 4, wtyL: '4 yr', wall: 1, water: 1, skim: 0, maxLen: 18, basket: 4, weight: 11, caddy: 'yes', types: ['in'], isNew: 1, cable: '23 m, anti-tangle', cycle: '1.5 / 2 / 2.5 hr', brushes: '4 PVA + vibrating', floorMode: 'Turbo, 45 min', filter: 'Dual top-access HyperFine 4D microfibre filters (to 2 µm)', ultra: 1, timer: 'yes', app: 'yes', img: IMG('c317b350bd92ae10f45f169e44ecb263'),
+    benefits: ['BWT’s most powerful suction (20 m³/h) for pools up to 18 m', 'HyperFine 4D microfibre filters trap leaves down to 2-micron particles', 'Patented Smart Cable Control stops cable tangling', 'Turbo mode, premium app and caddy; 4-year warranty']},
+  {brand: 'Zodiac', name: 'Duo-X 4000', power: 'corded', price: 2500, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 10, basket: 4, weight: 9.5, caddy: 'yes', types: ['in'], cable: '15 m swivel', cycle: '2.5 hr', brushes: 'Front & rear', filter: 'Dual-stage 150/60 µm', floorMode: 'yes', timer: 'no', app: 'no', park: 1, img: IMG('c5e020dc92f8ad4590158008320de277'),
+    benefits: ['Cyclonic suction keeps power steady all cycle', 'Dual-stage filter catches large and fine debris', 'Lift System parks at the waterline and drains for easy removal', 'Swivel cable and caddy included']},
+  {brand: 'Zodiac', name: 'Evo 5050', power: 'corded', price: 3489, wty: 3, wtyL: '3 yr', wall: 1, water: 1, skim: 0, maxLen: 12, basket: 5, weight: 10, caddy: 'yes', types: ['in'], cable: '18 m swivel', cycle: 'Multiple, adjustable', brushes: '4-wheel drive + brushes', filter: 'Dual-stage 150/60 µm, 5 L', floorMode: 'yes', timer: 'yes', app: 'yes', park: 1, img: IMG('d08e1d308c76adf820ed223165c3737b'),
+    benefits: ['4-wheel drive with Sensor Nav mapping for complex pools', 'Large 5 L dual-stage filter', 'iAquaLink app: 7-day timer, spot clean, water temperature', 'Lift System and caddy for easy handling']},
+  {brand: 'Maytronics', name: 'Dolphin NIYA35', power: 'cordless', price: 1199, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 10, basket: 1.6, weight: 8.7, caddy: 'opt', dock: 'no', run: '2.5 hr', types: ['in'], battery: 'Up to 2.5 hr run / 3.5 hr plug-in charge', cycle: 'Up to 2.5 hr', brushes: 'Front & rear active', filter: '150 µm top-load basket, 1.6 L', floorMode: 'yes', timer: 'Eco Mode', app: 'no', img: IMG('5da4fe3edf24c979d642adefa23a7e52'),
+    benefits: ['Affordable cordless cleaning for pools up to 10 m', 'Front and rear active brushes clean walls and waterline', 'Sonar navigation scans the pool systematically', 'ECO, standard, floor-only and wall-only modes']},
+  {brand: 'Maytronics', name: 'Dolphin EON 100', dock: 'no', img: IMG('7a33f26556e590ae0c965221fb19e2b8'), power: 'cordless', price: 1899, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 5, weight: 10, caddy: 'opt', run: '2.5 hr', types: ['in'], isNew: 1, battery: 'Up to 2.5 hr; UltraRun up to 1 week', cycle: '1.5 / 2 / 2.5 hr', brushes: '4 (2 active)', filter: 'Monoblock filter, 5 L', floorMode: 'yes', timer: 'yes', app: 'yes', ledges: 1,
+    benefits: ['Cleans floor, walls, waterline, steps and tanning ledges from 20 cm', 'JetIQ step cleaning keeps it stable on steps', 'UltraRun mode: up to a week of cleaning on one charge', 'Maytronics One app: schedule, monitor and troubleshoot']},
+  {brand: 'Maytronics', name: 'Dolphin EON 120', power: 'cordless', price: 2299, wty: 3, wtyL: '3 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 5, weight: 11, caddy: 'opt', dock: 'no', run: '4.5 hr', types: ['in'], isNew: 1, battery: 'Up to 4.5 hr; UltraRun up to 2.5 weeks; 3–3.5 hr charge', cycle: '1.5 / 2 / 2.5 hr', brushes: 'Dual active', filter: 'DebrisLock backwash, 5 L top-load, ultra-fine', floorMode: 'yes', ultra: 1, timer: 'yes', app: 'yes', ledges: 1, park: 1, img: IMG('b6a9a2b5ef49e19123cf3c5770221231'),
+    benefits: ['Cleans ledges as shallow as 20 cm, plus steps, benches and corners', 'DebrisLock filter compresses debris for less filter cleaning', 'UltraRun mode keeps a cleaning schedule for up to 2.5 weeks per charge', 'Maytronics One app, homing and clicker retrieval']},
+  {brand: 'Maytronics', name: 'Dolphin Liberty 600', power: 'cordless', price: 3299, wty: 3, wtyL: '3 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 5.5, weight: 12, caddy: 'no', dock: 'no', run: '4.5 hr', types: ['in'], battery: 'Up to 4.5 hr run', cycle: '3 hr', brushes: 'Multiple active', filter: 'XL multi-layer, fine & ultra-fine', ultra: 1, floorMode: 'yes', timer: 'yes', app: 'yes', ledges: 1, park: 1, img: IMG('e1669994fb20f39279d6bac5d3fd212e'),
+    benefits: ['Up to 4.5 hr runtime; Eco mode cleans for up to 2 weeks per charge', 'Jet-powered step and sun-ledge cleaning', 'Click-Up: shake the clicker and it climbs to you', 'Maytronics One app with custom programs; 3-year warranty']},
+  {brand: 'BWT', name: 'My Pool Quick', power: 'cordless', price: 1049, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 10, basket: 3.1, weight: 7.5, caddy: 'no', dock: 'no', run: '90 min', types: ['in'], isNew: 1, battery: '3–4 hr charge, replaceable', cycle: 'Auto / 30 / 60 / 90 min', brushes: 'Rubberised PVC bristle rollers', filter: '180 µm single-layer, 3.1 L', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('740b39384df94d4e9d158710b76560da'),
+    benefits: ['Light 7.5 kg cordless robot for pools up to 10 m', 'Quick-charge battery, replaceable for longer life', 'Ultrasonic navigation cleans floor, walls and waterline; PVC rollers are safe on vinyl, fibreglass and painted finishes', 'App with routines, holiday mode and scheduling']},
+  {brand: 'BWT', name: 'F1 Sonic Pro', power: 'cordless', price: 1599, wty: 3, wtyL: '3 yr (Sept–Feb)', wall: 1, water: 1, skim: 0, maxLen: 14.9, basket: 4.8, weight: 7.8, caddy: 'no', dock: 'no', run: '4 hr', types: ['in'], battery: 'Up to 4 hr run / 2.5 hr charge', cycle: '30 min turbo – 3 hr max', brushes: '2 PVC', filter: 'Double filtration, 4.8 L', floorMode: 'yes', timer: 'yes', app: 'yes', park: 1, img: IMG('01980d75074981b5910da8d95094b65c'),
+    benefits: ['Fast 2.5 hr charge for up to 4 hr of cleaning', 'SmartPark: parks by the wall for hook retrieval', 'Adjusts suction to the debris load; Turbo and ECO modes', 'Replaceable battery and Wi-Fi/Bluetooth app']},
+  {brand: 'Zodiac', name: 'Freerider FR200', img: IMG('35ff23357dc42ee6306f0113e6a99bdc'), power: 'cordless', price: 999, wty: 2, wtyL: '2 yr', wall: 1, water: 0, skim: 0, maxLen: 8, basket: 2, weight: 5.8, caddy: 'no', run: '2 hr', types: ['in'], battery: '2 hr run / 4 hr charge', cycle: '2 hr', brushes: '1 front', floorMode: 'no', timer: 'no', dock: 'no', app: 'no', filter: '150 µm, 2 L canister',
+    benefits: ['Light and compact, under 6 kg', 'Cleans floor and walls of in-ground pools up to 8 x 4 m', 'Fine 150 µm filter with clear top-access canister', 'Charges in under 4 hours for a 2-hour cycle']},
+  {brand: 'Zodiac', name: 'Freerider FR800', power: 'cordless', price: 2199, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 10, basket: 3, weight: 9, caddy: 'no', run: '2 hr', types: ['in'], battery: '2 hr run / under 5 hr charge', cycle: '2 hr', brushes: 'Front active', filter: 'Dual-stage 150/60 µm, 3 L', floorMode: 'yes', timer: 'no', dock: 'no', app: 'yes', park: 1, img: IMG('4e6e97ecc110d1d3136320606801be17'),
+    benefits: ['Tap & Lift: tap with the pool pole and it climbs out', 'Dual-stage filter for large and fine debris', 'App shows battery and sends pick-up alerts', 'Suits all surfaces up to 10 x 5 m']},
+  {brand: 'Zodiac', name: 'Freerider FR1000iQ', timer: 'yes', dock: 'yes', power: 'cordless', price: 2499, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 12, basket: 4, weight: 9, caddy: 'no', run: '2.5 hr', types: ['in'], battery: '2.5 hr run / under 5 hr charge', cycle: '2.5 hr', brushes: 'Front active', filter: 'Dual-stage 150/60 µm, 4 L', floorMode: 'yes', app: 'yes', park: 1, img: IMG('65b83d4c7b0c1f35bee17ec114ef985c'),
+    benefits: ['Cordless cyclonic suction for pools up to 12 x 6 m', 'Wi-Fi iAquaLink app: automatic scheduling, plus Smart and waterline-only cycles', 'Lift System for lighter, easier removal', 'Clear canister and filter LED show when to empty']},
+  {brand: 'Zodiac', name: 'Freerider FR2000iQ', timer: 'yes', dock: 'yes', power: 'cordless', price: 2999, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 12, basket: 4, weight: 9, caddy: 'yes', run: '2.5 hr', types: ['in'], battery: '2.5 hr run / under 5 hr charge', cycle: '2.5 hr', brushes: 'Front active', filter: 'Dual-stage 150/60 µm, 4 L', floorMode: 'yes', app: 'yes', park: 1, img: IMG('65b83d4c7b0c1f35bee17ec114ef985c'),
+    benefits: ['Everything in the FR1000iQ, plus a hand-held remote', 'Remote works underwater for steering and lift-out', 'Storage caddy included', 'Wi-Fi iAquaLink app with automatic scheduling, Smart and waterline cycles']},
+  {brand: 'Zodiac', name: 'Spa Bot', power: 'cordless', price: 549, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 0, basket: 1, weight: 2.5, caddy: 'no', run: '1 hr', types: ['spa'], battery: '6 Ah Li-ion, 60 min run / 4 hr charge', cycle: '60 min', brushes: 'Active brush', filter: '100 µm, 1 L', floorMode: 'n/a', timer: 'no', dock: 'no', app: 'no', park: 1, img: IMG('3b09c7c995344ccab1e1c52b1f6d99e2'),
+    benefits: ['Made for spas up to 3 x 3 m, in-ground or above-ground', 'Cleans floor, seats and waterline in 60 minutes', 'Float Finish: floats up at the end for easy retrieval', 'Plug-in wall charger (no dock): carry the 2.5 kg unit inside to charge', 'Not for spas with intricate seats or 90° corners']},
+  {brand: 'Beatbot', name: 'Sora 70', power: 'cordless', price: 2299, wty: 3, wtyL: '3 yr replacement', wall: 1, water: 1, skim: 1, maxLen: 0, area: '300 m²', basket: 6, weight: 10.4, ledges: 1, ultra: 1, caddy: 'no', dock: 'no', timer: 'ECO: every 2nd day', brushes: 'Dual roller brush', cycle: '6 modes: Pro, Standard, Eco, Floor, Surface, Wall / Shallow Beach', park: 1, run: '5 hr', types: ['in', 'above'], battery: '4.5 hr full / 5 hr floor / 7 hr surface; 4.5 hr charge', filter: '6 L, 150 µm + optional 3 µm', floorMode: 'yes', app: 'yes', img: IMG('83b473e348d2b714e8c05ca0506d3d39'),
+    benefits: ['Cleans floor, walls, waterline, the water surface and ledges from 20 cm', '25,700 L/h suction and a 6 L basket that holds a full leaf drop', 'Floats to the surface and drains itself for easy pick-up', 'In-ground and above-ground pools up to 300 m²; 3-year replacement warranty']},
+  {brand: 'Aiper', name: 'Scuba SE', power: 'cordless', price: 239, wty: 1, wtyL: '1 yr', wall: 0, water: 0, skim: 0, maxLen: 9, basket: 2, weight: 3.4, caddy: 'no', run: '90 min', types: ['above'], battery: '90 min run / 3 hr charge', cycle: '90 min', brushes: '2 bottom', filter: '180 µm, 2 L', floorMode: 'Floor-only robot', timer: 'no', dock: 'no', app: 'no', park: 1, img: IMG('572a68051db0369c4865c9e01ca6cbc6'),
+    benefits: ['Entry-level floor cleaner for flat above-ground pools to 9 m', 'One-click start, cordless and only 3.4 kg', 'Parks at the wall when finished or low on battery', 'Quick drain empties 80% of water in 15 seconds']},
+  {brand: 'Aiper', name: 'Scuba SL', power: 'cordless', price: 799, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 3.5, weight: 6.7, caddy: 'no', dock: 'no', cycle: 'Smart, floor, wall or periodic', brushes: 'Active PVC roller', floorMode: 'yes', ultra: 0, run: '150 min', types: ['in'], battery: '150 min run / 3 hr charge', filter: '190 µm top-load basket, 3.5 L (3 µm MicroMesh optional)', timer: 'yes', app: 'no', img: IMG('db0abce16f5c678d610b8af514024f73'),
+    benefits: ['Budget cordless robot for pools up to 150 m²', 'Light at 6.7 kg with caterpillar tracks', 'Scheduled mode cleans 45 min every 48 hours', 'WavePath navigation and LED status lights']},
+  {brand: 'Aiper', name: 'Scuba S3', power: 'cordless', price: 1299, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 3.5, weight: 8.15, caddy: 'no', dock: 'no', timer: 'yes', floorMode: 'yes', cycle: 'Standard 180 min / ECO 240 min', run: '180 min', types: ['in'], isNew: 1, battery: 'Up to 180 min (240 min ECO) / 4–5 hr charge', brushes: '2 rotating', filter: 'MicroMesh dual-layer 3.5 L (to 3 µm)', ultra: 1, app: 'yes', park: 1, img: IMG('59d60744ea1d0334c6ef4a2dd798fe61'),
+    benefits: ['WaveLine horizontal waterline scrubbing', 'Docks itself at the waterline and sends an app alert', 'MicroMesh dual-layer filter catches leaves down to 3 µm sand and algae', 'Strong 18,000 L/h suction for pools up to 150 m²']},
+  {brand: 'Aiper', name: 'Scuba V3', power: 'cordless', price: 1699, wty: 2, wtyL: '2 yr', wall: 1, water: 1, skim: 0, maxLen: 15, basket: 3.5, weight: 8.2, caddy: 'no', floorMode: 'yes', timer: 'yes', cycle: '8 modes incl. auto, floor, wall, waterline, Eco, AI Patrol, AI Navium', run: '180 min', types: ['in'], isNew: 1, battery: 'Up to 180 min (210 min Eco) / 5 hr wireless charge', brushes: '2 active', filter: '3.5 L multi-layer (180 µm + 3 µm)', ultra: 1, dock: 'yes', app: 'yes', park: 1, img: IMG('34a2119df028c5756f77ade032076cb6'),
+    benefits: ['AI Patrol uses cameras to target visible debris; AI Navium builds a 7-day plan from pool size, history and weather', 'JetAssist sideways waterline scrubbing', 'Parks at the waterline and alerts your phone', 'Wireless charging dock: no plugging cables into a wet robot']},
+  {brand: 'Aiper', name: 'Scuba X1 Pro Max', power: 'cordless', price: 2699, wty: 3, wtyL: '3 yr', wall: 1, water: 1, skim: 1, maxLen: 30, basket: 5, weight: 15, caddy: 'opt', run: '5 hr', types: ['in'], isNew: 1, battery: '5 hr floor / 10 hr surface', cycle: 'Up to 5 hr', brushes: '2 front & rear', filter: 'Fine basket + 3 µm MicroMesh', ultra: 1, floorMode: 'yes', timer: 'yes', dock: 'yes', app: 'yes', ledges: 1, park: 1, img: IMG('20fe38f90deec81644e080739213ea61'),
+    benefits: ['All-in-one: floor, walls, waterline, ledges, slopes and the surface', 'Maps the pool with 40 sensors for full coverage up to 300 m²', 'Wireless charging dock included', 'Up to 10 hours of surface skimming per charge']}
+];
+const SKIMMERS = [
+  {b: 'Maytronics', name: 'Dolphin Skimmi 300', price: 949, wty: '3 yr', isNew: 1, img: IMG('b5d12b36915ad1b9d671fc1fe95aaffa'), info: 'Solar · pools to 20 m · edge cleaning + call-to-edge · 4 kg'},
+  {b: 'Maytronics', name: 'Dolphin Skimmi 200', price: 849, wty: '2 yr', isNew: 1, img: IMG('c7c77f88c8d1ce92da4516bbc486f3d3'), info: 'Solar · pools to 20 m · leaf-catch & eco modes · 4 kg'},
+  {b: 'BWT', name: 'BewaSkim', price: 849, wty: '3 yr', isNew: 1, img: IMG('e507fb6c4a0b66e5eafe81fb271eb07d'), info: 'Solar · 6 L basket · up to 44 hr per charge · 5.3 kg'},
+  {b: 'Beatbot', name: 'iSkim', price: 699, wty: '3 yr', isNew: 0, img: IMG('7b1e2781bc54d8d15cbb3727d45271ca'), info: 'Solar · 28+ hr on battery · auto-parks at the edge · 6.6 kg · no charger included'},
+  {b: 'Aiper', name: 'Skimmer S2', price: 699, wty: '2 yr', isNew: 0, img: IMG('7a3c631b4325088389192ef24f05881d'), info: 'Solar 24/7 · 150 µm filter + chlorine dispenser · app · 5.7 kg'}
+];
+/* Extra selection data from supplier brochures and Swimart-confirmed answers.
+   maxW = rated pool width (m), areaM2 = rated area, cableM = cable length (m), ledgeCm = shallowest ledge it is rated to clean,
+   steps = step cleaning advertised, surf = manufacturer surface statement key, surfX = finishes the maker excludes,
+   conn = app connectivity, multi = multi-layer or interchangeable filtration, steer = manual steering / spot clean,
+   minD/maxD = stated water depth range (m), temp = stated water temperature range (°C). Missing = not stated → confirm. */
+const PATCH = {
+  'Dolphin Premium 1000': {cableM: 12, ledgeCm: 30, steps: 1, surf: 'may', conn: 'None: on/off button'},
+  'Dolphin Premium 2000': {cableM: 15, ledgeCm: 30, steps: 1, surf: 'may', conn: 'MyDolphin Plus app (IoT power supply)', multi: 1},
+  'Dolphin Premium 3000': {cableM: 17, ledgeCm: 25, steps: 1, surf: 'may', conn: 'Wi-Fi app', multi: 1, steer: 1},
+  'Dolphin Ultimate': {surf: 'may', conn: 'Wi-Fi app', multi: 1, cableM: 18},
+  'Sonic Pro Plus': {cableM: 18, maxW: 5, conn: 'BWT Robotics app (Wi-Fi)', multi: 1, steer: 1, surf: 'bwtSonic'},
+  'F1 R': {cableM: 16, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1},
+  'F1 RX': {cableM: 18, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1, steer: 1},
+  'F1 RXT': {cableM: 23, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1},
+  'Duo-X 4000': {cableM: 15, maxW: 5, surf: 'zod', conn: 'None', multi: 1},
+  'Evo 5050': {cableM: 18, maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink)', multi: 1, steer: 1},
+  'Dolphin NIYA35': {surf: 'may', conn: 'None'},
+  'Dolphin EON 100': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app'},
+  'Dolphin EON 120': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
+  'Dolphin Liberty 600': {ledgeCm: 30, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
+  'My Pool Quick': {surf: 'all', conn: 'BWT Robotics app'},
+  'F1 Sonic Pro': {conn: 'BWT Robotics app (Wi-Fi + Bluetooth)', multi: 1, surf: 'bwtSonic'},
+  'Freerider FR200': {maxW: 4, surf: 'zod', conn: 'None'},
+  'Freerider FR800': {maxW: 5, surf: 'zod', conn: 'iAquaLink app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, wifiNeeded: 1},
+  'Freerider FR1000iQ': {maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink)', multi: 1},
+  'Freerider FR2000iQ': {maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink) + underwater remote', multi: 1, steer: 1},
+  'Spa Bot': {spaMax: 3, conn: 'None'},
+  'Sora 70': {areaM2: 300, ledgeCm: 20, steps: 1, minD: 0.2, maxD: 3.5, temp: [6, 35], conn: 'Wi-Fi + Bluetooth app', multi: 1, surf: 'beatbot'},
+  'Scuba SE': {areaM2: 80, minD: 0.5, maxD: 3, temp: [10, 35], surfX: ['glass', 'ceramic'], surf: 'se', conn: 'None'},
+  'Scuba SL': {areaM2: 150, surf: 'aiperSL', conn: 'None', multi: 1},
+  'Scuba S3': {areaM2: 150, conn: 'Aiper app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, surf: 'aiperS3', wifiNeeded: 1},
+  'Scuba V3': {conn: 'Aiper app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, surf: 'aiperV', areaM2: 150, wifiNeeded: 1},
+  'Scuba X1 Pro Max': {areaM2: 300, steps: 1, conn: 'Aiper app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, surf: 'aiperV', wifiNeeded: 1, ledgeCm: 30, minD: 0.3}
+};
+MODELS.forEach(function (m) { Object.assign(m, PATCH[m.name] || {}); });
+
+/* Drive and grip on slippery finishes (Swimart-confirmed, Oct 2026). gripLvl: 3 = high-friction brush, blade or upgrade for slick walls (fit = action to take),
+   2 = tracks with sensor torque control, 1 = not stated (confirm), 0 = no wall traction on slick surfaces. */
+const GRIP = {
+  'Dolphin Premium 1000': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin Premium 2000': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin Premium 3000': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin Ultimate': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin NIYA35': {drive: 'Not track-driven: jet-assisted / modified wheel layout', grip: 'No Maytronics PVA option: standard Wonder Brushes don’t fit', gripLvl: 1},
+  'Dolphin EON 100': {drive: 'Compact cordless chassis, JetIQ water-jet propulsion', grip: 'JetIQ jets press it to the wall; no Maytronics PVA option', gripLvl: 2, fit: 'Ask Maytronics about approved flotation foam blocks'},
+  'Dolphin EON 120': {drive: 'Dual-motor continuous tracks + JetIQ water-jet downforce', brushes: 'Dual active, standard PVC rollers', grip: 'Upgrade to Wonder Brush (PVA sponge) inserts for fully tiled or glass pools', gripLvl: 3, fit: 'Replace the PVC rollers with Wonder Brush (PVA) inserts'},
+  'Dolphin Liberty 600': {drive: 'Continuous rubber caterpillar tracks', brushes: 'Multiple active, standard PVC rollers', grip: 'Upgrade to Wonder Brush (PVA sponge) inserts for fully tiled or glass pools', gripLvl: 3, fit: 'Replace the PVC rollers with Wonder Brush (PVA) inserts'},
+  'Sonic Pro Plus': {drive: 'Continuous tracks, twin traction motors', brushes: 'Dual active PVC rollers', grip: 'Ultrasonic sensors and gyro adjust drive torque on smooth walls', gripLvl: 2},
+  'F1 Sonic Pro': {drive: 'Continuous tracks, twin traction motors', brushes: 'Dual active PVC rollers', grip: 'Ultrasonic sensors and gyro adjust drive torque on smooth walls', gripLvl: 2},
+  'F1 R': {drive: 'Planetary-gear drive', grip: 'BWT: effective on all surfaces (PVC brushes)', gripLvl: 2},
+  'F1 RX': {drive: 'Planetary-gear drive', grip: 'BWT: grips steep slopes on any finish (PVC brushes)', gripLvl: 2},
+  'F1 RXT': {drive: '4 PVA brushes + vibrating brushes', grip: 'PVA brushes for grip on smooth surfaces', gripLvl: 3},
+  'Evo 5050': {drive: '4-wheel drive, notched rubber tyres', brushes: 'Front & rear active PVC blades', grip: 'Zodiac PVA wheel tyres available for fully tiled pools', gripLvl: 3, fit: 'Fit Zodiac PVA wheel tyres'},
+  'My Pool Quick': {drive: 'Rubber-tyred wheels, 3 brushless motors', brushes: 'PVC bristle rollers', grip: 'Ultrasonic sensor and gyro adjust torque; 15,000 L/h pump jet holds it on glass and tile walls', gripLvl: 2},
+  'Sora 70': {drive: '37 mm TPU tracks, lateral guide wheels', brushes: 'Dual-group PVC bristle rollers', grip: 'HydroBalance downforce and SonicSense torque control; PVA sponge rollers available', gripLvl: 3, fit: 'Offer Beatbot PVA sponge rollers'},
+  'Scuba SE': {drive: '4-wheel drive, hard plastic wheels', brushes: 'PVC scrubbing strips (underbelly)', grip: 'Floor only: fine on flat tiled, vinyl or fibreglass floors', gripLvl: 0},
+  'Scuba SL': {drive: 'Dual caterpillar tracks', brushes: '1 active PVC roller', grip: 'Gyro and Hall sensors adjust thrust; PVC can slide on glazed tile with micro-algae', gripLvl: 2},
+  'Scuba S3': {drive: 'Rubber caterpillar tracks', brushes: 'Dual active PVC rollers', grip: 'ToF sensors adjust torque on slick walls; no PVA brush option', gripLvl: 2},
+  'Scuba X1 Pro Max': {drive: 'Continuous rubber tracks, 9 brushless motors', brushes: 'Dual counter-rotating silicone blade rollers', grip: 'Silicone blades grip glass mosaic, ceramic and smooth fibreglass walls', gripLvl: 3},
+  'Spa Bot': {drive: 'Wheels with high-friction rubber tyres', brushes: 'PVC rollers + side bristles', grip: 'SpaNav jets press it onto seats; grips acrylic, fibreglass and tiled spas', gripLvl: 3},
+  'Duo-X 4000': {drive: 'Dual ribbed rubber tracks', brushes: 'Front Helix active PVC brush', grip: 'Zodiac PVA scrubber brush upgrade for glazed or glass tile', gripLvl: 3, fit: 'Swap the Helix brush for the Zodiac PVA scrubber brush'},
+  'Freerider FR200': {drive: 'Dual ribbed rubber tracks, 2 traction motors', brushes: '1 front active PVC blade', grip: 'Zodiac PVA scrubber brush upgrade (R0764900) for glazed or glass tile', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0764900)', weight: 6, park: 1, cycle: '2 hr floor & wall'},
+  'Freerider FR800': {drive: 'Dual rubber tracks', brushes: 'Front active PVC scrubber roller', grip: 'Zodiac PVA scrubber brush upgrade (R0774900) for fully tiled or glass pools', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0774900)'},
+  'Freerider FR1000iQ': {drive: 'Dual rubber tracks', brushes: 'Front active PVC scrubber roller', grip: 'Zodiac PVA scrubber brush upgrade (R0774900) for fully tiled or glass pools', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0774900)'},
+  'Freerider FR2000iQ': {drive: 'Dual rubber tracks', brushes: 'Front active PVC scrubber roller', grip: 'Zodiac PVA scrubber brush upgrade (R0774900) for fully tiled or glass pools', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0774900)'},
+  'Scuba V3': {drive: 'Caterpillar treads + JetAssist downforce jets', brushes: 'Dual active PVC rollers', grip: 'JetAssist downforce, foam buoyancy inserts and camera / dToF approach for slick walls', gripLvl: 3, fit: 'Fit the supplied foam inserts'}
+};
+Object.keys(GRIP).forEach(function (k) { if (GRIP[k].grip === 'W') GRIP[k].grip = 'Wonder Brush (PVA sponge) option, recommended for fully tiled, glass or ultra-smooth fibreglass'; });
+MODELS.forEach(function (m) { Object.assign(m, GRIP[m.name] || {}); });
+function slippery(a) {
+  if (a.grip) return a.grip;
+  const f = [a.interior, wallFinish(a)];
+  return f.includes('glass') || f.includes('ceramic') || f.includes('painted') || f.includes('fibre') ? 'some' : '';
+}
+/* Floating skimmer pairing with the recommended robot (supplier brochures). */
+const SKPATCH = {
+  'Dolphin Skimmi 300': {app: 'Maytronics One', cordAvoid: 1, maxLen: 20, obst: 1},
+  'Dolphin Skimmi 200': {app: 'Maytronics One', cordAvoid: 1, maxLen: 20, obst: 1},
+  'BewaSkim': {app: 'BWT Robotics', minD: 0.14, noCorded: 'BWT manual: don’t run at the same time as a corded robot (tangling risk). Schedule separate times'},
+  'iSkim': {app: 'Beatbot', rescue: 1, minD: 0.15, noCorded: 'No floating-cable detection: run at a different time from the corded robot'},
+  'Skimmer S2': {app: 'Aiper', rescue: 1, obst: 1, noCorded: 'No floating-cable detection: run at a different time from the corded robot'}
+};
+SKIMMERS.forEach(function (k) { Object.assign(k, SKPATCH[k.name] || {}); });
+const ROBOT_APP = {'Dolphin EON 100': 'Maytronics One', 'Dolphin EON 120': 'Maytronics One', 'Dolphin Liberty 600': 'Maytronics One', 'Scuba S3': 'Aiper', 'Scuba V3': 'Aiper', 'Scuba X1 Pro Max': 'Aiper', 'Sora 70': 'Beatbot', 'Sonic Pro Plus': 'BWT Robotics', 'F1 R': 'BWT Robotics', 'F1 RX': 'BWT Robotics', 'F1 RXT': 'BWT Robotics', 'My Pool Quick': 'BWT Robotics', 'F1 Sonic Pro': 'BWT Robotics'};
+function pairSkim(k, m, a) {
+  const ok = [], chk = []; let s = 0;
+  if (!m) return {score: 0, ok: ['Floats independently, so it runs alongside any robot'], chk: []};
+  const P = poolCalc(a);
+  const ra = ROBOT_APP[m.name];
+  if (ra && ra === k.app) { s += 3; ok.push('Same app as the ' + m.name + ' (' + ra + ')'); }
+  else if (k.b === m.brand) { s += 1; ok.push('Same brand as the ' + m.name); }
+  if (m.power === 'corded') {
+    if (k.cordAvoid) { s += 2; ok.push('Steers around the robot’s floating cable'); }
+    else { s -= 2; chk.push(k.noCorded || 'Corded robot: confirm it avoids the floating cable'); }
+  } else { s += 1; ok.push('Cordless robot: no cable, so both can run at the same time'); }
+  if (k.maxLen && P) {
+    if (P.len > k.maxLen) { s -= 3; chk.push('Pool is longer than its ' + k.maxLen + ' m rating'); }
+    else ok.push('Rated for pools up to ' + k.maxLen + ' m');
+  }
+  const tricky = a.steps === 'many' || a.ledge === 'sun' || a.ledge === 'bench' || a.shallow === '0.3';
+  if (tricky) { if (k.rescue) { s += 1; ok.push('Anti-stranding / self-rescue on steps and shallow areas'); } else if (!k.obst) chk.push('Steps or shallow areas: check it won’t strand'); }
+  if (k.minD && a.shallow && +a.shallow < k.minD) chk.push('Shallow area below its ' + Math.round(k.minD * 100) + ' cm minimum depth');
+  if (m.skim === 1) chk.push('The ' + m.name + ' already skims during its cycle; the skimmer adds solar skimming between cycles');
+  if (!ok.length) ok.push('Floats independently, so it runs alongside the ' + m.name);
+  return {score: s, ok: ok, chk: chk};
+}
+const FIN = {pebble: 'pebble / quartzon', plaster: 'plaster / render', painted: 'painted', ceramic: 'ceramic tile', glass: 'glass mosaic', fibre: 'fibreglass gelcoat', vinyl: 'vinyl liner'};
+const SURF = {
+  zod: {ok: ['pebble', 'plaster', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, pebble, quartzon, fibreglass, vinyl, tiles', vinylNote: 'Zodiac warns of possible pattern abrasion or marks on vinyl liners: inspect the liner and brushes first'},
+  all: {ok: ['pebble', 'plaster', 'painted', 'ceramic', 'glass', 'fibre', 'vinyl'], short: 'All surfaces (maker’s statement)'},
+  aiperSL: {ok: ['plaster', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, fibreglass, vinyl, tiles'},
+  se: {ok: ['vinyl'], short: 'Flat floors; not mosaic tiles or glass'},
+  bwtSonic: {ok: ['plaster', 'pebble', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, plaster, pebble, fibreglass, vinyl, ceramic & glass tile'},
+  beatbot: {ok: ['plaster', 'ceramic', 'glass', 'fibre', 'vinyl'], short: 'Concrete, ceramic / porcelain / glass tile, fibreglass, vinyl, polyethylene'},
+  aiperS3: {ok: ['plaster', 'pebble', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, pebble, quartzon, glass bead, fibreglass, vinyl, tile'},
+  aiperV: {ok: ['plaster', 'vinyl', 'fibre', 'ceramic', 'glass'], short: 'Concrete, vinyl, fibreglass, mosaic tile'},
+  may: {ok: [], short: 'Most surfaces; Wonder Brush for smooth ceramic'}
+};
+function surfCheck(m, fins) {
+  const res = {no: [], ok: [], confirm: []};
+  fins.forEach(function (f) {
+    if (!f) return;
+    if (m.surfX && m.surfX.includes(f)) res.no.push(f);
+    else if (m.surf && SURF[m.surf].ok.includes(f)) res.ok.push(f);
+    else res.confirm.push(f);
+  });
+  return res;
+}
+function ratedArea(m) { return m.areaM2 || (m.maxW && m.maxLen ? m.maxLen * m.maxW : 0); }
+function ratingText(m) {
+  if (m.types.includes('spa')) return 'Spas up to ' + m.spaMax + ' × ' + m.spaMax + ' m';
+  if (m.areaM2) return 'Up to ' + m.areaM2 + ' m²' + (m.maxLen && m.maxLen < 30 ? ' (' + m.maxLen + ' m long)' : '');
+  if (m.maxW) return m.maxLen + ' × ' + m.maxW + ' m (' + (m.maxLen * m.maxW) + ' m²)';
+  if (m.maxLen) return 'Up to ' + m.maxLen + ' m long';
+  return '';
+}
+function fmt(v) { return (Math.round(v * 10) / 10).toString(); }
+const DIMS = function (lo, hi) { const o = []; for (let v = lo; v <= hi + 1e-9; v += 0.5) o.push([String(v), fmt(v) + ' m']); return o; };
+
+const ITEMS = [
+  {n: 1, title: 'Pool or spa: size & layout', sub: 'Length × width sets the area the robot must cover in one cycle. Check it against the maker’s rated size.', qTitle: 'Pool or spa & size', qSub: 'Length × width, checked against each robot’s rated size.'},
+  {n: 2, title: 'Construction, finish & condition', sub: 'Record these separately. Check every surface the robot travels over against the maker’s compatibility, not its looks or price.', qTitle: 'Construction & finish', qSub: 'Smooth tiles, glass and paint can be slippery. The robot needs tracks or wheels and brushes made for them.'},
+  {n: 3, title: 'Depths, steps, ledges & obstacles', sub: 'Shallow areas, transitions and tight spots make coverage harder. Wall climbing doesn’t mean every step or ledge gets cleaned.'},
+  {n: 4, title: 'Debris & filtration', sub: 'Basket capacity and filter fineness solve different problems. Match both to what actually enters the pool.', qTitle: 'Debris', qSub: 'What falls in, and how much between cleans.'},
+  {n: 5, title: 'Required coverage', sub: 'Floor only, walls, waterline, and whether the customer expects steps and ledges cleaned.', qTitle: 'Coverage', qSub: 'Floor only, walls, or right up to the waterline.'},
+  {n: 6, title: 'Power, installation & cover', sub: 'Corded: will the cable reach from the actual power-supply spot? Cordless: will one charge cover the pool?', qTitle: 'Cable or cordless', qSub: 'Corded needs cable reach; cordless needs enough runtime.'},
+  {n: 7, title: 'Controls & features', sub: 'Only features that solve a real need. Wi-Fi and Bluetooth aren’t interchangeable.'},
+  {n: 8, title: 'Owner handling & maintenance', sub: 'Can they place, retrieve, empty and store it, and who will look after it?', qTitle: 'Handling', qSub: 'Can the owner lift it in and out comfortably?'},
+  {n: 9, title: 'Budget, warranty & service', sub: 'Compare ownership cost, local repairs and wear parts, not just the RRP.', qTitle: 'Budget & warranty', qSub: 'Price band and warranty expectations.'},
+  {n: 10, title: 'Water & site conditions', sub: 'Optional technician check. Poor water or algae can make a suitable robot look faulty.', optional: 1}
+];
+const CORE = 9;
+const QS = [
+  {k: 'body', i: 1, label: 'Pool or spa?', opts: [['pool', 'Pool'], ['spa', 'Stand-alone spa'], ['both', 'Pool with attached spa']]},
+  {k: 'length', i: 1, label: 'Length', opts: DIMS(3, 20), spaOpts: DIMS(1.5, 5)},
+  {k: 'width', i: 1, label: 'Width', opts: DIMS(3, 15), spaOpts: DIMS(1.5, 5)},
+  {k: 'shape', i: 1, label: 'Shape', opts: [['rect', 'Rectangular'], ['free', 'Freeform / kidney'], ['multi', 'L-shape / multi-level'], ['lap', 'Lap pool (long, narrow)']], pool: 1},
+  {k: 'areas', i: 1, label: 'Separate or connected areas, islands?', opts: [['no', 'No: one open area'], ['yes', 'Yes']], pool: 1},
+  {k: 'poolType', i: 2, label: 'Construction', opts: [['concrete', 'In-ground concrete'], ['fibreglass', 'In-ground fibreglass'], ['above', 'Above-ground (demountable)']], pool: 1},
+  {k: 'interior', i: 2, label: 'Floor finish', opts: [['pebble', 'Pebble / quartzon'], ['plaster', 'Plaster / render'], ['painted', 'Painted'], ['ceramic', 'Ceramic tile'], ['glass', 'Glass mosaic'], ['vinyl', 'Vinyl liner'], ['fibre', 'Fibreglass gelcoat']], pool: 1},
+  {k: 'walls', i: 2, label: 'Walls & waterline finish', opts: [['same', 'Same as floor'], ['ceramicBand', 'Ceramic tile waterline band'], ['glassBand', 'Glass mosaic waterline band'], ['ceramicWalls', 'Fully tiled walls']], pool: 1},
+  {k: 'grip', i: 2, label: 'Slippery surfaces?', opts: [['no', 'No'], ['some', 'Smooth tile or paint in places'], ['yes', 'Very slippery (glass, polished tile)']], pool: 1},
+  {k: 'condition', i: 2, label: 'Surface condition', opts: [['sound', 'Sound'], ['worn', 'Worn or rough'], ['damaged', 'Damaged or loose tiles'], ['wrinkled', 'Wrinkled or brittle liner']], pool: 1},
+  {k: 'shallow', i: 3, label: 'Shallow-end depth', opts: [['0.3', 'Under 0.4 m (beach entry)'], ['0.6', '0.4–0.8 m'], ['0.9', '0.9 m'], ['1.0', '1.0 m'], ['1.2', '1.2 m or more']], pool: 1},
+  {k: 'deep', i: 3, label: 'Deep-end depth', opts: [['1.2', 'Up to 1.2 m'], ['1.5', '1.5 m'], ['1.8', '1.8 m'], ['2.0', '2.0 m'], ['2.4', '2.4 m'], ['3.0', 'Up to 3.0 m'], ['3.5', 'Over 3.0 m (diving)']], pool: 1},
+  {k: 'transition', i: 3, label: 'Floor-to-wall junction', opts: [['cove', 'Curved cove'], ['square', 'Square junction'], ['sloped', 'Sloping transition']], pool: 1},
+  {k: 'slope', i: 3, label: 'Deep-end slope', opts: [['gentle', 'Flat or gentle'], ['steep', 'Steep transition'], ['hopper', 'Deep hopper / diving end']], pool: 1},
+  {k: 'steps', i: 3, label: 'Steps', opts: [['few', 'Few or none'], ['many', 'Full-width or several']], pool: 1},
+  {k: 'ledge', i: 3, label: 'Benches and ledges', opts: [['none', 'None'], ['bench', 'Bench seat or swim-out'], ['sun', 'Shallow sun ledge']], pool: 1},
+  {k: 'ledgeDepth', i: 3, label: 'Water over the ledge', opts: [['20', 'About 20 cm'], ['25', 'About 25 cm'], ['30', 'About 30 cm'], ['40', '40 cm or more']], pool: 1, show: function (a) { return a.ledge === 'bench' || a.ledge === 'sun'; }},
+  {k: 'corners', i: 3, label: 'Tight corners, ladders, drains or lights in the way?', opts: [['no', 'No'], ['yes', 'Yes']], pool: 1},
+  {k: 'debrisType', i: 4, label: 'Main debris', opts: [['leaves', 'Large leaves, bulky organic'], ['gumnuts', 'Gum nuts or seed pods'], ['fine', 'Fine sand, dust or silt'], ['mixed', 'Mixed coarse and fine'], ['floating', 'Mainly floating leaves']]},
+  {k: 'debrisQty', i: 4, label: 'How much between cleans?', opts: [['light', 'Light'], ['moderate', 'Moderate'], ['heavy', 'Heavy or seasonal drop']]},
+  {k: 'emptying', i: 4, label: 'Emptying the filter', opts: [['every', 'Happy to empty after each clean'], ['less', 'Wants to empty less often']]},
+  {k: 'skimmer', i: 4, label: 'Floating skimmer add-on', opts: [['auto', 'Suggest if leafy'], ['yes', 'Customer interested'], ['no', 'Not now']], pool: 1},
+  {k: 'reach', i: 5, label: 'Clean which areas?', opts: [['floor', 'Floor only'], ['walls', 'Floor and walls'], ['waterline', 'Floor, walls and waterline']]},
+  {k: 'stepsClean', i: 5, label: 'Expect the robot to clean steps or ledges?', opts: [['no', 'No: hand brush is fine'], ['steps', 'Steps'], ['both', 'Steps and ledges']], pool: 1},
+  {k: 'power', i: 6, label: 'Cable or cordless', opts: [['any', 'No preference'], ['corded', 'Corded (cable)'], ['cordless', 'Cordless (battery)']]},
+  {k: 'psu', i: 6, label: 'Power-supply position', opts: [['side', 'Middle of a long side'], ['end', 'Middle of a short end'], ['corner', 'At a corner'], ['unknown', 'Not decided']], pool: 1, show: function (a) { return a.power !== 'cordless'; }},
+  {k: 'setback', i: 6, label: 'Power supply back from water’s edge', opts: [['1', '1 m'], ['2', '2 m'], ['3', '3 m'], ['3.5', '3.5 m'], ['4', '4 m'], ['5', '5 m'], ['6', '6 m']], pool: 1, show: function (a) { return a.power !== 'cordless'; }},
+  {k: 'cover', i: 6, label: 'Cover on while cleaning?', opts: [['no', 'No'], ['yes', 'Yes']]},
+  {k: 'charge', i: 6, label: 'Charging and storage spot', opts: [['near', 'Sheltered, close to the pool'], ['far', 'Some distance or upstairs']], show: function (a) { return a.power !== 'corded'; }},
+  {k: 'ops', i: 7, label: 'How will they run it?', opts: [['simple', 'Simple push-button'], ['either', 'Either'], ['app', 'Phone app']]},
+  {k: 'timer', i: 7, label: 'Weekly timer / scheduling', opts: [['need', 'Must have'], ['nice', 'Nice to have'], ['no', 'Not needed']]},
+  {k: 'quick', i: 7, label: 'Quick floor-only cycle', opts: [['yes', 'Wanted'], ['no', 'Not needed']]},
+  {k: 'steer', i: 7, label: 'Manual steering / spot clean', opts: [['yes', 'Wanted'], ['no', 'Not needed']]},
+  {k: 'wifi', i: 7, label: 'Home Wi-Fi at the pool', opts: [['good', 'Strong signal'], ['weak', 'Weak or patchy'], ['none', 'None']], show: function (a) { return a.ops === 'app' || a.ops === 'either' || a.steer === 'yes'; }},
+  {k: 'lift', i: 8, label: 'Lifting the unit', opts: [['ok', 'Comfortable with 10–15 kg'], ['light', 'Prefers a light unit'], ['help', 'Limited mobility / needs help']]},
+  {k: 'retrieve', i: 8, label: 'Retrieval and storage', opts: [['any', 'Happy to lift it out'], ['easy', 'Wants easy retrieval and a caddy']]},
+  {k: 'maint', i: 8, label: 'Who will maintain it?', opts: [['owner', 'The owner'], ['family', 'Family member or helper'], ['service', 'Swimart service visits']]},
+  {k: 'budget', i: 9, label: 'Budget', opts: [['0', 'Show all'], ['1', 'Under $1,000'], ['2', '$1,000–$2,000'], ['3', '$2,000–$3,000'], ['4', '$3,000–$4,000']]},
+  {k: 'warranty', i: 9, label: 'Warranty expectation', opts: [['0', 'No minimum'], ['2', 'At least 2 years'], ['3', 'At least 3 years']]},
+  {k: 'location', i: 9, label: 'Service location', opts: [['metro', 'Metro'], ['regional', 'Regional / remote'], ['nz', 'New Zealand']]},
+  {k: 'temp', i: 10, label: 'Water temperature', opts: [['cold', 'Below 15 °C'], ['mild', '15–28 °C'], ['warm', '28–35 °C'], ['hot', 'Above 35 °C']], opt: 1},
+  {k: 'algae', i: 10, label: 'Algae on floor or walls?', opts: [['none', 'None'], ['some', 'Visible or suspected']], opt: 1},
+  {k: 'chem', i: 10, label: 'pH, sanitiser and salt', opts: [['ok', 'Tested and in range'], ['out', 'Out of range'], ['unknown', 'Not tested']], opt: 1},
+  {k: 'equip', i: 10, label: 'Other equipment running during cleaning', opts: [['none', 'None'], ['pump', 'Circulation pump'], ['infloor', 'In-floor cleaning'], ['features', 'Water features']], opt: 1}
+];
+const BLANK = {};
+QS.forEach(function (q) { BLANK[q.k] = ''; });
+function qVisible(q, a) {
+  if (q.pool && a.body === 'spa') return false;
+  return q.show ? q.show(a) : true;
+}
+/* Quick Match asks only the key questions for a standard pool; Full Assessment asks everything. */
+const QUICK = ['body', 'length', 'width', 'poolType', 'interior', 'grip', 'debrisType', 'debrisQty', 'skimmer', 'reach', 'power', 'cover', 'lift', 'budget', 'warranty'];
+const MODES = {
+  quick: {name: 'Quick Match', short: 'Standard pool · key questions only', other: 'Switch to Full Assessment'},
+  full: {name: 'Full Assessment', short: 'Difficult pool · every check', other: 'Switch to Quick Match'}
+};
+const QUICK_USE = ['Rectangular or simple freeform shape', 'One interior finish in sound condition', 'Few steps and no ledges the robot must clean', 'Power point close to the pool'];
+const FULL_USE = ['Multi-level, L-shaped or connected areas', 'Sun ledges, benches or many steps to clean', 'Mixed, slippery or worn finishes', 'Long cable run, heavy or fine debris, or a robot that has underperformed before'];
+function qShown(q, a, mode) { return (mode !== 'quick' || QUICK.includes(q.k)) && qVisible(q, a); }
+function modeItems(mode) { return mode === 'quick' ? ITEMS.filter(it => QS.some(q => q.i === it.n && QUICK.includes(q.k))) : ITEMS; }
+function modeView(a, mode) { if (mode !== 'quick') return a; const o = Object.assign({}, BLANK); QUICK.forEach(k => { o[k] = a[k]; }); return o; }
+const BRANDS = [['Maytronics', 'Maytronics Dolphin'], ['BWT', 'BWT'], ['Zodiac', 'Zodiac'], ['Aiper', 'Aiper'], ['Beatbot', 'Beatbot']];
+const BRAND_KEY = 'swimart-selector-brands';
+function loadBrands() { try { const v = JSON.parse(window.localStorage.getItem(BRAND_KEY) || '[]'); return Array.isArray(v) ? v : []; } catch (e) { return []; } }
+function saveBrands(v) { try { window.localStorage.setItem(BRAND_KEY, JSON.stringify(v)); } catch (e) {} }
+function toggleBrand(list, b) { if (b === 'all') return []; let n = list.includes(b) ? list.filter(x => x !== b) : list.concat([b]); if (n.length === BRANDS.length) n = []; return n; }
+function stocked(list, b) { return !list.length || list.includes(b); }
+const FINISHES = {concrete: ['pebble', 'plaster', 'painted', 'ceramic', 'glass', 'vinyl'], fibreglass: ['fibre'], above: ['vinyl']};
+function fixFinish(a) {
+  const ok = FINISHES[a.poolType];
+  if (!ok) return a;
+  const interior = ok.length === 1 ? ok[0] : (ok.includes(a.interior) ? a.interior : '');
+  const walls = a.poolType === 'concrete' ? a.walls : (a.poolType ? 'same' : a.walls);
+  return Object.assign({}, a, {interior: interior, walls: walls});
+}
+function wallFinish(a) { return {ceramicBand: 'ceramic', glassBand: 'glass', ceramicWalls: 'ceramic'}[a.walls] || ''; }
+
+/* Pool geometry: area, Swimart planning allowance and the cable needed from the power-supply position. */
+function poolCalc(a) {
+  const L = +a.length || 0, W = +a.width || 0;
+  if (!L || !W || a.body === 'spa') return null;
+  const len = Math.max(L, W), wid = Math.min(L, W), area = len * wid;
+  let pct = 0; const why = [];
+  if (a.shape === 'multi') { pct += 15; why.push('L-shape / multi-level'); }
+  if (a.areas === 'yes') { pct += 10; why.push('connected areas'); }
+  if (a.steps === 'many') { pct += 5; why.push('several steps'); }
+  if (a.ledge === 'bench' || a.ledge === 'sun') { pct += 5; why.push('benches or ledges'); }
+  if (a.corners === 'yes') { pct += 5; why.push('tight spots and fittings'); }
+  const eff = Math.round(area * (1 + pct / 100));
+  const pos = a.psu && a.psu !== 'unknown' ? a.psu : 'side';
+  const far = pos === 'end' ? Math.hypot(len, wid / 2) : (pos === 'corner' ? Math.hypot(len, wid) : Math.hypot(len / 2, wid));
+  const deep = a.deep ? +a.deep : 2, sb = a.setback ? +a.setback : 0;
+  const need = Math.ceil((far + deep + sb) * 2) / 2;
+  const assumed = [];
+  if (!a.psu || a.psu === 'unknown') assumed.push('power supply mid long side');
+  if (!a.deep) assumed.push('2 m deep end');
+  if (!a.setback) assumed.push('no setback');
+  return {len: len, wid: wid, area: Math.round(area * 10) / 10, pct: pct, allowWhy: why, eff: eff, far: far, need: need, posSet: !!a.psu && a.psu !== 'unknown', assumed: assumed, pos: pos};
+}
+
+function rank(a) {
+  const spa = a.body === 'spa';
+  const P = poolCalc(a);
+  const fins = spa ? [] : [a.interior, wallFinish(a)].filter(function (f, i, arr) { return f && arr.indexOf(f) === i; });
+  const out = [];
+  MODELS.forEach(function (m) {
+    if (a._brands && !stocked(a._brands, m.brand)) return;
+    if (spa !== m.types.includes('spa')) return;
+    if (!spa && a.poolType) { if (a.poolType === 'above' ? !m.types.includes('above') : !m.types.includes('in')) return; }
+    if (!spa && !a.poolType && !m.types.includes('in')) return;
+    if (a.power && a.power !== 'any' && m.power !== a.power) return;
+    if (a.reach === 'walls' && !m.wall) return;
+    if (a.reach === 'waterline' && (!m.wall || m.water === 0)) return;
+    const sc = surfCheck(m, fins);
+    if (sc.no.length) return;
+    let s = 10; const why = [], chk = [];
+    let fit = null;
+    if (spa) {
+      why.push('Made for spas: the only spa robot in the range');
+      const sl = Math.max(+a.length || 0, +a.width || 0);
+      if (sl && m.spaMax && sl > m.spaMax) { s -= 3; chk.push('Spa is larger than its ' + m.spaMax + ' × ' + m.spaMax + ' m rating'); }
+      if (m.spaMax) fit = {areaTxt: a.length && a.width ? fmt(+a.length) + ' × ' + fmt(+a.width) + ' m spa' : 'Spa size not entered', allowTxt: 'Not for spas with intricate seats or 90° corners', ratingTxt: ratingText(m), utilPct: 0, utilW: 0, utilColor: '#1C7C4A', utilTxt: '', powerK: 'Battery', powerV: m.battery, powerNote: 'One 60-minute cycle covers floor, seats and waterline'};
+    }
+    if (P) {
+      if (m.maxLen && P.len > m.maxLen) return;
+      if (m.maxW && P.wid > m.maxW) return;
+      const rA = ratedArea(m), ind = !rA && m.maxLen ? m.maxLen * m.maxLen / 2 : 0, ref = rA || ind;
+      if (rA && P.area > rA) return;
+      const util = ref ? P.eff / ref : 0, up = Math.round(util * 100);
+      if (ref) {
+        if (!rA && util <= 1) { s += util <= 0.7 ? 1 : 0; why.push('Within its rated ' + m.maxLen + ' m length (' + up + '% of an indicative ' + fmt(m.maxLen) + ' × ' + fmt(m.maxLen / 2) + ' m pool)'); }
+        else if (util <= 0.7) { s += 2; why.push('Comfortably within its rated size (' + up + '% used)'); }
+        else if (util <= 0.9) why.push('Within its rated size (' + up + '% used)');
+        else if (util <= 1) { s -= 1; chk.push('Near its rated limit (' + up + '% used): use the full-coverage cycle'); }
+        else if (rA) { s -= 3; chk.push('Layout allowance takes it past the rated area: trial it in the pool first'); }
+        else { s -= 2; chk.push('Rated by length only and this pool is wide: confirm width with the supplier'); }
+        if (m.power === 'cordless' && rA && util > 0.85) chk.push('Close to what one charge is rated to cover: check runtime in the chosen mode');
+      } else chk.push('Rated pool size not stated: confirm with the supplier');
+      let pk = '', pv = '', pn = '';
+      if (m.power === 'corded') {
+        pk = 'Cable reach';
+        if (m.cableM) {
+          const spare = m.cableM - P.need;
+          pv = m.cableM + ' m cable · needs about ' + fmt(P.need) + ' m';
+          if (spare < 0) {
+            if (P.posSet) return;
+            s -= 3; chk.push('Cable may not reach the far corner (needs about ' + fmt(P.need) + ' m)');
+            pn = 'Short by ' + fmt(-spare) + ' m from a mid-side power supply. Choose the position to confirm.';
+          } else {
+            why.push(m.cableM + ' m cable reaches the farthest point (needs about ' + fmt(P.need) + ' m)');
+            if (spare < 1) chk.push('Little spare cable: measure from the actual power-supply spot');
+            pn = spare < 1 ? 'Under 1 m spare: measure on site' : fmt(spare) + ' m spare';
+          }
+        } else { pv = 'Needs about ' + fmt(P.need) + ' m'; pn = 'Cable length not stated: confirm'; chk.push('Confirm cable length (needs about ' + fmt(P.need) + ' m)'); }
+        if (P.assumed.length) pn += (pn ? '. ' : '') + 'Assumes ' + P.assumed.join(', ') + '.';
+      } else {
+        pk = 'Battery per cycle';
+        pv = m.run ? 'Up to ' + m.run : (m.battery || '');
+        pn = rA ? (util <= 0.85 ? 'Rated to cover this pool in one cycle' : 'Close to the area one charge is rated for') : 'Maker rates by length; confirm area per charge';
+      }
+      fit = {
+        areaTxt: fmt(P.len) + ' × ' + fmt(P.wid) + ' m = ' + fmt(P.area) + ' m²',
+        allowTxt: P.pct ? '+' + P.pct + '% planning allowance for ' + P.allowWhy.join(', ') + ' → ' + P.eff + ' m²' : 'Simple layout: no planning allowance',
+        ratingTxt: ratingText(m) || 'Not stated', utilPct: up, utilW: Math.min(100, up), utilColor: util > 1 ? '#B42318' : (util > 0.9 ? '#B4560F' : '#1C7C4A'),
+        utilTxt: ref ? up + '% of ' + (rA ? 'rated area' : 'indicative area (rated by length only)') : 'Rating not stated',
+        powerK: pk, powerV: pv, powerNote: pn
+      };
+      if (a.shallow && m.minD && +a.shallow < m.minD) { s -= 2; chk.push('Shallow end is below its ' + m.minD + ' m minimum depth'); }
+      if (a.deep && m.maxD && +a.deep > m.maxD) { s -= 3; chk.push('Deep end is beyond its ' + m.maxD + ' m maximum depth'); }
+    }
+    if (fins.length) {
+      if (sc.ok.length === fins.length) { s += 1; why.push('Maker lists ' + fins.map(f => FIN[f]).join(' and ') + ' as compatible'); }
+      if (sc.confirm.length) chk.push('Confirm ' + sc.confirm.map(f => FIN[f]).join(' and ') + ' compatibility and brush set against the maker’s specs');
+      if (m.surf && SURF[m.surf].vinylNote && fins.includes('vinyl')) chk.push(SURF[m.surf].vinylNote);
+      if (m.surf && SURF[m.surf].tileNote && (fins.includes('ceramic') || fins.includes('glass'))) chk.push(SURF[m.surf].tileNote);
+    }
+    const sl = spa ? '' : slippery(a);
+    if ((sl === 'some' || sl === 'yes') && m.wall && a.reach !== 'floor') {
+      const g = m.gripLvl === undefined ? 1 : m.gripLvl;
+      if (g === 3) { s += sl === 'yes' ? 3 : 2; why.push('Slippery walls: ' + m.grip); if (m.fit) chk.push(m.fit + ' for this finish'); }
+      else if (g === 2) { s += 1; why.push('Slippery walls: ' + m.grip); if (m.fit) chk.push(m.fit + ' for this finish'); if (sl === 'yes') chk.push('PVC brushes can slip on glass or glazed tile with micro-algae: keep walls clean'); }
+      else if (g === 0) { s -= 4; chk.push(m.grip || 'Not built to climb slippery walls'); }
+      else { s -= sl === 'yes' ? 2 : 0; chk.push('Slippery surface: ' + (m.grip ? m.grip + '. Confirm grip before quoting' : 'confirm the tracks or wheels and brushes are designed for it')); }
+    }
+    if (a.reach === 'waterline') { if (m.water === 1) why.push('Cleans floor, walls and the waterline'); else chk.push('Confirm waterline scrubbing'); }
+    else if (a.reach === 'walls') why.push('Floor and wall cleaner');
+    else if (a.reach === 'floor' && !m.wall) s += 1;
+    if (a.slope === 'steep' || a.slope === 'hopper') {
+      if (m.wall) { s += m.price >= 2000 ? 3 : 2; why.push('Wall climber suited to steep transitions'); }
+      else { s -= 3; chk.push('Floor only: may struggle on steep transitions'); }
+    }
+    if (a.transition === 'square' && m.wall && a.reach !== 'floor') chk.push('Square floor-to-wall junction: watch it transition in a demo');
+    if (a.stepsClean === 'steps' || a.stepsClean === 'both') {
+      if (m.steps) { s += 3; why.push('Step cleaning is an advertised feature'); }
+      else { s -= 3; chk.push('Step cleaning not advertised: wall climbing ≠ every tread'); }
+    }
+    if (a.stepsClean === 'both' && (a.ledge === 'bench' || a.ledge === 'sun')) {
+      const d = a.ledgeDepth ? +a.ledgeDepth : 0;
+      if (m.ledgeCm) {
+        if (d && m.ledgeCm > d) { s -= 6; chk.push('Rated for ledges from ' + m.ledgeCm + ' cm; this ledge has about ' + d + ' cm'); }
+        else { s += 4; why.push('Rated to clean ledges as shallow as ' + m.ledgeCm + ' cm'); }
+      } else if (m.ledges) chk.push('Ledge cleaning advertised: confirm minimum water depth');
+      else { s -= 6; chk.push('Ledge cleaning not advertised: plan a hand brush'); }
+    }
+    const t = a.debrisType, q = a.debrisQty;
+    if (t === 'leaves' || t === 'gumnuts') {
+      if (m.basket >= 5) { s += 3; why.push(m.basket + ' L basket for bulky leaves'); }
+      else if (m.basket && m.basket < 3.5) { s -= 2; chk.push('Small ' + m.basket + ' L basket for leaves: empty often'); }
+    }
+    if (t === 'gumnuts') chk.push('Gum nuts and seed pods: check the intake opening won’t jam');
+    if (t === 'fine') {
+      if (m.ultra) { s += 3; why.push('Fine or ultra-fine filtration for sand, dust and silt'); }
+      else { s -= 2; chk.push('No ultra-fine filter listed for fine dust and silt'); }
+    }
+    if (t === 'mixed') {
+      if (m.multi) { s += 3; why.push('Multi-layer or interchangeable filters for mixed debris'); }
+      else chk.push('Single filter: check it suits both coarse and fine debris');
+    }
+    if (t === 'floating') {
+      if (m.skim === 1) { s += 4; why.push('Skims floating leaves at the surface as well'); }
+      else chk.push('Cleans underwater only: floating leaves need a skimmer');
+    }
+    if (q === 'heavy') {
+      if (m.basket >= 5) { s += 2; if (t !== 'leaves' && t !== 'gumnuts') why.push(m.basket + ' L basket handles a heavy load'); }
+      else if (m.basket && m.basket < 4) { s -= 2; chk.push('Heavy load with a ' + m.basket + ' L basket: expect frequent emptying'); }
+      else if (!m.basket) chk.push('Confirm filter capacity for a heavy load');
+    }
+    if (a.emptying === 'less') {
+      if (m.basket >= 5) s += 2; else if (m.basket && m.basket < 4) { s -= 2; chk.push('Will need emptying often'); }
+      if (/DebrisLock/.test(m.filter || '')) { s += 1; why.push('DebrisLock compresses debris for fewer clean-outs'); }
+    }
+    if (q === 'light' && m.price < 1500) { s += 1; why.push('Good value for a low-debris pool'); }
+    if (a.shape === 'free' || a.shape === 'multi' || a.areas === 'yes') {
+      if (m.power === 'cordless') { s += 1; why.push('No cable to tangle around curves and sections'); }
+      else chk.push('Corded: check the swivel or anti-tangle cable handles this layout');
+    }
+    if (a.cover === 'yes') {
+      if (m.power === 'corded') { s += 2; why.push('Can run under the cover without retrieval'); }
+      else { s -= 2; chk.push('Cover must come off to retrieve and charge'); }
+    }
+    if (m.power === 'cordless' && a.charge === 'far' && m.weight > 9) chk.push('Carrying ' + m.weight + ' kg to a distant charging spot');
+    if (a.ops === 'app') {
+      if (m.app === 'yes') { s += 2; why.push('App: ' + (m.conn || 'yes')); }
+      else { s -= 3; chk.push('No app control'); }
+    }
+    if (a.ops === 'simple' && m.app === 'no') { s += 1; why.push('Simple push-button operation'); }
+    if (a.timer === 'need' || a.timer === 'nice') {
+      if (m.timer === 'yes') { s += a.timer === 'need' ? 2 : 1; why.push('Weekly timer / scheduling'); }
+      else if (m.timer === 'no') { s -= a.timer === 'need' ? 4 : 1; chk.push('No weekly timer'); }
+      else chk.push('Scheduling: ' + m.timer + '. Check it suits the routine');
+    }
+    if (a.quick === 'yes') {
+      if (m.floorMode === 'yes' || /^Yes|Turbo|Floor-only robot/.test(m.floorMode || '')) { s += 1; why.push('Quick floor-cleaning cycle'); }
+      else { s -= 2; chk.push('No quick floor-only cycle'); }
+    }
+    if (a.steer === 'yes') {
+      if (m.steer) { s += 2; why.push('Manual steering or spot cleaning'); }
+      else chk.push('No manual steering listed');
+    }
+    if ((a.wifi === 'weak' || a.wifi === 'none') && m.app === 'yes' && m.conn) {
+      if (m.wifiNeeded || (/Wi-Fi/.test(m.conn) && !/Bluetooth/.test(m.conn))) chk.push('Scheduling and app features need a stable 2.4 GHz Wi-Fi signal at the pool');
+      else if (/Bluetooth/.test(m.conn)) { s += 1; why.push('Bluetooth app works without home Wi-Fi'); }
+      else chk.push('Confirm whether the app needs home Wi-Fi');
+    }
+    if (a.lift === 'light' || a.lift === 'help') {
+      const lim = a.lift === 'help' ? 6 : 8, hi = a.lift === 'help' ? 9 : 12;
+      if (!m.weight) chk.push('Confirm unit weight for this owner');
+      else if (m.weight <= lim) { s += a.lift === 'help' ? 4 : 3; why.push('Light at ' + m.weight + ' kg: easy to lift out'); }
+      else if (m.weight > hi) { s -= a.lift === 'help' ? 5 : 4; chk.push('At ' + m.weight + ' kg, may be too heavy for this owner'); }
+    }
+    if (a.retrieve === 'easy' || a.lift === 'help') {
+      if (m.caddy === 'yes') { s += 2; why.push('Storage caddy included'); }
+      else if (m.caddy === 'opt') chk.push('Caddy is an optional extra');
+      else chk.push('No caddy included');
+      if (m.dock === 'yes') { s += 1; why.push('Charging dock for easy parking and charging'); }
+      if (m.park) { s += 2; why.push('Easy retrieval: parks or lifts out at the waterline'); }
+    }
+    if (a.warranty && +a.warranty > 0) {
+      if (m.wty < +a.warranty) { s -= 4; chk.push(m.wtyL + ' warranty: below the ' + a.warranty + '-year expectation'); }
+      else { s += m.wty >= 4 ? 2 : 1; why.push(m.wtyL + ' warranty'); }
+    }
+    if (a.location === 'regional') chk.push('Confirm the nearest authorised ' + m.brand + ' service agent');
+    if (a.location === 'nz') chk.push('Confirm NZ stock and service for ' + m.brand);
+    if (a.temp === 'cold' && m.brand === 'Maytronics' && m.wall) chk.push('Maytronics notes wall climbing can drop below 15 °C');
+    if (m.temp && ((a.temp === 'cold' && m.temp[0] > 10) || (a.temp === 'hot' && m.temp[1] <= 35))) chk.push('Outside its stated ' + m.temp[0] + '–' + m.temp[1] + ' °C water range');
+    const b = a.budget ? +a.budget : 0, mb = band(m.price);
+    if (b) {
+      if (mb === b) { s += 3; why.unshift('RRP ' + money(m.price) + ' sits in the ' + BANDS[b] + ' budget'); }
+      else if (mb > b) { s -= 5; chk.unshift('Above budget: RRP ' + money(m.price)); }
+      else s += 1;
+    }
+    if (m.power === 'corded' && why.length < 3) why.push('Corded: continuous power, no charging');
+    if (m.power === 'cordless' && why.length < 3) why.push(m.run ? 'Cordless, ' + m.run + ' run time' : 'Cordless: no cable to manage');
+    out.push(Object.assign({}, m, {score: s, why: why.slice(0, 6), chk: chk.slice(0, 6), fit: fit}));
+  });
+  out.sort(function (x, y) { return y.score - x.score || x.price - y.price; });
+  return out;
+}
+
+const NOFIT = {areaTxt: '', allowTxt: '', ratingTxt: '', utilPct: 0, utilW: 0, utilColor: '#1C7C4A', utilTxt: '', powerK: '', powerV: '', powerNote: ''};
+function card(m) {
+  const pct = Math.max(30, Math.min(98, Math.round(30 + Math.max(0, m.score) * 2.1)));
+  const conf = '[Confirm]', dim = '#8A5A00';
+  const cov = m.wall ? (m.water === 1 ? 'Floor · walls · waterline' : 'Floor · walls') : 'Floor only';
+  const t = (k, v) => ({k: k, v: v || conf, c: v ? '#0C2236' : dim});
+  const yn = v => v === 'yes' ? 'Yes' : (v === 'no' ? 'No' : (v === 'opt' ? 'Optional' : (v || '')));
+  const sl = m.types.includes('spa') ? 'Floor, seats, waterline' : (m.ledgeCm ? 'Steps; ledges from ' + m.ledgeCm + ' cm' : (m.steps ? 'Steps; ledge depth to confirm' : 'Not advertised'));
+  const f = m.fit || NOFIT;
+  return Object.assign({}, m, {
+    pct: pct, hasChk: m.chk.length > 0, summary: m.why[0] || '', priceLabel: money(m.price),
+    hasImg: !!m.img, noImg: !m.img, hasBen: !!(m.benefits && m.benefits.length), noBen: !(m.benefits && m.benefits.length), benefits: m.benefits || [],
+    isNew: !!m.isNew, newTag: m.isNew ? ' · New to range' : '',
+    powerLabel: m.power === 'corded' ? 'Corded' + (m.cableM ? ' · ' + m.cableM + ' m cable' : '') : (m.run ? 'Cordless · ' + m.run + ' battery' : 'Cordless (battery)'),
+    hasFit: !!m.fit, fit: f,
+    fitLine: m.fit && m.fit.powerV ? m.fit.powerK + ': ' + m.fit.powerV : '',
+    specs: [
+      t('Rated pool size', ratingText(m)),
+      t('Coverage', cov),
+      t('Steps & ledges', sl),
+      m.power === 'corded' ? t('Cable', m.cable) : t('Battery', m.battery),
+      t('Cleaning cycle', m.cycle),
+      t('Filter basket', m.basket ? m.basket + ' L' : ''),
+      t('Filtration', m.filter),
+      t('Brushes', m.brushes),
+      t('Drive & grip', [m.drive, m.grip].filter(Boolean).join(' · ')),
+      t('Surfaces (maker)', m.types.includes('spa') ? 'Spa interiors' : (m.surf ? SURF[m.surf].short : '')),
+      t('Weight', m.weight ? m.weight + ' kg' : ''),
+      t('Weekly timer', yn(m.timer)),
+      t('App / connectivity', m.conn || (m.app === 'no' ? 'None' : '')),
+      t('Storage caddy', m.caddy === 'yes' ? 'Included' : yn(m.caddy)),
+      t('Charging dock', m.power === 'corded' ? 'n/a' : yn(m.dock)),
+      t('Warranty', m.wty ? m.wtyL : '')
+    ]
+  });
+}
+function notes(a) {
+  const n = [];
+  const fins = [a.interior, wallFinish(a)];
+  if (a.body === 'spa') n.push('The Zodiac Spa Bot is the only robot in the range made for spas. Pool robots are too large.');
+  if (a.body === 'both') n.push('A pool robot won’t clean the attached spa. Add a Spa Bot for the spa.');
+  if (a.walls && a.walls !== 'same') n.push('Mixed finishes: check every surface the robot travels over, not just the floor.');
+  if (slippery(a)) n.push('Slippery surfaces: the robot needs tracks or wheels and brushes designed for them, or it will slide on walls and miss areas. Check against the maker’s specs.');
+  if (a.interior === 'vinyl') n.push('Vinyl liner: confirm liner-safe brushes and inspect for wrinkles, brittleness or pattern wear.');
+  if (a.interior === 'pebble') n.push('Pebble is abrasive. Tracks and brushes wear faster, so mention spare parts.');
+  if (a.interior === 'painted') n.push('Painted surfaces can be slippery. Active brushes grip better on walls.');
+  if (a.interior === 'fibre') n.push('Fibreglass gelcoat is smooth. Check the approved brush type.');
+  if (a.condition === 'damaged' || a.condition === 'wrinkled') n.push('Surface condition is a concern. Note it before any demo and check both the finish and robot makers’ instructions.');
+  if (a.condition === 'worn') n.push('Worn or rough surfaces wear brushes faster and can affect grip.');
+  if (a.shallow === '0.3') n.push('Beach entry or very shallow area: check the model’s minimum operating depth.');
+  if (a.transition === 'square') n.push('Square floor-to-wall junction: some robots struggle to transition. Prove it in a trial.');
+  if (a.steps === 'many' && a.stepsClean !== 'steps' && a.stepsClean !== 'both') n.push('Robots clean around steps but rarely every tread. Set expectations.');
+  if (a.ledge === 'sun' || a.ledge === 'bench') n.push('Ledges: only models rated for shallow-area cleaning reach them, and only above their minimum water depth.');
+  if (a.corners === 'yes') n.push('Tight corners and fittings: watch it enter, turn and exit without getting trapped.');
+  if (a.areas === 'yes') n.push('Connected areas or islands: confirm it can reach every section within a normal cycle.');
+  if (a.debrisType === 'fine') n.push('Fine debris: a fine or ultra-fine filter matters more than basket size.');
+  if (a.debrisType === 'mixed') n.push('Mixed debris: multi-layer or interchangeable filters handle coarse and fine together.');
+  if (a.debrisType === 'floating') n.push('Floating leaves: an underwater robot won’t skim the surface. A floating skimmer does.');
+  if (a.debrisQty === 'heavy') n.push('Heavy loads: a clogged filter reduces pickup, coverage and climbing. Empty it after each cycle.');
+  if (a.power !== 'cordless' && a.psu) n.push('Cable reach is measured from the power-supply spot, not just against the pool length. Use enough cable to reach the farthest point without coils.');
+  if (a.power !== 'corded') n.push('Cordless: agree how it will be retrieved, where it will charge and the battery care routine in the manual.');
+  if (a.cover === 'yes') n.push('Only run under a cover if the model is rated for it.');
+  if (a.ops === 'app' || a.steer === 'yes') n.push('Confirm what the app actually does. Wi-Fi and Bluetooth aren’t interchangeable.');
+  if ((a.ops === 'app' || a.ops === 'either') && a.power !== 'corded') n.push('Cordless robots lose the app signal underwater. They run the programmed cycle offline and reconnect at the waterline, so set schedules before the cycle starts.');
+  if (a.lift === 'help') n.push('Have the customer practise lifting, emptying and storing the unit before the sale.');
+  if (a.maint === 'service') n.push('Swimart service: book filter, brush and track checks into the visit schedule.');
+  if (a.temp === 'cold') n.push('Cold water can reduce wall climbing on some models. Demonstrate in season if possible.');
+  if (a.algae === 'some') n.push('Algae makes walls slippery. Correct the water and brush the walls before judging climbing.');
+  if (a.chem === 'out' || a.chem === 'unknown') n.push('Test and balance the water before any demo and compare with the model’s stated limits.');
+  if (a.equip && a.equip !== 'none') n.push('Record what equipment is running during a demo. If performance changes, check the maker’s recommended conditions; don’t make switching off a blanket rule.');
+  if (a.poolType === 'above') n.push('Above-ground: the Aiper Scuba SE and Beatbot Sora 70 are the range’s above-ground options.');
+  if (!n.length) n.push('Work through the checklist on the left. Talking points appear here as you go.');
+  return n;
+}
+const TRIAL = [
+  {h: 'Before the trial', items: ['Photograph the pool and difficult features', 'Record finish, dimensions, water test and main debris', 'Fit the correct brushes and filter', 'Clean the filter and complete the maker’s setup (release trapped air, soak sponge brushes)', 'Agree which areas the customer expects cleaned']},
+  {h: 'During the trial', items: ['Reaches shallow and deep areas', 'Makes the floor-to-wall transition', 'Climbs and travels the waterline, where supported', 'Enters and leaves steps or ledges, where supported', 'Clears fittings and obstacles', 'Picks up the customer’s actual debris and stays effective as the filter fills']},
+  {h: 'After a full cycle', items: ['What was cleaned and what was missed', 'Whether it became trapped', 'Whether the basket filled before the cycle ended', 'What manual cleaning is still needed', 'Whether a different filter, brush set or model should be tried']}
+];
+const SUPPLIER = ['Who handles repairs locally?', 'What maintenance is required?', 'Which parts does the warranty cover, and which are wear items?', 'Cordless: what is the battery warranty and replacement arrangement?', 'Cost and availability of filters, brushes, tracks and drive parts'];
+const COMPARE = [
+  ['Runs without relying on battery runtime', 'No trailing cable while cleaning'],
+  ['Needs cable reach from the power-supply spot and cable management', 'Needs enough runtime for the pool and a charging routine'],
+  ['Check timers and scheduled cleaning', 'Check charge time, retrieval and whether scheduling is actually supported']
+];
+
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = {a: Object.assign({}, BLANK), brands: loadBrands(), trial: false, mode: ''}; }
+  renderVals() {
+    const a = this.state.a, accent = this.props.accent ?? '#0075BB', mode = this.state.mode;
+    const av = modeView(a, mode);
+    const set = (k, v) => {
+      let n = Object.assign({}, this.state.a, {[k]: v});
+      if (k === 'body' && (v === 'spa') !== (this.state.a.body === 'spa')) { n.length = ''; n.width = ''; }
+      if (k === 'poolType') n = fixFinish(n);
+      this.setState({a: n});
+    };
+    let doneCount = 0, coreCount = 0, seq = 0;
+    const items = modeItems(mode).map(it => {
+      seq++;
+      const qs = QS.filter(q => q.i === it.n && qShown(q, a, mode));
+      const hidden = qs.length === 0;
+      const done = !hidden && qs.every(q => a[q.k] !== '');
+      if (!it.optional) { coreCount++; if (done || hidden) doneCount++; }
+      const answered = qs.filter(q => a[q.k] !== '').map(q => {
+        const list = a.body === 'spa' && q.spaOpts ? q.spaOpts : q.opts;
+        const o = list.find(x => x[0] === a[q.k]);
+        return o ? (q.k === 'length' ? o[1] + ' long' : (q.k === 'width' ? o[1] + ' wide' : o[1])) : '';
+      }).filter(Boolean);
+      return {
+        n: seq, title: (mode === 'quick' && it.qTitle ? it.qTitle : it.title) + (it.optional ? ' (optional)' : ''), sub: mode === 'quick' && it.qSub ? it.qSub : it.sub,
+        badgeBg: done || hidden ? accent : '#FFFFFF', badgeFg: done || hidden ? '#FFFFFF' : accent,
+        border: done ? '#9CC3DD' : '#D5DEE5',
+        dotBg: done || hidden ? '#FFFFFF' : 'transparent', dotBorder: done || hidden ? '#FFFFFF' : 'rgba(255,255,255,0.45)',
+        summary: hidden ? 'Not needed for a spa' : (answered.length ? answered.join(' · ') : (it.optional ? 'Optional technician check' : 'Not asked yet')),
+        sumColor: answered.length || hidden ? '#C9D7E2' : '#8FA3B5',
+        qs: qs.map(q => ({
+          label: q.label, value: a[q.k],
+          opts: [{v: '', t: 'Select…'}].concat((a.body === 'spa' && q.spaOpts ? q.spaOpts : q.opts).filter(o => q.k !== 'interior' || !FINISHES[a.poolType] || FINISHES[a.poolType].includes(o[0])).filter(o => q.k !== 'walls' || !a.poolType || a.poolType === 'concrete' || o[0] === 'same').map(o => ({v: o[0], t: o[1]}))),
+          change: e => set(q.k, e.target.value)
+        }))
+      };
+    });
+    const br = this.state.brands;
+    const setBrands = b => { const n = toggleBrand(br, b); saveBrands(n); this.setState({brands: n}); };
+    const brandChips = [['all', 'All brands']].concat(BRANDS).map(x => {
+      const on = x[0] === 'all' ? !br.length : br.includes(x[0]);
+      return {t: x[1], pressed: on ? 'true' : 'false', bg: on ? '#FFFFFF' : 'transparent', fg: on ? '#005A90' : '#FFFFFF', pick: () => setBrands(x[0])};
+    });
+    const res = rank(Object.assign({}, av, {_brands: br})).map(card);
+    const top = res[0];
+    const leafy = (a.debrisQty === 'heavy' && a.debrisType !== 'fine') || a.debrisType === 'floating';
+    const showSkim = a.body !== 'spa' && (a.skimmer === 'yes' || (a.skimmer !== 'no' && leafy));
+    const skims = SKIMMERS.filter(k => stocked(br, k.b)).map(k => {
+      const pr = pairSkim(k, top, av);
+      return Object.assign({}, k, {pr: pr.score, isNew: !!k.isNew, priceLabel: money(k.price), infoText: k.info || 'Specs [Confirm]', hasImg: !!k.img,
+        pairs: pr.ok.map(t => ({t: t, c: '#1C7C4A', i: '✓'})).concat(pr.chk.map(t => ({t: t, c: '#8A3F08', i: '!'})))});
+    }).sort((x, y) => y.pr - x.pr || x.price - y.price).map((k, i) => Object.assign(k, {match: i === 0 && !!top, border: i === 0 && top ? accent : '#E6D3B0'}));
+    const P = poolCalc(av);
+    const M = MODES[mode] || MODES.full;
+    return {
+      accent: accent,
+      noMode: !mode, hasMode: !!mode, isQuick: mode === 'quick',
+      modeName: M.name, modeShort: M.short, switchLabel: M.other,
+      switchMode: () => this.setState({mode: mode === 'quick' ? 'full' : 'quick'}),
+      pickQuick: () => this.setState({mode: 'quick'}),
+      pickFull: () => this.setState({mode: 'full'}),
+      changeMode: () => this.setState({mode: ''}),
+      quickUse: QUICK_USE, fullUse: FULL_USE,
+      quickCount: QUICK.length, fullSections: ITEMS.length,
+      items: items,
+      doneCount: doneCount,
+      coreCount: coreCount,
+      topLabel: doneCount >= coreCount ? 'Best match' : 'Best match so far',
+      total: MODELS.filter(m => stocked(br, m.brand)).length,
+      brandChips: brandChips,
+      brandNote: br.length ? 'Showing ' + br.length + ' of ' + BRANDS.length + ' brands · saved on this computer' : 'Showing the full approved range · tap brands to match your store',
+      fitCount: res.length,
+      noFit: res.length === 0,
+      hasTop: res.length > 0,
+      top: top || card(Object.assign({}, MODELS[0], {score: 0, why: [], chk: [], fit: null})),
+      hasOthers: res.length > 1,
+      others: res.slice(1, 4),
+      showSkim: showSkim && skims.length > 0,
+      showSpa: a.body === 'both' && stocked(br, 'Zodiac'),
+      bodyWord: a.body === 'spa' ? 'spa' : 'pool',
+      hasPool: !!P,
+      poolLine: P ? fmt(P.len) + ' × ' + fmt(P.wid) + ' m · ' + fmt(P.area) + ' m²' + (P.pct ? ' · ' + P.eff + ' m² with ' + P.pct + '% layout allowance' : '') : '',
+      skimReason: a.debrisType === 'floating' ? 'Mainly floating leaves: a floating skimmer catches them at the surface. Underwater cleaning and surface skimming are different jobs.' : (leafy ? 'Very leafy pool: a floating skimmer catches leaves at the surface before they sink, so the robot’s basket fills less often. Solar-powered, runs alongside any robot.' : 'Customer is interested in a floating skimmer. It catches leaves at the surface before they sink and runs alongside any robot.'),
+      skims: skims,
+      skimFor: top ? 'the ' + top.name : 'the robot',
+      siteNotes: notes(av),
+      showCompare: a.body !== 'spa' && (!a.power || a.power === 'any'),
+      compare: COMPARE.map(r => ({c: r[0], b: r[1]})),
+      trialOpen: this.state.trial,
+      trialBtn: this.state.trial ? 'Hide trial checklist' : 'Show trial checklist',
+      toggleTrial: () => this.setState({trial: !this.state.trial}),
+      trial: TRIAL,
+      supplier: SUPPLIER,
+      reset: () => this.setState({a: Object.assign({}, BLANK), mode: '', trial: false})
+    };
+  }
+}
+</script>
+</body>
+</html>

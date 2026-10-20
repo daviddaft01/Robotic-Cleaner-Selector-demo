@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FY27 Robotic Cleaner Range</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<script src="runtime.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#0075BB}a:hover{color:#005A90}
+button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #EEF3F6; color: #0C2236; font-family: 'Barlow', system-ui, sans-serif">
+  <header style="background: #0075BB; color: #FFFFFF">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 24px 32px 28px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+      <img src="images/568c0d95c4f9a26b5375c259a18dc8ac.png" alt="Swimart — Pool care made easy!" style="width: 220px; height: auto; display: block">
+      <div style="width: 1px; align-self: stretch; background: rgba(255,255,255,0.35)"></div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <div style="font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600">Quick reference · FY27 core range</div>
+        <h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 46px; font-weight: 700; line-height: 1">Robotic Cleaner Range Chart</h1>
+        <p style="margin: 0; font-size: 17px">Every robot and floating skimmer Swimart ranges, side by side on the same specs.</p>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width: 1360px; margin: 0 auto; padding: 24px 32px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px">
+      <div role="group" aria-label="Filter by type" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="3">
+          <button type="button" onClick="{{tb.pick}}" aria-pressed="{{tb.pressed}}" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid {{tb.border}}; background: {{tb.bg}}; color: {{tb.fg}}; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">{{tb.t}}</button>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: #33475A">
+        <span style="display: flex; align-items: center; gap: 6px"><span style="background: #F2A93B; color: #0C2236; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 700">NEW</span>New to range</span>
+        <span style="display: flex; align-items: center; gap: 6px"><span style="background: #FFF1D6; color: #8A5A00; border-radius: 4px; padding: 1px 6px; font-size: 12px; font-weight: 700">[Confirm]</span>Awaiting supplier spec</span>      </div>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; overflow-x: auto">
+      <div style="min-width: 2774px; font-size: 14px">
+        <div style="display: grid; grid-template-columns: {{cols}}; background: #0C2236; color: #FFFFFF; font-weight: 700; font-size: 13px; line-height: 1.2">
+          <sc-for list="{{heads}}" as="h" hint-placeholder-count="18">
+            <div style="padding: 12px 10px; position: {{h.pos}}; left: 0; background: #0C2236; z-index: 1">{{h.t}}</div>
+          </sc-for>
+        </div>
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+          <div style="display: flex; flex-direction: column">
+            <div style="padding: 10px 12px; background: #E3EEF6; font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; border-top: 1px solid #C5D2DC; position: sticky; left: 0; width: 2750px">{{g.brand}}</div>
+            <sc-for list="{{g.rows}}" as="r" hint-placeholder-count="4">
+              <div style="display: grid; grid-template-columns: {{cols}}; border-top: 1px solid #E1E8EE">
+                <div style="padding: 8px 10px; position: sticky; left: 0; background: #FFFFFF; z-index: 1; border-right: 1px solid #E1E8EE; display: flex; gap: 10px; align-items: center">
+                  <div style="flex: none; width: 64px; height: 48px; border-radius: 6px; background: #F3F6F9; overflow: hidden">
+                    <sc-if value="{{r.hasImg}}" hint-placeholder-val="{{ false }}"><img data-src="{{r.img}}" alt="" style="width: 100%; height: 100%; object-fit: contain"></sc-if>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0">
+                  <span style="font-size: 15px; font-weight: 700; line-height: 1.2">{{r.name}}</span>
+                  <span style="display: flex; gap: 6px">
+                    <sc-if value="{{r.isNew}}" hint-placeholder-val="{{ false }}"><span style="background: #F2A93B; color: #0C2236; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 700">NEW</span></sc-if>
+                  </span>
+                  </div>
+                </div>
+                <sc-for list="{{r.cells}}" as="c" hint-placeholder-count="17">
+                  <div style="padding: 10px; display: flex; align-items: center">
+                    <span style="color: {{c.fg}}; background: {{c.bg}}; border-radius: 4px; padding: 1px 4px; font-weight: {{c.fw}}; line-height: 1.3">{{c.v}}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-direction: column; gap: 12px">
+      <h2 style="margin: 8px 0 0; font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700">Floating skimmers — add-on for very leafy pools</h2>
+      <div style="background: #FFFFFF; border: 1px solid #D5DEE5; border-radius: 14px; overflow-x: auto">
+        <div style="min-width: 1000px; font-size: 14px">
+          <div style="display: grid; grid-template-columns: 140px 220px 100px 100px 280px 100px 90px 90px; background: #0C2236; color: #FFFFFF; font-weight: 700; font-size: 13px">
+            <div style="padding: 12px 10px">Brand</div><div style="padding: 12px 10px">Model</div><div style="padding: 12px 10px">RRP</div><div style="padding: 12px 10px">Warranty</div><div style="padding: 12px 10px">Power</div><div style="padding: 12px 10px">Basket</div><div style="padding: 12px 10px">App</div><div style="padding: 12px 10px">Weight</div>
+          </div>
+          <sc-for list="{{skims}}" as="k" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 140px 220px 100px 100px 280px 100px 90px 90px; border-top: 1px solid #E1E8EE">
+              <div style="padding: 10px; font-weight: 600">{{k.b}}</div>
+              <div style="padding: 10px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap"><span style="font-weight: 700">{{k.name}}</span>
+                <sc-if value="{{k.isNew}}" hint-placeholder-val="{{ false }}"><span style="background: #F2A93B; color: #0C2236; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 700">NEW</span></sc-if>              </div>
+              <sc-for list="{{k.cells}}" as="c" hint-placeholder-count="6">
+                <div style="padding: 10px"><span style="color: {{c.fg}}; background: {{c.bg}}; border-radius: 4px; padding: 1px 4px; font-weight: {{c.fw}}">{{c.v}}</span></div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <p style="margin: 0; font-size: 13px; color: #4A5D6E; line-height: 1.5">RRP and warranty: Swimart FY27 Robot Ready Reckoner. Specifications and images: supplier brochures. Any [Confirm] cell is awaiting supplier information.</p>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
+function money(p) { return '$' + p.toLocaleString('en-AU'); }
+const IMG_EXT = {"20fe38f90deec81644e080739213ea61": ".jpg", "65b83d4c7b0c1f35bee17ec114ef985c": ".jpg", "7a3c631b4325088389192ef24f05881d": ".png", "3b09c7c995344ccab1e1c52b1f6d99e2": ".png", "59d60744ea1d0334c6ef4a2dd798fe61": ".jpg", "4951753b7383f811df493697603733b2": ".png", "6572d727d84e03d34c0e7d77b5469c71": ".png", "d271b800558d604df8a890d48e918bab": ".png", "35ff23357dc42ee6306f0113e6a99bdc": ".png", "83b473e348d2b714e8c05ca0506d3d39": ".png", "01980d75074981b5910da8d95094b65c": ".jpg", "3304576fd42f743d748327151e49341c": ".png", "7a33f26556e590ae0c965221fb19e2b8": ".png", "34a2119df028c5756f77ade032076cb6": ".png", "568c0d95c4f9a26b5375c259a18dc8ac": ".png", "e1669994fb20f39279d6bac5d3fd212e": ".png", "b6a9a2b5ef49e19123cf3c5770221231": ".jpg", "c5e020dc92f8ad4590158008320de277": ".jpg", "7b1e2781bc54d8d15cbb3727d45271ca": ".png", "b5d12b36915ad1b9d671fc1fe95aaffa": ".png", "c317b350bd92ae10f45f169e44ecb263": ".png", "5da4fe3edf24c979d642adefa23a7e52": ".png", "e507fb6c4a0b66e5eafe81fb271eb07d": ".jpg", "4e6e97ecc110d1d3136320606801be17": ".jpg", "c7c77f88c8d1ce92da4516bbc486f3d3": ".png", "740b39384df94d4e9d158710b76560da": ".png", "db0abce16f5c678d610b8af514024f73": ".png", "30f76730ef4112e9d1692ab304e7d3de": ".png", "d08e1d308c76adf820ed223165c3737b": ".png", "572a68051db0369c4865c9e01ca6cbc6": ".png", "62e9981b89f86926f13fa4be7827c8cc": ".png", "65f7f24e2152e7d9d31589abe931dbe1": ".png"};
+const IMG = id => 'images/' + id + (IMG_EXT[id] || '.png');
+const MODELS = [
+  {brand: 'Maytronics', name: 'Dolphin Premium 1000', img: IMG('3304576fd42f743d748327151e49341c'), power: 'corded', price: 1699, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 10, basket: 5.5, weight: 8, caddy: 'opt', cable: '12 m', cycle: '2.5 hr', floorMode: 'No (full coverage only)', app: 'no', timer: 'no', brushes: 'Front active + rear combined', filter: 'Top-access fine basket, 5.5 L'},
+  {brand: 'Maytronics', name: 'Dolphin Premium 2000', timer: 'yes', power: 'corded', price: 2199, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 12, basket: 5.5, weight: 8.13, caddy: 'opt', cable: '15 m', cycle: '1 / 2 / 2.5 / 3 hr', brushes: 'Front active + rear combined', filter: '5.5 L top-load, fine & ultra-fine panels', floorMode: 'yes', app: 'yes', img: IMG('6572d727d84e03d34c0e7d77b5469c71')},
+  {brand: 'Maytronics', name: 'Dolphin Premium 3000', power: 'corded', price: 2699, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 15, weight: 8.39, basket: 5, caddy: 'Yes + cover', cable: '17 m', cycle: '1 hr quick / 2 hr', brushes: '2 (1 active)', filter: '5 L multi-layer: coarse + fine, ultra-fine panels', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('65f7f24e2152e7d9d31589abe931dbe1')},
+  {brand: 'Maytronics', name: 'Dolphin Ultimate', power: 'corded', price: 3699, wtyL: '3 yr', wall: 1, water: 1, types: ['in'], maxLen: 15, weight: 11.5, basket: 4, caddy: 'yes', cable: '18 m swivel', cycle: '1 / 1.5 / 2 / 2.5 hr', brushes: 'Dual active', filter: 'Multi-layer 4 L, fine & ultra-fine', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('62e9981b89f86926f13fa4be7827c8cc')},
+  {brand: 'Maytronics', name: 'Dolphin NIYA35', power: 'cordless', price: 1199, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], maxLen: 10, weight: 8.7, basket: 1.6, caddy: 'Optional', dock: 'no', app: 'No (Bluetooth updates only)', timer: 'Eco Mode', battery: '2.5 hr run / 3.5 hr plug-in charge', cycle: 'Up to 2.5 hr', brushes: 'Front & rear active', filter: '150 µm top-load, 1.6 L', floorMode: 'yes', img: IMG('5da4fe3edf24c979d642adefa23a7e52')},
+  {brand: 'Maytronics', name: 'Dolphin EON 100', dock: 'no', img: IMG('7a33f26556e590ae0c965221fb19e2b8'), power: 'cordless', price: 1899, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 15, basket: 5, weight: 10, caddy: 'opt', battery: 'Up to 2.5 hr; UltraRun up to 1 week', cycle: '1.5 / 2 / 2.5 hr', brushes: '4 (2 active)', filter: 'Monoblock filter, 5 L', floorMode: 'yes', timer: 'yes', app: 'yes'},
+  {brand: 'Maytronics', name: 'Dolphin EON 120', power: 'cordless', price: 2299, wtyL: '3 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 15, weight: 11, basket: 5, caddy: 'Optional', dock: 'no', battery: '4.5 hr; UltraRun up to 2.5 weeks; 3–3.5 hr charge', cycle: '1.5 / 2 / 2.5 hr', brushes: 'Dual active', filter: 'DebrisLock, 5 L, ultra-fine', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('b6a9a2b5ef49e19123cf3c5770221231')},
+  {brand: 'Maytronics', name: 'Dolphin Liberty 600', power: 'cordless', price: 3299, wtyL: '3 yr', wall: 1, water: 1, types: ['in'], maxLen: 15, basket: 5.5, weight: 12, caddy: 'no', dock: 'no', battery: 'Up to 4.5 hr run', cycle: '3 hr', brushes: 'Multiple active', filter: 'XL multi-layer, fine & ultra-fine', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('e1669994fb20f39279d6bac5d3fd212e')},
+  {brand: 'BWT', name: 'Sonic Pro Plus', power: 'corded', price: 1549, wtyL: '3 yr (Sept–Feb)', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 12, weight: 7.5, caddy: 'no', cable: '18 m floating', cycle: 'Auto, 30–150 min', brushes: '2 PVC', filter: 'Dual-layer 4 L', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('d271b800558d604df8a890d48e918bab')},
+  {brand: 'BWT', name: 'F1 R', power: 'corded', price: 1899, wtyL: '2 + 1 yr', wall: 1, water: 1, types: ['in'], maxLen: 12, weight: 5.75, basket: 4, caddy: 'no', floorMode: 'No (full clean only)', cable: '16 m', cycle: '1.5 / 2 / 2.5 hr', brushes: '2 PVC', filter: 'Ultrathin double, 4 L', timer: 'yes', app: 'yes', img: IMG('4951753b7383f811df493697603733b2')},
+  {brand: 'BWT', name: 'F1 RX', power: 'corded', price: 2049, wtyL: '3 + 1 yr', wall: 1, water: 1, types: ['in'], maxLen: 14, weight: 5.75, basket: 4, caddy: 'no', floorMode: 'Yes (1.5 hr or 45 min turbo)', cable: '18 m', cycle: '1.5 / 2 / 2.5 hr', brushes: '2 PVC', filter: 'Ultrathin double, 4 L', timer: 'yes', app: 'yes', img: IMG('30f76730ef4112e9d1692ab304e7d3de')},
+  {brand: 'BWT', name: 'F1 RXT', power: 'corded', price: 2800, wtyL: '4 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 18, weight: 11, caddy: 'yes', cable: '23 m anti-tangle', cycle: '1.5 / 2 / 2.5 hr', brushes: '4 PVA + vibrating', floorMode: 'Turbo, 45 min', filter: 'Dual HyperFine 4D microfibre (to 2 µm)', timer: 'yes', app: 'yes', img: IMG('c317b350bd92ae10f45f169e44ecb263')},
+  {brand: 'BWT', name: 'My Pool Quick', power: 'cordless', price: 1049, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 10, basket: 3.1, weight: 7.5, caddy: 'no', dock: 'no', battery: '3–4 hr charge, replaceable', cycle: 'Auto / 30 / 60 / 90 min', brushes: 'Rubberised PVC bristle rollers', filter: '180 µm, 3.1 L', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('740b39384df94d4e9d158710b76560da')},
+  {brand: 'BWT', name: 'F1 Sonic Pro', power: 'cordless', price: 1599, wtyL: '3 yr (Sept–Feb)', wall: 1, water: 1, types: ['in'], maxLen: 14.9, basket: 4.8, weight: 7.8, caddy: 'no', dock: 'no', battery: '4 hr run / 2.5 hr charge', cycle: '30 min – 3 hr', brushes: '2 PVC', filter: 'Double filtration, 4.8 L', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('01980d75074981b5910da8d95094b65c')},
+  {brand: 'Zodiac (Fluidra)', name: 'Duo-X 4000', power: 'corded', price: 2500, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], maxLen: 10, basket: 4, weight: 9.5, caddy: 'yes', cable: '15 m swivel', cycle: '2.5 hr', brushes: 'Front & rear', filter: 'Dual-stage 150/60 µm, 4 L', floorMode: 'yes', timer: 'no', app: 'no', img: IMG('c5e020dc92f8ad4590158008320de277')},
+  {brand: 'Zodiac (Fluidra)', name: 'Evo 5050', power: 'corded', price: 3489, wtyL: '3 yr', wall: 1, water: 1, types: ['in'], maxLen: 12, basket: 5, weight: 10, caddy: 'yes', cable: '18 m swivel', cycle: 'Multiple, adjustable', brushes: '4WD + brushes', filter: 'Dual-stage 150/60 µm, 5 L', floorMode: 'yes', timer: 'yes', app: 'yes', img: IMG('d08e1d308c76adf820ed223165c3737b')},
+  {brand: 'Zodiac (Fluidra)', name: 'Freerider FR200', img: IMG('35ff23357dc42ee6306f0113e6a99bdc'), power: 'cordless', price: 999, wtyL: '2 yr', wall: 1, water: 0, types: ['in'], maxLen: 8, basket: 2, weight: 5.8, caddy: 'no', battery: '2 hr run / 4 hr charge', cycle: '2 hr', brushes: '1 front', floorMode: 'no', timer: 'no', dock: 'no', app: 'no', filter: '150 µm, 2 L canister'},
+  {brand: 'Zodiac (Fluidra)', name: 'Freerider FR800', power: 'cordless', price: 2199, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], maxLen: 10, basket: 3, weight: 9, caddy: 'no', battery: '2 hr run / <5 hr charge', cycle: '2 hr', brushes: 'Front active', filter: 'Dual-stage 150/60 µm, 3 L', floorMode: 'yes', timer: 'no', dock: 'no', app: 'yes', img: IMG('4e6e97ecc110d1d3136320606801be17')},
+  {brand: 'Zodiac (Fluidra)', name: 'Freerider FR1000iQ', timer: 'yes', dock: 'yes', power: 'cordless', price: 2499, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], maxLen: 12, basket: 4, weight: 9, caddy: 'no', battery: '2.5 hr run / <5 hr charge', cycle: '2.5 hr', brushes: 'Front active', filter: 'Dual-stage 150/60 µm, 4 L', floorMode: 'yes', app: 'Wi-Fi (iAquaLink)', img: IMG('65b83d4c7b0c1f35bee17ec114ef985c')},
+  {brand: 'Zodiac (Fluidra)', name: 'Freerider FR2000iQ', timer: 'yes', dock: 'yes', power: 'cordless', price: 2999, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], maxLen: 12, basket: 4, weight: 9, caddy: 'yes', battery: '2.5 hr run / <5 hr charge', cycle: '2.5 hr', brushes: 'Front active', filter: 'Dual-stage 150/60 µm, 4 L', floorMode: 'yes', app: 'Wi-Fi (iAquaLink)', img: IMG('65b83d4c7b0c1f35bee17ec114ef985c')},
+  {brand: 'Zodiac (Fluidra)', name: 'Spa Bot', power: 'cordless', price: 549, wtyL: '2 yr', wall: 1, water: 1, types: ['spa'], basket: 1, weight: 2.5, caddy: 'no', battery: '6 Ah Li-ion, 60 min run / 4 hr charge', cycle: '60 min', brushes: 'Active brush', filter: '100 µm, 1 L', floorMode: 'n/a', timer: 'no', dock: 'no', app: 'no', img: IMG('3b09c7c995344ccab1e1c52b1f6d99e2')},
+  {brand: 'Beatbot', name: 'Sora 70', img: IMG('83b473e348d2b714e8c05ca0506d3d39'), power: 'cordless', price: 2299, wtyL: '3 yr replacement', wall: 1, water: 1, types: ['in', 'above'], area: '300 m²', weight: 10.4, basket: 6, brushes: 'Dual roller brush', caddy: 'no', dock: 'no', timer: 'ECO: every 2nd day', cycle: '6 modes: Pro, Standard, Eco, Floor, Surface, Wall / Shallow Beach', battery: '4.5 hr full / 5 hr floor / 7 hr surface; 4.5 hr charge', filter: '6 L, 150 µm + optional 3 µm', floorMode: 'yes', app: 'yes', waterNote: 'Yes, plus surface'},
+  {brand: 'Aiper', name: 'Scuba SE', power: 'cordless', price: 239, wtyL: '1 yr', wall: 0, water: 0, types: ['above'], maxLen: 9, basket: 2, weight: 3.4, caddy: 'no', battery: '90 min run / 3 hr charge', cycle: '90 min', brushes: '2 bottom', filter: '180 µm, 2 L', floorMode: 'Floor-only robot', timer: 'no', dock: 'no', app: 'no', img: IMG('572a68051db0369c4865c9e01ca6cbc6')},
+  {brand: 'Aiper', name: 'Scuba SL', power: 'cordless', price: 799, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], maxLen: 15, weight: 6.7, basket: 3.5, caddy: 'no', dock: 'no', cycle: 'Smart, floor, wall or periodic', brushes: 'Active PVC roller', floorMode: 'Yes (slopes to 45°)', battery: '150 min run / 3 hr charge', filter: '190 µm, 3.5 L (3 µm optional)', timer: 'yes', app: 'no', img: IMG('db0abce16f5c678d610b8af514024f73')},
+  {brand: 'Aiper', name: 'Scuba S3', power: 'cordless', price: 1299, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 15, weight: 8.15, basket: 3.5, caddy: 'no', dock: 'no', timer: 'yes', floorMode: 'yes', cycle: 'Standard 180 min / ECO 240 min', battery: 'Up to 180 min (240 ECO) / 4–5 hr charge', brushes: '2 rotating', filter: 'MicroMesh dual-layer 3.5 L (to 3 µm)', app: 'yes', img: IMG('59d60744ea1d0334c6ef4a2dd798fe61'), waterNote: 'Yes, horizontal'},
+  {brand: 'Aiper', name: 'Scuba V3', img: IMG('34a2119df028c5756f77ade032076cb6'), power: 'cordless', price: 1699, wtyL: '2 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 15, basket: 3.5, weight: 8.2, caddy: 'no', floorMode: 'yes', timer: 'yes', cycle: '8 modes incl. auto, floor, wall, waterline, Eco, AI Patrol, AI Navium', battery: 'Up to 180 min (210 Eco) / 5 hr wireless charge', brushes: '2 active', filter: '3.5 L, 180 µm + 3 µm', dock: 'yes', app: 'yes', waterNote: 'Yes, horizontal'},
+  {brand: 'Aiper', name: 'Scuba X1 Pro Max', power: 'cordless', price: 2699, wtyL: '3 yr', wall: 1, water: 1, types: ['in'], isNew: 1, maxLen: 30, basket: 5, weight: 15, caddy: 'opt', battery: '5 hr floor / 10 hr surface', cycle: 'Up to 5 hr', brushes: '2 front & rear', filter: 'Fine + 3 µm MicroMesh', floorMode: 'yes', timer: 'yes', dock: 'yes', app: 'yes', waterNote: 'Yes, plus skimming', img: IMG('20fe38f90deec81644e080739213ea61')}
+];
+const SKIMMERS = [
+  {b: 'Maytronics', name: 'Dolphin Skimmi 200', price: 849, wty: '2 yr', isNew: 1, power: 'Solar + optional charger', basket: 'Fine filter tray', app: 'Yes', weight: '4 kg'},
+  {b: 'Maytronics', name: 'Dolphin Skimmi 300', price: 949, wty: '3 yr', isNew: 1, power: 'Solar + optional charger · edge cleaning', basket: 'Fine filter tray', app: 'Yes', weight: '4 kg'},
+  {b: 'BWT', name: 'BewaSkim', price: 849, wty: '3 yr', isNew: 1, power: 'Solar + DC · up to 44 hr per charge', basket: '6 L, 150 µm', app: 'Yes', weight: '5.3 kg'},
+  {b: 'Beatbot', name: 'iSkim', price: 699, wty: '3 yr', power: 'Solar · 28+ hr on battery · no charger included', basket: '29 x 270 mm wide inlet', app: 'Yes', weight: '6.6 kg'},
+  {b: 'Aiper', name: 'Skimmer S2', price: 699, wty: '2 yr', power: 'Solar 24/7 · 35 hr on DC charge', basket: '150 µm + chlorine dispenser', app: 'Yes', weight: '5.7 kg'}
+];
+/* Extra selection data from supplier brochures and Swimart-confirmed answers.
+   maxW = rated pool width (m), areaM2 = rated area, cableM = cable length (m), ledgeCm = shallowest ledge it is rated to clean,
+   steps = step cleaning advertised, surf = manufacturer surface statement key, surfX = finishes the maker excludes,
+   conn = app connectivity, multi = multi-layer or interchangeable filtration, steer = manual steering / spot clean,
+   minD/maxD = stated water depth range (m), temp = stated water temperature range (°C). Missing = not stated → confirm. */
+const PATCH = {
+  'Dolphin Premium 1000': {cableM: 12, ledgeCm: 30, steps: 1, surf: 'may', conn: 'None: on/off button'},
+  'Dolphin Premium 2000': {cableM: 15, ledgeCm: 30, steps: 1, surf: 'may', conn: 'MyDolphin Plus app (IoT power supply)', multi: 1},
+  'Dolphin Premium 3000': {cableM: 17, ledgeCm: 25, steps: 1, surf: 'may', conn: 'Wi-Fi app', multi: 1, steer: 1},
+  'Dolphin Ultimate': {surf: 'may', conn: 'Wi-Fi app', multi: 1, cableM: 18},
+  'Sonic Pro Plus': {cableM: 18, maxW: 5, conn: 'BWT Robotics app (Wi-Fi)', multi: 1, steer: 1, surf: 'bwtSonic'},
+  'F1 R': {cableM: 16, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1},
+  'F1 RX': {cableM: 18, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1, steer: 1},
+  'F1 RXT': {cableM: 23, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1},
+  'Duo-X 4000': {cableM: 15, maxW: 5, surf: 'zod', conn: 'None', multi: 1},
+  'Evo 5050': {cableM: 18, maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink)', multi: 1, steer: 1},
+  'Dolphin NIYA35': {surf: 'may', conn: 'None'},
+  'Dolphin EON 100': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app'},
+  'Dolphin EON 120': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
+  'Dolphin Liberty 600': {ledgeCm: 30, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
+  'My Pool Quick': {surf: 'all', conn: 'BWT Robotics app'},
+  'F1 Sonic Pro': {conn: 'BWT Robotics app (Wi-Fi + Bluetooth)', multi: 1, surf: 'bwtSonic'},
+  'Freerider FR200': {maxW: 4, surf: 'zod', conn: 'None'},
+  'Freerider FR800': {maxW: 5, surf: 'zod', conn: 'iAquaLink app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, wifiNeeded: 1},
+  'Freerider FR1000iQ': {maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink)', multi: 1},
+  'Freerider FR2000iQ': {maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink) + underwater remote', multi: 1, steer: 1},
+  'Spa Bot': {spaMax: 3, conn: 'None'},
+  'Sora 70': {areaM2: 300, ledgeCm: 20, steps: 1, minD: 0.2, maxD: 3.5, temp: [6, 35], conn: 'Wi-Fi + Bluetooth app', multi: 1, surf: 'beatbot'},
+  'Scuba SE': {areaM2: 80, minD: 0.5, maxD: 3, temp: [10, 35], surfX: ['glass', 'ceramic'], surf: 'se', conn: 'None'},
+  'Scuba SL': {areaM2: 150, surf: 'aiperSL', conn: 'None', multi: 1},
+  'Scuba S3': {areaM2: 150, conn: 'Aiper app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, surf: 'aiperS3', wifiNeeded: 1},
+  'Scuba V3': {conn: 'Aiper app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, surf: 'aiperV', areaM2: 150, wifiNeeded: 1},
+  'Scuba X1 Pro Max': {areaM2: 300, steps: 1, conn: 'Aiper app (Bluetooth pairing, 2.4 GHz Wi-Fi)', multi: 1, surf: 'aiperV', wifiNeeded: 1, ledgeCm: 30, minD: 0.3}
+};
+MODELS.forEach(function (m) { Object.assign(m, PATCH[m.name] || {}); });
+
+/* Drive and grip on slippery finishes (Swimart-confirmed, Oct 2026). gripLvl: 3 = high-friction brush, blade or upgrade for slick walls (fit = action to take),
+   2 = tracks with sensor torque control, 1 = not stated (confirm), 0 = no wall traction on slick surfaces. */
+const GRIP = {
+  'Dolphin Premium 1000': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin Premium 2000': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin Premium 3000': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin Ultimate': {drive: 'Ribbed rubber tracks', grip: 'W', gripLvl: 3, fit: 'Fit the Wonder Brush (PVA)'},
+  'Dolphin NIYA35': {drive: 'Not track-driven: jet-assisted / modified wheel layout', grip: 'No Maytronics PVA option: standard Wonder Brushes don’t fit', gripLvl: 1},
+  'Dolphin EON 100': {drive: 'Compact cordless chassis, JetIQ water-jet propulsion', grip: 'JetIQ jets press it to the wall; no Maytronics PVA option', gripLvl: 2, fit: 'Ask Maytronics about approved flotation foam blocks'},
+  'Dolphin EON 120': {drive: 'Dual-motor continuous tracks + JetIQ water-jet downforce', brushes: 'Dual active, standard PVC rollers', grip: 'Upgrade to Wonder Brush (PVA sponge) inserts for fully tiled or glass pools', gripLvl: 3, fit: 'Replace the PVC rollers with Wonder Brush (PVA) inserts'},
+  'Dolphin Liberty 600': {drive: 'Continuous rubber caterpillar tracks', brushes: 'Multiple active, standard PVC rollers', grip: 'Upgrade to Wonder Brush (PVA sponge) inserts for fully tiled or glass pools', gripLvl: 3, fit: 'Replace the PVC rollers with Wonder Brush (PVA) inserts'},
+  'Sonic Pro Plus': {drive: 'Continuous tracks, twin traction motors', brushes: 'Dual active PVC rollers', grip: 'Ultrasonic sensors and gyro adjust drive torque on smooth walls', gripLvl: 2},
+  'F1 Sonic Pro': {drive: 'Continuous tracks, twin traction motors', brushes: 'Dual active PVC rollers', grip: 'Ultrasonic sensors and gyro adjust drive torque on smooth walls', gripLvl: 2},
+  'F1 R': {drive: 'Planetary-gear drive', grip: 'BWT: effective on all surfaces (PVC brushes)', gripLvl: 2},
+  'F1 RX': {drive: 'Planetary-gear drive', grip: 'BWT: grips steep slopes on any finish (PVC brushes)', gripLvl: 2},
+  'F1 RXT': {drive: '4 PVA brushes + vibrating brushes', grip: 'PVA brushes for grip on smooth surfaces', gripLvl: 3},
+  'Evo 5050': {drive: '4-wheel drive, notched rubber tyres', brushes: 'Front & rear active PVC blades', grip: 'Zodiac PVA wheel tyres available for fully tiled pools', gripLvl: 3, fit: 'Fit Zodiac PVA wheel tyres'},
+  'My Pool Quick': {drive: 'Rubber-tyred wheels, 3 brushless motors', brushes: 'PVC bristle rollers', grip: 'Ultrasonic sensor and gyro adjust torque; 15,000 L/h pump jet holds it on glass and tile walls', gripLvl: 2},
+  'Sora 70': {drive: '37 mm TPU tracks, lateral guide wheels', brushes: 'Dual-group PVC bristle rollers', grip: 'HydroBalance downforce and SonicSense torque control; PVA sponge rollers available', gripLvl: 3, fit: 'Offer Beatbot PVA sponge rollers'},
+  'Scuba SE': {drive: '4-wheel drive, hard plastic wheels', brushes: 'PVC scrubbing strips (underbelly)', grip: 'Floor only: fine on flat tiled, vinyl or fibreglass floors', gripLvl: 0},
+  'Scuba SL': {drive: 'Dual caterpillar tracks', brushes: '1 active PVC roller', grip: 'Gyro and Hall sensors adjust thrust; PVC can slide on glazed tile with micro-algae', gripLvl: 2},
+  'Scuba S3': {drive: 'Rubber caterpillar tracks', brushes: 'Dual active PVC rollers', grip: 'ToF sensors adjust torque on slick walls; no PVA brush option', gripLvl: 2},
+  'Scuba X1 Pro Max': {drive: 'Continuous rubber tracks, 9 brushless motors', brushes: 'Dual counter-rotating silicone blade rollers', grip: 'Silicone blades grip glass mosaic, ceramic and smooth fibreglass walls', gripLvl: 3},
+  'Spa Bot': {drive: 'Wheels with high-friction rubber tyres', brushes: 'PVC rollers + side bristles', grip: 'SpaNav jets press it onto seats; grips acrylic, fibreglass and tiled spas', gripLvl: 3},
+  'Duo-X 4000': {drive: 'Dual ribbed rubber tracks', brushes: 'Front Helix active PVC brush', grip: 'Zodiac PVA scrubber brush upgrade for glazed or glass tile', gripLvl: 3, fit: 'Swap the Helix brush for the Zodiac PVA scrubber brush'},
+  'Freerider FR200': {drive: 'Dual ribbed rubber tracks, 2 traction motors', brushes: '1 front active PVC blade', grip: 'Zodiac PVA scrubber brush upgrade (R0764900) for glazed or glass tile', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0764900)', weight: 6, park: 1, cycle: '2 hr floor & wall'},
+  'Freerider FR800': {drive: 'Dual rubber tracks', brushes: 'Front active PVC scrubber roller', grip: 'Zodiac PVA scrubber brush upgrade (R0774900) for fully tiled or glass pools', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0774900)'},
+  'Freerider FR1000iQ': {drive: 'Dual rubber tracks', brushes: 'Front active PVC scrubber roller', grip: 'Zodiac PVA scrubber brush upgrade (R0774900) for fully tiled or glass pools', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0774900)'},
+  'Freerider FR2000iQ': {drive: 'Dual rubber tracks', brushes: 'Front active PVC scrubber roller', grip: 'Zodiac PVA scrubber brush upgrade (R0774900) for fully tiled or glass pools', gripLvl: 3, fit: 'Fit the Zodiac PVA scrubber brush (R0774900)'},
+  'Scuba V3': {drive: 'Caterpillar treads + JetAssist downforce jets', brushes: 'Dual active PVC rollers', grip: 'JetAssist downforce, foam buoyancy inserts and camera / dToF approach for slick walls', gripLvl: 3, fit: 'Fit the supplied foam inserts'}
+};
+Object.keys(GRIP).forEach(function (k) { if (GRIP[k].grip === 'W') GRIP[k].grip = 'Wonder Brush (PVA sponge) option, recommended for fully tiled, glass or ultra-smooth fibreglass'; });
+MODELS.forEach(function (m) { Object.assign(m, GRIP[m.name] || {}); });
+const FIN = {pebble: 'pebble / quartzon', plaster: 'plaster / render', painted: 'painted', ceramic: 'ceramic tile', glass: 'glass mosaic', fibre: 'fibreglass gelcoat', vinyl: 'vinyl liner'};
+const SURF = {
+  zod: {ok: ['pebble', 'plaster', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, pebble, quartzon, fibreglass, vinyl, tiles', vinylNote: 'Zodiac warns of possible pattern abrasion or marks on vinyl liners: inspect the liner and brushes first'},
+  all: {ok: ['pebble', 'plaster', 'painted', 'ceramic', 'glass', 'fibre', 'vinyl'], short: 'All surfaces (maker’s statement)'},
+  aiperSL: {ok: ['plaster', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, fibreglass, vinyl, tiles'},
+  se: {ok: ['vinyl'], short: 'Flat floors; not mosaic tiles or glass'},
+  bwtSonic: {ok: ['plaster', 'pebble', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, plaster, pebble, fibreglass, vinyl, ceramic & glass tile'},
+  beatbot: {ok: ['plaster', 'ceramic', 'glass', 'fibre', 'vinyl'], short: 'Concrete, ceramic / porcelain / glass tile, fibreglass, vinyl, polyethylene'},
+  aiperS3: {ok: ['plaster', 'pebble', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, pebble, quartzon, glass bead, fibreglass, vinyl, tile'},
+  aiperV: {ok: ['plaster', 'vinyl', 'fibre', 'ceramic', 'glass'], short: 'Concrete, vinyl, fibreglass, mosaic tile'},
+  may: {ok: [], short: 'Most surfaces; Wonder Brush for smooth ceramic'}
+};
+function surfCheck(m, fins) {
+  const res = {no: [], ok: [], confirm: []};
+  fins.forEach(function (f) {
+    if (!f) return;
+    if (m.surfX && m.surfX.includes(f)) res.no.push(f);
+    else if (m.surf && SURF[m.surf].ok.includes(f)) res.ok.push(f);
+    else res.confirm.push(f);
+  });
+  return res;
+}
+function ratedArea(m) { return m.areaM2 || (m.maxW && m.maxLen ? m.maxLen * m.maxW : 0); }
+function ratingText(m) {
+  if (m.types.includes('spa')) return 'Spas up to ' + m.spaMax + ' × ' + m.spaMax + ' m';
+  if (m.areaM2) return 'Up to ' + m.areaM2 + ' m²' + (m.maxLen && m.maxLen < 30 ? ' (' + m.maxLen + ' m long)' : '');
+  if (m.maxW) return m.maxLen + ' × ' + m.maxW + ' m (' + (m.maxLen * m.maxW) + ' m²)';
+  if (m.maxLen) return 'Up to ' + m.maxLen + ' m long';
+  return '';
+}
+function fmt(v) { return (Math.round(v * 10) / 10).toString(); }
+
+const HEADS = ['Model', 'RRP', 'Type', 'Pool type', 'Cable / battery', 'Rated pool size', 'Steps & ledges', 'Surfaces (maker)', 'Floor-only mode', 'Wall climbing', 'Waterline', 'Brushes', 'Drive & grip', 'Cleaning cycle', 'Weekly timer', 'Storage caddy', 'Charging dock', 'Filtration', 'App / connectivity', 'Weight', 'Warranty'];
+const COLS = '260px 90px 90px 110px 200px 150px 150px 190px 120px 90px 120px 130px 200px 120px 90px 90px 90px 180px 90px 80px 110px';
+const BRANDS = ['Maytronics', 'BWT', 'Zodiac (Fluidra)', 'Beatbot', 'Aiper'];
+
+function cell(v, strong) {
+  if (v === '' || v === undefined || v === null) return {v: '[Confirm]', fg: '#8A5A00', bg: '#FFF1D6', fw: 700};
+  return {v: v, fg: '#0C2236', bg: 'transparent', fw: strong ? 700 : 400};
+}
+function yn(v) { return v === 'yes' ? 'Yes' : (v === 'no' ? 'No' : (v === 'opt' ? 'Optional' : (v || ''))); }
+function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+function cells(m) {
+  return [
+    cell(money(m.price), true),
+    cell(m.power === 'corded' ? 'Corded' : 'Cordless'),
+    cell(m.types.includes('spa') ? 'Spa' : (m.types.includes('above') ? (m.types.includes('in') ? 'In-ground & above-ground' : 'Above-ground') : 'In-ground'), m.types.includes('spa')),
+    cell(m.power === 'corded' ? (m.cable ? m.cable + ' cable' : '') : (m.battery || '')),
+    cell(ratingText(m)),
+    cell(m.types.includes('spa') ? 'Spa seats' : (m.ledgeCm ? 'Steps; ledges from ' + m.ledgeCm + ' cm' : (m.steps ? 'Steps; ledge depth to confirm' : 'Not advertised'))),
+    cell(m.types.includes('spa') ? 'Spa interiors' : (m.surf ? SURF[m.surf].short : '')),
+    cell(cap(yn(m.floorMode))),
+    cell(m.wall ? 'Yes' : 'No'),
+    cell(m.water === 1 ? (m.waterNote || 'Yes') : (m.water === 0 ? 'No' : '')),
+    cell(m.brushes ? cap(m.brushes) : ''),
+    cell([m.drive, m.grip].filter(Boolean).join(' · ')),
+    cell(m.cycle || ''),
+    cell(yn(m.timer)),
+    cell(yn(m.caddy)),
+    cell(m.power === 'corded' ? 'n/a' : yn(m.dock)),
+    cell(m.filter || (m.basket ? m.basket + ' L' : '')),
+    cell(m.conn || yn(m.app)),
+    cell(m.weight ? m.weight + ' kg' : ''),
+    cell(m.wtyL, true)
+  ];
+}
+
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = {f: 'all'}; }
+  renderVals() {
+    const f = this.state.f;
+    const list = MODELS.filter(m => f === 'all' || m.power === f);
+    const groups = BRANDS.map(b => ({
+      brand: b,
+      rows: list.filter(m => m.brand === b).sort((x, y) => (x.power === y.power ? x.price - y.price : (x.power === 'corded' ? -1 : 1)))
+        .map(m => ({name: m.name, isNew: !!m.isNew, img: m.img || '', hasImg: !!m.img, cells: cells(m)}))
+    })).filter(g => g.rows.length);
+    const tabs = [['all', 'All ' + MODELS.length + ' robots'], ['corded', 'Corded'], ['cordless', 'Cordless']].map(t => {
+      const on = f === t[0];
+      return {t: t[1], pressed: on ? 'true' : 'false', bg: on ? '#0075BB' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0C2236', border: on ? '#0075BB' : '#C5D2DC', pick: () => this.setState({f: t[0]})};
+    });
+    return {
+      cols: COLS,
+      heads: HEADS.map((h, i) => ({t: h, pos: i === 0 ? 'sticky' : 'static'})),
+      groups: groups,
+      tabs: tabs,
+      skims: SKIMMERS.map(k => ({b: k.b, name: k.name, isNew: !!k.isNew,
+        cells: [cell(money(k.price), true), cell(k.wty, true), cell(k.power || ''), cell(k.basket || ''), cell(k.app || ''), cell(k.weight || '')]}))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Robotic Cleaner Selector</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&amp;family=Barlow+Condensed:wght@600;700&amp;display=swap">
+<style>
+  :root { --blue: #0075BB; --navy: #0C2236; --ink: #22384C; --muted: #4A5D6E; --bg: #EEF3F6; --line: #D5DEE5; --amber: #F2A93B; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--navy); font-family: 'Barlow', system-ui, sans-serif; }
+  header { background: var(--blue); color: #FFFFFF; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+  .head { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; padding: 28px 0 32px; }
+  .head img { width: 200px; height: auto; display: block; }
+  .rule { width: 1px; align-self: stretch; background: rgba(255,255,255,0.35); }
+  .eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; }
+  h1 { margin: 4px 0 6px; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; line-height: 1; }
+  .lead { margin: 0; font-size: 17px; }
+  main { padding: 32px 0 48px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  a.card { display: flex; flex-direction: column; gap: 10px; background: #FFFFFF; border: 2px solid var(--line); border-radius: 16px; padding: 22px; color: inherit; text-decoration: none; }
+  a.card:hover, a.card:focus-visible { border-color: var(--blue); outline: none; }
+  .tag { align-self: flex-start; background: #EAF4FB; color: #005A90; border-radius: 999px; padding: 4px 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .card h2 { margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 30px; line-height: 1.05; }
+  .card p { margin: 0; color: var(--ink); font-size: 16px; line-height: 1.45; }
+  .go { margin-top: auto; color: var(--blue); font-weight: 700; font-size: 16px; }
+  .note { margin-top: 24px; background: #FFF6E6; border: 1px solid var(--amber); border-radius: 12px; padding: 14px 16px; font-size: 15px; line-height: 1.45; }
+  footer { color: var(--muted); font-size: 13px; padding-bottom: 32px; }
+  @media (max-width: 600px) { .rule { display: none; } h1 { font-size: 36px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <img src="images/568c0d95c4f9a26b5375c259a18dc8ac.png" alt="Swimart — Pool care made easy!">
+    <div class="rule"></div>
+    <div>
+      <div class="eyebrow">AU &amp; NZ · FY27 core range</div>
+      <h1>Robotic Cleaner Selector</h1>
+      <p class="lead">Which cleaner best suits this pool and this owner?</p>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="cards">
+    <a class="card" href="counter.html">
+      <span class="tag">Store counter</span>
+      <h2>Counter selector</h2>
+      <p>Desktop version for counter staff. Choose Quick Match for a standard pool or Full Assessment for a difficult one.</p>
+      <span class="go">Open counter selector →</span>
+    </a>
+    <a class="card" href="technician.html">
+      <span class="tag">On site</span>
+      <h2>Technician app</h2>
+      <p>Step-by-step phone version for technicians at the pool, with the trial checklist and "check before condemning" steps.</p>
+      <span class="go">Open technician app →</span>
+    </a>
+    <a class="card" href="range.html">
+      <span class="tag">Reference</span>
+      <h2>FY27 range chart</h2>
+      <p>Side-by-side specifications for every approved robot and floating skimmer.</p>
+      <span class="go">Open range chart →</span>
+    </a>
+  </div>
+  <div class="note"><strong>Draft for internal review.</strong> Swimart FY27 approved range, AU &amp; NZ. Please don’t share outside the review group until the selector is approved.</div>
+</main>
+<footer class="wrap">RRP and warranty: Swimart FY27 Robot Ready Reckoner. Specifications: supplier brochures and supplier-confirmed information, October 2026.</footer>
+</body>
+</html>
