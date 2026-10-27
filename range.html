@@ -93,11 +93,28 @@
 <style>
 body{margin:0}
 a{color:#0075BB}a:hover{color:#005A90}
-button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
+button:focus-visible,select:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
+.print-sheet{display:none}
+.pt{display:table;width:100%;border-collapse:collapse}
+.pth{display:table-header-group}
+.ptr{display:table-row;break-inside:avoid;page-break-inside:avoid}
+.ptc{display:table-cell;border:1px solid #C5D2DC;padding:3px 5px;vertical-align:middle}
+.pth .ptc{background:#0C2236;color:#FFFFFF;font-weight:700}
+.ptr.first .ptc{border-top:2px solid #0C2236}
+.ps-a4{font-size:7pt}.ps-a3{font-size:9.5pt}
+.ps-a4 .pimg{width:30px;height:22px}.ps-a3 .pimg{width:44px;height:32px}
+@media print{
+  .screen-only{display:none !important}
+  .print-sheet{display:block}
+  .range-root{background:#FFFFFF !important;min-height:0 !important}
+  body{background:#FFFFFF !important}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .ppart{break-before:page;page-break-before:always}
+}
 </style>
 </helmet>
-<div style="min-height: 100vh; background: #EEF3F6; color: #0C2236; font-family: 'Barlow', system-ui, sans-serif">
-  <header style="background: #0075BB; color: #FFFFFF">
+<div class="range-root" style="min-height: 100vh; background: #EEF3F6; color: #0C2236; font-family: 'Barlow', system-ui, sans-serif">
+  <header class="screen-only" style="background: #0075BB; color: #FFFFFF">
     <div style="max-width: 1360px; margin: 0 auto; padding: 24px 32px 28px; box-sizing: border-box; display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
       <img src="data:image/webp;base64,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" alt="Swimart — Pool care made easy!" style="width: 220px; height: auto; display: block">
       <div style="width: 1px; align-self: stretch; background: rgba(255,255,255,0.35)"></div>
@@ -109,12 +126,21 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
     </div>
   </header>
 
-  <main style="max-width: 1360px; margin: 0 auto; padding: 24px 32px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+  <main class="screen-only" style="max-width: 1360px; margin: 0 auto; padding: 24px 32px 56px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
     <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px">
       <div role="group" aria-label="Filter by type" style="display: flex; flex-wrap: wrap; gap: 8px">
         <sc-for list="{{tabs}}" as="tb" hint-placeholder-count="3">
           <button type="button" onClick="{{tb.pick}}" aria-pressed="{{tb.pressed}}" style="height: 44px; padding: 0 18px; border-radius: 999px; border: 2px solid {{tb.border}}; background: {{tb.bg}}; color: {{tb.fg}}; font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer">{{tb.t}}</button>
         </sc-for>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: #22384C">Paper
+          <select value="{{paper}}" onChange="{{setPaper}}" style="height: 44px; padding: 0 10px; border: 1px solid #A9B9C6; border-radius: 10px; background: #FFFFFF; color: #0C2236; font-family: 'Barlow', sans-serif; font-size: 15px">
+            <option value="A4">A4 landscape</option>
+            <option value="A3">A3 landscape</option>
+          </select>
+        </label>
+        <button type="button" onClick="{{doPrint}}" style="height: 44px; padding: 0 20px; border-radius: 10px; border: none; background: #0C2236; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; display: flex; align-items: center; gap: 8px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6"></path><rect x="3" y="9" width="18" height="9" rx="2"></rect><path d="M6 14h12v7H6z"></path></svg>PRINT</button>
       </div>
       <div style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; color: #33475A">
         <span style="display: flex; align-items: center; gap: 6px"><span style="background: #F2A93B; color: #0C2236; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 700">NEW</span>New to range</span>
@@ -179,6 +205,54 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
 
     <p style="margin: 0; font-size: 13px; color: #4A5D6E; line-height: 1.5">RRP and warranty: Swimart FY27 Robot Ready Reckoner. Specifications and images: supplier brochures. Any [Confirm] cell is awaiting supplier information.</p>
   </main>
+
+  <section class="print-sheet {{paperClass}}" aria-hidden="true" style="color: #0C2236; font-family: 'Barlow', system-ui, sans-serif">
+    <sc-for list="{{parts}}" as="pp" hint-placeholder-count="2">
+      <div class="{{pp.cls}}">
+        <div style="background: #0075BB; color: #FFFFFF; padding: 6px 10px; display: flex; align-items: center; gap: 14px; margin-bottom: 6px">
+          <img src="data:image/webp;base64,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" alt="Swimart" style="height: 30px; width: auto; display: block">
+          <div style="display: flex; flex-direction: column">
+            <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 1.9em; font-weight: 700; line-height: 1">Robotic Cleaner Range Chart · {{pp.title}}</span>
+            <span style="font-size: 1em">FY27 core range · AU &amp; NZ · {{printScope}} · printed {{printDate}} · page {{pp.pageNo}} of {{pageCount}}</span>
+          </div>
+        </div>
+        <div class="pt">
+          <div class="pth"><div class="ptr">
+            <sc-for list="{{pp.heads}}" as="h" hint-placeholder-count="10"><div class="ptc">{{h}}</div></sc-for>
+          </div></div>
+          <sc-for list="{{pp.rows}}" as="r" hint-placeholder-count="20">
+            <div class="ptr {{r.first}}">
+              <div class="ptc" style="width: 15%">
+                <div style="display: flex; align-items: center; gap: 5px">
+                  <sc-if value="{{r.hasImg}}" hint-placeholder-val="{{ false }}"><img class="pimg" src="{{r.img}}" alt="" style="flex: none; object-fit: contain"></sc-if>
+                  <div style="display: flex; flex-direction: column">
+                    <span style="font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.05em; color: #4A5D6E">{{r.brand}}</span>
+                    <span style="font-weight: 700">{{r.name}}{{r.newTag}}</span>
+                  </div>
+                </div>
+              </div>
+              <sc-for list="{{r.vals}}" as="v" hint-placeholder-count="9"><div class="ptc" style="color: {{v.fg}}; font-weight: {{v.fw}}">{{v.v}}</div></sc-for>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{pp.showSkims}}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.5em; font-weight: 700">Floating skimmers: add-on for very leafy pools</div>
+          <div class="pt">
+            <div class="pth"><div class="ptr">
+              <div class="ptc">Model</div><div class="ptc">RRP</div><div class="ptc">Warranty</div><div class="ptc">Power</div><div class="ptc">Filter</div><div class="ptc">App</div><div class="ptc">Weight</div>
+            </div></div>
+            <sc-for list="{{skims}}" as="k" hint-placeholder-count="5">
+              <div class="ptr">
+                <div class="ptc"><span style="font-size: 0.85em; text-transform: uppercase; color: #4A5D6E">{{k.b}}</span> <strong>{{k.name}}</strong></div>
+                <sc-for list="{{k.cells}}" as="c" hint-placeholder-count="6"><div class="ptc" style="font-weight: {{c.fw}}">{{c.v}}</div></sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <p style="margin: 6px 0 0; font-size: 0.9em; color: #4A5D6E">RRP and warranty: Swimart FY27 Robot Ready Reckoner. Specifications: supplier brochures and supplier-confirmed information. [Confirm] = not stated by the maker.</p>
+      </div>
+    </sc-for>
+  </section>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2300}}'>
@@ -362,7 +436,7 @@ function cells(m) {
 }
 
 class Component extends DCLogic {
-  constructor(props) { super(props); this.state = {f: 'all'}; }
+  constructor(props) { super(props); let pp = 'A4'; try { pp = window.localStorage.getItem('swimart-range-paper') || 'A4'; } catch (e) {} this.state = {f: 'all', paper: pp === 'A3' ? 'A3' : 'A4'}; }
   renderVals() {
     const f = this.state.f;
     const list = MODELS.filter(m => f === 'all' || m.power === f);
@@ -375,7 +449,40 @@ class Component extends DCLogic {
       const on = f === t[0];
       return {t: t[1], pressed: on ? 'true' : 'false', bg: on ? '#0075BB' : '#FFFFFF', fg: on ? '#FFFFFF' : '#0C2236', border: on ? '#0075BB' : '#C5D2DC', pick: () => this.setState({f: t[0]})};
     });
+    const paper = this.state.paper;
+    const H = HEADS.slice(1);
+    const P1 = ['RRP', 'Type', 'Pool type', 'Cable / battery', 'Rated pool size', 'Coverage', 'Steps & ledges', 'Surfaces (maker)', 'Drive & grip', 'Floor-only mode'];
+    const P2 = ['Cleaning cycle', 'Filtration', 'Brushes', 'Weekly timer', 'App / connectivity', 'Weight', 'Storage caddy', 'Charging dock', 'Warranty'];
+    const flat = [];
+    groups.forEach(g => g.rows.forEach((r, i) => flat.push(Object.assign({}, r, {brand: g.brand, first: i === 0 ? 'first' : ''}))));
+    const byHead = r => { const o = {}; H.forEach((h, i) => { o[h] = r.cells[i]; }); const w = o['Wall climbing'].v, wl = o['Waterline'].v; o['Coverage'] = {v: w === 'Yes' ? (wl && wl !== 'No' && wl !== '[Confirm]' ? 'Floor, walls, waterline' + (/surface/i.test(wl) ? ' + surface' : '') : 'Floor and walls') : 'Floor only', fg: '#0C2236', fw: 400}; return o; };
+    const mkRows = cols => flat.map(r => { const o = byHead(r); return {name: r.name, brand: r.brand, first: r.first, img: r.img, hasImg: r.hasImg, newTag: r.isNew ? ' (NEW)' : '', vals: cols.map(c => o[c])}; });
+    const chunks = []; let cur = [];
+    groups.forEach(g => { if (cur.length && cur.length + g.rows.length > 15) { chunks.push(cur); cur = []; } cur = cur.concat(g.rows.map(r => r.name)); });
+    if (cur.length) chunks.push(cur);
+    const pages = [];
+    [['Selection specs', P1], ['Features & ownership', P2]].forEach((pt, pi) => {
+      const rows = mkRows(pt[1]);
+      chunks.forEach((names, ci) => pages.push({title: pt[0], heads: ['Model'].concat(pt[1]), rows: rows.filter(r => names.includes(r.name)), showSkims: pi === 1 && ci === chunks.length - 1, cls: pages.length ? 'ppart' : 'ppart-first'}));
+    });
+    pages.forEach((pg, i) => { pg.pageNo = i + 1; });
+    const scope = f === 'all' ? 'All ' + list.length + ' robots' : (f === 'corded' ? 'Corded robots' : 'Cordless robots');
+    const setPaper = e => { const v = e.target.value === 'A3' ? 'A3' : 'A4'; try { window.localStorage.setItem('swimart-range-paper', v); } catch (er) {} this.setState({paper: v}); };
+    const doPrint = () => {
+      try {
+        let st = document.getElementById('swimart-print-page');
+        if (!st) { st = document.createElement('style'); st.id = 'swimart-print-page'; document.head.appendChild(st); }
+        st.textContent = '@page { size: ' + paper + ' landscape; margin: 8mm; }';
+      } catch (e) {}
+      setTimeout(() => { try { window.print(); } catch (e) {} }, 60);
+    };
     return {
+      paper: paper, setPaper: setPaper, doPrint: doPrint,
+      paperClass: paper === 'A3' ? 'ps-a3' : 'ps-a4',
+      printScope: scope,
+      printDate: new Date().toLocaleDateString('en-AU', {day: 'numeric', month: 'long', year: 'numeric'}),
+      parts: pages,
+      pageCount: pages.length,
       cols: COLS,
       heads: HEADS.map((h, i) => ({t: h, pos: i === 0 ? 'sticky' : 'static'})),
       groups: groups,
