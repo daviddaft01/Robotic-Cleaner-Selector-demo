@@ -94,18 +94,19 @@
 body{margin:0}
 a{color:#0075BB}a:hover{color:#005A90}
 button:focus-visible,select:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
-.print-sheet{display:none}
+.print-sheet{position:absolute;left:-20000px;top:0;width:1400px;visibility:hidden}
 .pt{display:table;width:100%;border-collapse:collapse}
 .pth{display:table-header-group}
 .ptr{display:table-row;break-inside:avoid;page-break-inside:avoid}
-.ptc{display:table-cell;border:1px solid #C5D2DC;padding:3px 5px;vertical-align:middle}
+.ptc{display:table-cell;border:1px solid #C5D2DC;padding:2px 3px;vertical-align:middle;line-height:1.2;overflow-wrap:break-word}
 .pth .ptc{background:#0C2236;color:#FFFFFF;font-weight:700}
 .ptr.first .ptc{border-top:2px solid #0C2236}
-.ps-a4{font-size:7pt}.ps-a3{font-size:9.5pt}
-.ps-a4 .pimg{width:30px;height:22px}.ps-a3 .pimg{width:44px;height:32px}
+.ps-a4{font-size:5.1pt}.ps-a3{font-size:7.6pt}
+.ps-a4 .pimg{width:22px;height:16px}.ps-a3 .pimg{width:36px;height:26px}
 @media print{
   .screen-only{display:none !important}
-  .print-sheet{display:block}
+  .print-sheet{position:static;left:auto;width:auto;visibility:visible}
+  .pt{table-layout:fixed}
   .range-root{background:#FFFFFF !important;min-height:0 !important}
   body{background:#FFFFFF !important}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -218,13 +219,13 @@ button:focus-visible,select:focus-visible{outline:3px solid #F2A93B;outline-offs
         </div>
         <div class="pt">
           <div class="pth"><div class="ptr">
-            <sc-for list="{{pp.heads}}" as="h" hint-placeholder-count="10"><div class="ptc">{{h}}</div></sc-for>
+            <sc-for list="{{pp.heads}}" as="h" hint-placeholder-count="20"><div class="ptc" style="width: {{h.w}}%">{{h.t}}</div></sc-for>
           </div></div>
           <sc-for list="{{pp.rows}}" as="r" hint-placeholder-count="20">
             <div class="ptr {{r.first}}">
-              <div class="ptc" style="width: 15%">
+              <div class="ptc">
                 <div style="display: flex; align-items: center; gap: 5px">
-                  <sc-if value="{{r.hasImg}}" hint-placeholder-val="{{ false }}"><img class="pimg" src="{{r.img}}" alt="" style="flex: none; object-fit: contain"></sc-if>
+                  <sc-if value="{{r.hasImg}}" hint-placeholder-val="{{ false }}"><img class="pimg" src="{{r.img}}" alt="" loading="eager" style="flex: none; object-fit: contain"></sc-if>
                   <div style="display: flex; flex-direction: column">
                     <span style="font-size: 0.85em; text-transform: uppercase; letter-spacing: 0.05em; color: #4A5D6E">{{r.brand}}</span>
                     <span style="font-weight: 700">{{r.name}}{{r.newTag}}</span>
@@ -451,20 +452,20 @@ class Component extends DCLogic {
     });
     const paper = this.state.paper;
     const H = HEADS.slice(1);
-    const P1 = ['RRP', 'Type', 'Pool type', 'Cable / battery', 'Rated pool size', 'Coverage', 'Steps & ledges', 'Surfaces (maker)', 'Drive & grip', 'Floor-only mode'];
-    const P2 = ['Cleaning cycle', 'Filtration', 'Brushes', 'Weekly timer', 'App / connectivity', 'Weight', 'Storage caddy', 'Charging dock', 'Warranty'];
+    const COLW = [['RRP', 3.4], ['Type', 3.8], ['Pool type', 3.8], ['Cable / battery', 5.4], ['Rated pool size', 4, 'Rated size'], ['Coverage', 4.2], ['Steps & ledges', 4], ['Surfaces (maker)', 7.6, 'Surfaces'], ['Floor-only mode', 3.4, 'Floor-only'], ['Brushes', 4.4], ['Drive & grip', 13.6], ['Cleaning cycle', 5.4], ['Weekly timer', 2.8, 'Timer'], ['Storage caddy', 3, 'Caddy'], ['Charging dock', 2.8, 'Dock'], ['Filtration', 6.2], ['App / connectivity', 5.6, 'App'], ['Weight', 2.8], ['Warranty', 3.4]];
+    const ALL = COLW.map(c => c[0]);
     const flat = [];
     groups.forEach(g => g.rows.forEach((r, i) => flat.push(Object.assign({}, r, {brand: g.brand, first: i === 0 ? 'first' : ''}))));
     const byHead = r => { const o = {}; H.forEach((h, i) => { o[h] = r.cells[i]; }); const w = o['Wall climbing'].v, wl = o['Waterline'].v; o['Coverage'] = {v: w === 'Yes' ? (wl && wl !== 'No' && wl !== '[Confirm]' ? 'Floor, walls, waterline' + (/surface/i.test(wl) ? ' + surface' : '') : 'Floor and walls') : 'Floor only', fg: '#0C2236', fw: 400}; return o; };
     const mkRows = cols => flat.map(r => { const o = byHead(r); return {name: r.name, brand: r.brand, first: r.first, img: r.img, hasImg: r.hasImg, newTag: r.isNew ? ' (NEW)' : '', vals: cols.map(c => o[c])}; });
+    const CAP = 14;
     const chunks = []; let cur = [];
-    groups.forEach(g => { if (cur.length && cur.length + g.rows.length > 15) { chunks.push(cur); cur = []; } cur = cur.concat(g.rows.map(r => r.name)); });
+    groups.forEach(g => g.rows.forEach((r, i) => { if (cur.length >= CAP || (i === 0 && cur.length && cur.length + g.rows.length > CAP && g.rows.length <= CAP)) { chunks.push(cur); cur = []; } cur.push(r.name); }));
     if (cur.length) chunks.push(cur);
     const pages = [];
-    [['Selection specs', P1], ['Features & ownership', P2]].forEach((pt, pi) => {
-      const rows = mkRows(pt[1]);
-      chunks.forEach((names, ci) => pages.push({title: pt[0], heads: ['Model'].concat(pt[1]), rows: rows.filter(r => names.includes(r.name)), showSkims: pi === 1 && ci === chunks.length - 1, cls: pages.length ? 'ppart' : 'ppart-first'}));
-    });
+    const rowsAll = mkRows(ALL);
+    const heads = [{t: 'Model', w: 10}].concat(COLW.map(c => ({t: c[2] || c[0], w: c[1]})));
+    chunks.forEach((names, ci) => pages.push({title: 'All specifications', heads: heads, rows: rowsAll.filter(r => names.includes(r.name)), showSkims: ci === chunks.length - 1, cls: pages.length ? 'ppart' : 'ppart-first'}));
     pages.forEach((pg, i) => { pg.pageNo = i + 1; });
     const scope = f === 'all' ? 'All ' + list.length + ' robots' : (f === 'corded' ? 'Corded robots' : 'Cordless robots');
     const setPaper = e => { const v = e.target.value === 'A3' ? 'A3' : 'A4'; try { window.localStorage.setItem('swimart-range-paper', v); } catch (er) {} this.setState({paper: v}); };
@@ -472,9 +473,15 @@ class Component extends DCLogic {
       try {
         let st = document.getElementById('swimart-print-page');
         if (!st) { st = document.createElement('style'); st.id = 'swimart-print-page'; document.head.appendChild(st); }
-        st.textContent = '@page { size: ' + paper + ' landscape; margin: 8mm; }';
+        st.textContent = '@page { size: ' + paper + ' landscape; margin: 7mm; }';
       } catch (e) {}
-      setTimeout(() => { try { window.print(); } catch (e) {} }, 60);
+      const go = () => { try { window.print(); } catch (e) {} };
+      setTimeout(() => {
+        let imgs = [];
+        try { imgs = Array.from(document.querySelectorAll('.print-sheet img')); } catch (e) {}
+        const waits = imgs.map(im => (im.complete && im.naturalWidth) ? Promise.resolve() : new Promise(res => { im.addEventListener('load', res, {once: true}); im.addEventListener('error', res, {once: true}); }).then(() => (im.decode ? im.decode().catch(() => {}) : null)));
+        Promise.race([Promise.all(waits), new Promise(res => setTimeout(res, 4000))]).then(go);
+      }, 60);
     };
     return {
       paper: paper, setPaper: setPaper, doPrint: doPrint,
