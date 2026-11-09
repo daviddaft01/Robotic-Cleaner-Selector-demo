@@ -204,7 +204,7 @@ button:focus-visible,select:focus-visible{outline:3px solid #F2A93B;outline-offs
       </div>
     </section>
 
-    <p style="margin: 0; font-size: 13px; color: #4A5D6E; line-height: 1.5">RRP and warranty: Swimart FY27 Robot Ready Reckoner. Specifications and images: supplier brochures. Any [Confirm] cell is awaiting supplier information.</p>
+    <p style="margin: 0; font-size: 13px; color: #4A5D6E; line-height: 1.5">Scheduling: a full weekly schedule lets the owner choose the days and start times; an ECO mode scheduler re-runs automatically on a fixed cycle. RRP and warranty: Swimart FY27 Robot Ready Reckoner. Specifications and images: supplier brochures. Any [Confirm] cell is awaiting supplier information.</p>
   </main>
 
   <section class="print-sheet {{paperClass}}" aria-hidden="true" style="color: #0C2236; font-family: 'Barlow', system-ui, sans-serif">
@@ -313,7 +313,7 @@ const PATCH = {
   'F1 RXT': {cableM: 23, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1},
   'Duo-X 4000': {cableM: 15, maxW: 5, surf: 'zod', conn: 'None', multi: 1},
   'Evo 5050': {cableM: 18, maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink)', multi: 1, steer: 1},
-  'Dolphin NIYA35': {surf: 'may', conn: 'None'},
+  'Dolphin NIYA35': {surf: 'may', conn: 'None', eco: {iv: '3 floor-only cleans over 7 days', explain: 'ECO mode scheduler: on one full charge it runs 3 automatic 45-minute floor-only cleans over 7 days, then parks at the wall. It resets to Standard mode when recharged, so start each week fully charged', floorOnly: 1}},
   'Dolphin EON 100': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app'},
   'Dolphin EON 120': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
   'Dolphin Liberty 600': {ledgeCm: 30, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
@@ -401,7 +401,7 @@ function ratingText(m) {
 }
 function fmt(v) { return (Math.round(v * 10) / 10).toString(); }
 
-const HEADS = ['Model', 'RRP', 'Type', 'Pool type', 'Cable / battery', 'Rated pool size', 'Steps & ledges', 'Surfaces (maker)', 'Floor-only mode', 'Wall climbing', 'Waterline', 'Brushes', 'Drive & grip', 'Cleaning cycle', 'Weekly timer', 'Storage caddy', 'Charging dock', 'Filtration', 'App / connectivity', 'Weight', 'Warranty'];
+const HEADS = ['Model', 'RRP', 'Type', 'Pool type', 'Cable / battery', 'Rated pool size', 'Steps & ledges', 'Surfaces (maker)', 'Floor-only mode', 'Wall climbing', 'Waterline', 'Brushes', 'Drive & grip', 'Cleaning cycle', 'Scheduling', 'Storage caddy', 'Charging dock', 'Filtration', 'App / connectivity', 'Weight', 'Warranty'];
 const COLS = '260px 90px 90px 110px 200px 150px 150px 190px 120px 90px 120px 130px 200px 120px 90px 90px 90px 180px 90px 80px 110px';
 const BRANDS = ['Maytronics', 'BWT', 'Zodiac (Fluidra)', 'Beatbot', 'Aiper'];
 
@@ -426,7 +426,7 @@ function cells(m) {
     cell(m.brushes ? cap(m.brushes) : ''),
     cell([m.drive, m.grip].filter(Boolean).join(' · ')),
     cell(m.cycle || ''),
-    cell(yn(m.timer)),
+    cell(m.eco ? 'ECO mode scheduler (' + m.eco.iv + ')' : m.timer === 'yes' ? 'Full weekly schedule' : (m.timer && m.timer !== 'no' ? 'ECO mode scheduler' + ((m.timer.match(/every [^.,;]+/i) || [''])[0] ? ' (' + m.timer.match(/every [^.,;]+/i)[0] + ')' : '') : (m.timer === 'no' ? 'No: manual start' : ''))),
     cell(yn(m.caddy)),
     cell(m.power === 'corded' ? 'n/a' : yn(m.dock)),
     cell(m.filter || (m.basket ? m.basket + ' L' : '')),
@@ -452,7 +452,7 @@ class Component extends DCLogic {
     });
     const paper = this.state.paper;
     const H = HEADS.slice(1);
-    const COLW = [['RRP', 3.4], ['Type', 3.8], ['Pool type', 3.8], ['Cable / battery', 5.4], ['Rated pool size', 4, 'Rated size'], ['Coverage', 4.2], ['Steps & ledges', 4], ['Surfaces (maker)', 7.6, 'Surfaces'], ['Floor-only mode', 3.4, 'Floor-only'], ['Brushes', 4.4], ['Drive & grip', 13.6], ['Cleaning cycle', 5.4], ['Weekly timer', 2.8, 'Timer'], ['Storage caddy', 3, 'Caddy'], ['Charging dock', 2.8, 'Dock'], ['Filtration', 6.2], ['App / connectivity', 5.6, 'App'], ['Weight', 2.8], ['Warranty', 3.4]];
+    const COLW = [['RRP', 3.4], ['Type', 3.8], ['Pool type', 3.8], ['Cable / battery', 5.4], ['Rated pool size', 4, 'Rated size'], ['Coverage', 4.2], ['Steps & ledges', 4], ['Surfaces (maker)', 7.6, 'Surfaces'], ['Floor-only mode', 3.4, 'Floor-only'], ['Brushes', 4.4], ['Drive & grip', 12.8], ['Cleaning cycle', 5.4], ['Scheduling', 3.6], ['Storage caddy', 3, 'Caddy'], ['Charging dock', 2.8, 'Dock'], ['Filtration', 6.2], ['App / connectivity', 5.6, 'App'], ['Weight', 2.8], ['Warranty', 3.4]];
     const ALL = COLW.map(c => c[0]);
     const flat = [];
     groups.forEach(g => g.rows.forEach((r, i) => flat.push(Object.assign({}, r, {brand: g.brand, first: i === 0 ? 'first' : ''}))));

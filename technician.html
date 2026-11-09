@@ -137,6 +137,15 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
 
   <sc-if value="{{choosing}}" hint-placeholder-val="{{ false }}">
     <div data-scroll style="flex: 1; min-height: 0; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+      <div role="alert" style="background: #FFF6E6; border: 2px solid #F2A93B; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 16px; font-weight: 700; color: #8A3F08">⚠ WARNING: only select the robotic cleaners your store ranges</span>
+        <span style="font-size: 14px; color: #33475A; line-height: 1.35">Tap the brands you stock. Saved on this phone. {{rangeNow}}.</span>
+        <div role="group" aria-label="Brands this store ranges" style="display: flex; flex-wrap: wrap; gap: 6px">
+          <sc-for list="{{brandChips}}" as="bc" hint-placeholder-count="6">
+            <button type="button" onClick="{{bc.pick}}" aria-pressed="{{bc.pressed}}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; border: 2px solid {{bc.border}}; background: {{bc.bg}}; color: {{bc.fg}}; font-family: 'Barlow', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer">{{bc.t}}</button>
+          </sc-for>
+        </div>
+      </div>
       <h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; line-height: 1.05">How much checking does this pool need?</h2>
       <p style="margin: 0; font-size: 15px; color: #33475A; line-height: 1.4">You can switch at any time and keep your answers.</p>
       <button type="button" onClick="{{pickQuick}}" style="text-align: left; background: #FFFFFF; border: 2px solid {{accent}}; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; font-family: 'Barlow', sans-serif; color: #0C2236">
@@ -212,6 +221,12 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
       <sc-if value="{{noFit}}" hint-placeholder-val="{{ false }}">
         <div style="background: #FFFFFF; border-radius: 14px; padding: 16px; font-size: 15px; line-height: 1.4">No model ticks every box. Go back and relax coverage, power type or budget.</div>
       </sc-if>
+      <sc-if value="{{isJoint}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFF6E6; border: 1px solid #F2A93B; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A3F08">Two equally good options: {{top.name}} and {{co.name}}</span>
+          <sc-for list="{{sepList}}" as="sp" hint-placeholder-count="3"><span style="font-size: 15px; line-height: 1.35">• {{sp}}</span></sc-for>
+        </div>
+      </sc-if>
       <sc-if value="{{hasTop}}" hint-placeholder-val="{{ true }}">
         <article style="background: #FFFFFF; border: 2px solid {{accent}}; border-radius: 16px; overflow: hidden">
           <div style="background: {{accent}}; color: #FFFFFF; padding: 8px 16px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase">
@@ -231,6 +246,7 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
                 <span style="font-size: 13px; font-weight: 700; color: #4A5D6E; text-transform: uppercase; letter-spacing: 0.08em">{{top.brand}}{{top.newTag}}</span>
                 <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 700; line-height: 1">{{top.name}}</span>
                 <span style="font-size: 15px; color: #22384C">{{top.powerLabel}}</span>
+                <sc-if value="{{top.hasSched}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #33475A; line-height: 1.35"><strong>Scheduling:</strong> {{top.schedExplain}}</span></sc-if>
               </div>
               <span style="flex: none; font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700">{{top.priceLabel}}</span>
             </div>
@@ -267,6 +283,27 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
                 <span>{{c}}</span>
               </div>
             </sc-for>
+          </div>
+        </article>
+      </sc-if>
+      <sc-if value="{{isJoint}}" hint-placeholder-val="{{ false }}">
+        <article style="background: #FFFFFF; border: 2px solid {{accent}}; border-radius: 16px; overflow: hidden">
+          <div style="background: {{accent}}; color: #FFFFFF; padding: 8px 16px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase">
+            <span>{{topLabel}}</span><span>{{co.pct}}% fit</span>
+          </div>
+          <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+            <div style="height: 150px; border-radius: 12px; background: #F3F6F9; display: flex; align-items: center; justify-content: center; overflow: hidden">
+              <sc-if value="{{co.hasImg}}" hint-placeholder-val="{{ false }}"><img data-src="{{co.img}}" alt="{{co.name}}" style="width: 100%; height: 100%; object-fit: contain"></sc-if>
+            </div>
+            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: flex-start">
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0">
+                <span style="font-size: 13px; font-weight: 700; color: #4A5D6E; text-transform: uppercase; letter-spacing: 0.08em">{{co.brand}}{{co.newTag}}</span>
+                <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; line-height: 1">{{co.name}}</span>
+                <span style="font-size: 14px; color: #22384C">{{co.powerLabel}}</span>
+                <sc-if value="{{co.hasSched}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; color: #33475A; line-height: 1.35"><strong>Scheduling:</strong> {{co.schedExplain}}</span></sc-if>
+              </div>
+              <span style="flex: none; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700">{{co.priceLabel}}</span>
+            </div>
           </div>
         </article>
       </sc-if>
@@ -425,7 +462,7 @@ const PATCH = {
   'F1 RXT': {cableM: 23, surf: 'all', conn: 'BWT Robotics app (Bluetooth)', multi: 1},
   'Duo-X 4000': {cableM: 15, maxW: 5, surf: 'zod', conn: 'None', multi: 1},
   'Evo 5050': {cableM: 18, maxW: 6, surf: 'zod', conn: 'Wi-Fi app (iAquaLink)', multi: 1, steer: 1},
-  'Dolphin NIYA35': {surf: 'may', conn: 'None'},
+  'Dolphin NIYA35': {surf: 'may', conn: 'None', eco: {iv: '3 floor-only cleans over 7 days', explain: 'ECO mode scheduler: on one full charge it runs 3 automatic 45-minute floor-only cleans over 7 days, then parks at the wall. It resets to Standard mode when recharged, so start each week fully charged', floorOnly: 1}},
   'Dolphin EON 100': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app'},
   'Dolphin EON 120': {ledgeCm: 20, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
   'Dolphin Liberty 600': {ledgeCm: 30, steps: 1, surf: 'may', conn: 'Maytronics One app', multi: 1},
@@ -517,6 +554,35 @@ function pairSkim(k, m, a) {
   if (!ok.length) ok.push('Floats independently, so it runs alongside the ' + m.name);
   return {score: s, ok: ok, chk: chk};
 }
+/* Automatic cleaning and scheduling: score the benefit, not the feature name.
+   2 = full weekly timer (most flexible), 1 = automatic interval (e.g. ECO every 2nd day), 0 = manual start only. */
+function sched(m) {
+  if (m.timer === 'yes') return {lvl: 2, txt: 'Full weekly schedule', explain: 'Full weekly schedule: you choose the days and start times'};
+  if (m.eco) return {lvl: 1, txt: 'ECO mode scheduler (' + m.eco.iv + ')', explain: m.eco.explain, iv: m.eco.iv};
+  if (m.timer && m.timer !== 'no') {
+    const iv = (m.timer.match(/every [^.,;]+/i) || [''])[0];
+    return {lvl: 1, txt: 'ECO mode scheduler' + (iv ? ' (' + iv + ')' : ''), explain: 'ECO mode scheduler: once set, it re-runs automatically ' + (iv || 'on a fixed cycle') + '; you can’t pick particular days or times'};
+  }
+  return {lvl: 0, txt: m.timer === 'no' ? 'No: manual start' : '', explain: 'Manual start only: someone starts each clean'};
+}
+/* When the top two are this close, show them as joint best matches. */
+const JOINT_GAP = 2;
+function separates(a, b) {
+  const d = [];
+  if (Math.abs(a.price - b.price) >= 50) { const c = a.price < b.price ? a : b, o = c === a ? b : a; d.push(c.name + ' is ' + money(o.price - c.price) + ' cheaper'); }
+  const sa = sched(a), sb = sched(b);
+  if (sa.lvl !== sb.lvl) { const w = sa.lvl > sb.lvl ? a : b, o = w === a ? b : a, so = sched(o); d.push(w.name + ' has a full weekly schedule (choose days and times); ' + o.name + (so.lvl === 1 ? ' uses an ' + so.txt : ' is started manually')); }
+  if (sa.lvl === 1 && sb.lvl === 1 && sa.txt !== sb.txt) d.push('Different ECO schedulers: ' + a.name + ' ' + sa.txt.replace('ECO mode scheduler ', '') + '; ' + b.name + ' ' + sb.txt.replace('ECO mode scheduler ', ''));
+  if (a.power !== b.power) d.push(a.name + ' is ' + a.power + '; ' + b.name + ' is ' + b.power);
+  if ((a.wty || 0) !== (b.wty || 0) && a.wty && b.wty) { const w = a.wty > b.wty ? a : b, o = w === a ? b : a; d.push(w.name + ' has the longer warranty (' + w.wtyL + ' vs ' + o.wtyL + ')'); }
+  if ((a.skim === 1) !== (b.skim === 1)) { const w = a.skim === 1 ? a : b; d.push(w.name + ' also skims the water surface'); }
+  if (a.basket && b.basket && Math.abs(a.basket - b.basket) >= 1) { const w = a.basket > b.basket ? a : b, o = w === a ? b : a; d.push(w.name + ' has the bigger basket (' + w.basket + ' L vs ' + o.basket + ' L)'); }
+  if (a.weight && b.weight && Math.abs(a.weight - b.weight) >= 1.5) { const w = a.weight < b.weight ? a : b, o = w === a ? b : a; d.push(w.name + ' is lighter to lift (' + w.weight + ' kg vs ' + o.weight + ' kg)'); }
+  if ((a.dock === 'yes') !== (b.dock === 'yes') && a.power === 'cordless' && b.power === 'cordless') { const w = a.dock === 'yes' ? a : b; d.push(w.name + ' comes with a charging dock'); }
+  if ((a.caddy === 'yes') !== (b.caddy === 'yes')) { const w = a.caddy === 'yes' ? a : b; d.push(w.name + ' includes a caddy'); }
+  if (!d.length) d.push('Very similar on price and features: let the customer choose on look, feel and brand preference');
+  return d.slice(0, 4);
+}
 const FIN = {pebble: 'pebble / quartzon', plaster: 'plaster / render', painted: 'painted', ceramic: 'ceramic tile', glass: 'glass mosaic', fibre: 'fibreglass gelcoat', vinyl: 'vinyl liner'};
 const SURF = {
   zod: {ok: ['pebble', 'plaster', 'fibre', 'vinyl', 'ceramic', 'glass'], short: 'Concrete, pebble, quartzon, fibreglass, vinyl, tiles', vinylNote: 'Zodiac warns of possible pattern abrasion or marks on vinyl liners: inspect the liner and brushes first'},
@@ -595,7 +661,7 @@ const QS = [
   {k: 'cover', i: 6, label: 'Cover on while cleaning?', opts: [['no', 'No'], ['yes', 'Yes']]},
   {k: 'charge', i: 6, label: 'Charging and storage spot', opts: [['near', 'Sheltered, close to the pool'], ['far', 'Some distance or upstairs']], show: function (a) { return a.power !== 'corded'; }},
   {k: 'ops', i: 7, label: 'How will they run it?', opts: [['simple', 'Simple push-button'], ['either', 'Either'], ['app', 'Phone app']]},
-  {k: 'timer', i: 7, label: 'Weekly timer / scheduling', opts: [['need', 'Must have'], ['nice', 'Nice to have'], ['no', 'Not needed']]},
+  {k: 'timer', i: 7, label: 'Automatic cleaning & scheduling', opts: [['weekly', 'Full weekly schedule (set days & times)'], ['auto', 'Automatic is fine (weekly or ECO mode)'], ['nice', 'Nice to have'], ['no', 'Not needed']]},
   {k: 'quick', i: 7, label: 'Quick floor-only cycle', opts: [['yes', 'Wanted'], ['no', 'Not needed']]},
   {k: 'steer', i: 7, label: 'Manual steering / spot clean', opts: [['yes', 'Wanted'], ['no', 'Not needed']]},
   {k: 'wifi', i: 7, label: 'Home Wi-Fi at the pool', opts: [['good', 'Strong signal'], ['weak', 'Weak or patchy'], ['none', 'None']], show: function (a) { return a.ops === 'app' || a.ops === 'either' || a.steer === 'yes'; }},
@@ -813,11 +879,13 @@ function rank(a) {
       else { s -= 3; chk.push('No app control'); }
     }
     if (a.ops === 'simple' && m.app === 'no') { s += 1; why.push('Simple push-button operation'); }
-    if (a.timer === 'need' || a.timer === 'nice') {
-      if (m.timer === 'yes') { s += a.timer === 'need' ? 2 : 1; why.push('Weekly timer / scheduling'); }
-      else if (m.timer === 'no') { s -= a.timer === 'need' ? 4 : 1; chk.push('No weekly timer'); }
-      else if (m.timer) chk.push('Scheduling: ' + m.timer + '. Check it suits the routine');
-      else chk.push('Weekly scheduling not stated by the maker: confirm with the supplier');
+    if (a.timer && a.timer !== 'no') {
+      const sc = sched(m), t = a.timer;
+      const pts = {weekly: [3, 1, -4], auto: [2.5, 2, -4], nice: [1.5, 1, -1]}[t] || [0, 0, 0];
+      if (sc.lvl === 2) { s += pts[0]; why.push(sc.explain); }
+      else if (sc.lvl === 1) { s += pts[1]; why.push(sc.explain); if (t === 'weekly') chk.push('Customer wants set days and times: ECO mode runs on a fixed cycle instead'); if (m.eco && m.eco.floorOnly && a.reach && a.reach !== 'floor') chk.push('ECO mode cleans the floor only: walls and waterline need a Standard cycle'); }
+      else if (m.timer === 'no') { s += pts[2]; chk.push('No automatic cleaning: started manually each time'); }
+      else chk.push('Automatic scheduling not stated by the maker: confirm with the supplier');
     }
     if (a.quick === 'yes') {
       if (m.floorMode === 'yes' || /^Yes|Turbo|Floor-only robot/.test(m.floorMode || '')) { s += 1; why.push('Quick floor-cleaning cycle'); }
@@ -878,6 +946,7 @@ function card(m) {
   return Object.assign({}, m, {
     pct: pct, priceLabel: money(m.price), newTag: m.isNew ? ' · New' : '', hasImg: !!m.img, noImg: !m.img,
     powerLabel: m.power === 'corded' ? 'Corded' + (m.cable ? ' · ' + m.cable + ' cable' : '') : (m.run ? 'Cordless · ' + m.run + ' run' : 'Cordless'),
+    schedExplain: m.types.includes('spa') ? '' : sched(m).explain, hasSched: !m.types.includes('spa') && !!(m.timer),
     hasFit: !!m.fit, fit: m.fit || NOFIT, gripTxt: m.types.includes('spa') ? '' : (m.grip || 'Grip on slippery surfaces: confirm with supplier'), hasGrip: !m.types.includes('spa'),
     specs: [
       t('Rated size', ratingText(m)),
@@ -888,7 +957,7 @@ function card(m) {
       t('Basket', m.basket ? m.basket + ' L' : ''),
       t('Weight', m.weight ? m.weight + ' kg' : ''),
       t('Caddy', m.caddy === 'yes' ? 'Included' : yn(m.caddy)),
-      t('Timer', yn(m.timer)),
+      t('Scheduling', sched(m).lvl === 2 ? 'Full weekly' : (sched(m).lvl === 1 ? 'ECO mode' : (m.timer === 'no' ? 'Manual' : ''))),
       t('App', m.conn || yn(m.app)),
       t('Warranty', m.wty ? m.wtyL : '')
     ]
@@ -968,6 +1037,8 @@ class Component extends DCLogic {
     const go = dir => { let s = st.step + dir; while (s >= 0 && s < LIST.length && hiddenItem(LIST[s])) s += dir; if (s < 0) { this.setState({mode: '', step: 0}); return; } this.setState({step: s}); };
     const P = poolCalc(av);
     const M = MODES[mode] || MODES.full;
+    const isJoint = res.length > 1 && res[0].score - res[1].score <= JOINT_GAP;
+    const co = isJoint ? res[1] : card(Object.assign({}, MODELS[0], {score: 0, why: [], chk: [], fit: null}));
     return {
       accent: accent,
       choosing: !mode && !st.showBrands,
@@ -982,6 +1053,7 @@ class Component extends DCLogic {
       openBrands: () => this.setState({showBrands: !st.showBrands}),
       closeBrands: () => this.setState({showBrands: false}),
       brandChips: brandChips,
+      rangeNow: br.length ? 'Showing: ' + BRANDS.filter(b => br.includes(b[0])).map(b => b[1]).join(', ') : 'Showing: all brands',
       brandBtnBg: br.length ? 'rgba(255,255,255,0.25)' : 'transparent',
       brandNote: br.length ? 'Showing ' + br.length + ' of ' + BRANDS.length + ' brands.' : 'Showing the full approved range.',
       bars: LIST.map((it, i) => ({c: i === st.step ? '#F2A93B' : (itemDone(it) ? '#FFFFFF' : 'rgba(255,255,255,0.3)')})),
@@ -1017,13 +1089,15 @@ class Component extends DCLogic {
       coreCount: LIST.filter(it => !it.optional).length,
       hasMissing: missing.length > 0,
       missing: missing.join(', '),
-      topLabel: missing.length ? 'Best match so far' : 'Best match',
+      isJoint: isJoint, co: co,
+      sepList: isJoint ? separates(top, res[1]) : [],
+      topLabel: (isJoint ? 'Joint best match' : (missing.length ? 'Best match so far' : 'Best match')) + ' · ' + M.name,
       total: MODELS.filter(m => stocked(br, m.brand)).length,
       fitCount: res.length,
       noFit: res.length === 0,
       hasTop: res.length > 0,
       top: top || card(Object.assign({}, MODELS[0], {score: 0, why: [], chk: [], fit: null})),
-      others: res.slice(1, 3),
+      others: res.slice(isJoint ? 2 : 1, 4),
       showSkim: SK.length > 0 && a.body !== 'spa' && (a.skimmer === 'yes' || (a.skimmer !== 'no' && leafy)),
       skimAltText: alt ? ' Also ranged: ' + alt + '.' : '',
       showSpa: a.body === 'both' && stocked(br, 'Zodiac'),
