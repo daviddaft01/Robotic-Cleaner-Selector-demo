@@ -109,6 +109,7 @@ select:focus,button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
         </div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-start; max-width: 560px">
+        <button type="button" onClick="{{reset}}" title="Clear all answers and start a new customer" style="align-self: flex-end; min-height: 44px; padding: 0 18px; border-radius: 10px; border: 2px solid #FFFFFF; background: #0C2236; color: #FFFFFF; font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; display: flex; align-items: center; gap: 8px"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"></path><path d="M3 3v5h5"></path></svg>Reset selector</button>
         <span id="brands-label" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600">Brands stocked in this store</span>
         <div role="group" aria-labelledby="brands-label" style="display: flex; flex-wrap: wrap; gap: 8px">
           <sc-for list="{{brandChips}}" as="bc" hint-placeholder-count="6">
@@ -1272,7 +1273,7 @@ class Component extends DCLogic {
       toggleTrial: () => this.setState({trial: !this.state.trial}),
       trial: TRIAL,
       supplier: SUPPLIER,
-      reset: () => this.setState({a: Object.assign({}, BLANK), mode: '', trial: false})
+      reset: () => { this.setState({a: Object.assign({}, BLANK), mode: '', trial: false}); try { window.scrollTo(0, 0); } catch (e) {} }
     };
   }
 }
