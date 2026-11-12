@@ -219,7 +219,14 @@ button:focus-visible{outline:3px solid #F2A93B;outline-offset:2px}
         <div style="background: #FFF6E6; border: 1px solid #F2A93B; border-radius: 12px; padding: 12px 14px; font-size: 14px; line-height: 1.4">Still to ask: {{missing}}</div>
       </sc-if>
       <sc-if value="{{noFit}}" hint-placeholder-val="{{ false }}">
-        <div style="background: #FFFFFF; border-radius: 14px; padding: 16px; font-size: 15px; line-height: 1.4">No model ticks every box. Go back and relax coverage, power type or budget.</div>
+        <div style="background: #FFFFFF; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 8px; font-size: 15px; line-height: 1.4">
+          <strong style="font-size: 17px">No model ticks every box</strong>
+          <sc-if value="{{hasWhy}}" hint-placeholder-val="{{ false }}">
+            <span>These answers rule out every robot:</span>
+            <sc-for list="{{noFitWhy}}" as="w" hint-placeholder-count="2"><span style="display: flex; gap: 8px"><span aria-hidden="true" style="flex: none; font-weight: 700; color: #B4560F">!</span><span>{{w}}</span></span></sc-for>
+          </sc-if>
+          <sc-if value="{{noWhy}}" hint-placeholder-val="{{ true }}"><span>Go back and relax coverage, power type or budget.</span></sc-if>
+        </div>
       </sc-if>
       <sc-if value="{{isJoint}}" hint-placeholder-val="{{ false }}">
         <div style="background: #FFF6E6; border: 1px solid #F2A93B; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
@@ -959,6 +966,51 @@ function rank(a) {
 }
 
 
+/* When no robot is left, explain which answers clash and which single change brings robots back. */
+const RELAX = [
+  {k: 'power', to: 'any', fix: 'With No preference'},
+  {k: 'skimSurf', to: 'nice', fix: 'With Nice to have (plus a floating skimmer for the surface)'},
+  {k: 'reach', to: '', fix: 'With fewer areas to clean'},
+  {k: 'psu', to: 'unknown', also: {setback: ''}, fix: 'With the power supply closer to the pool'},
+  {k: 'interior', to: '', also: {walls: ''}, fix: 'If the supplier approves this finish'},
+  {k: 'size', fix: ''},
+  {k: '_brands', to: [], fix: 'With All brands'}
+];
+function ansText(k, v) { const q = QS.find(x => x.k === k); const o = q && q.opts.find(x => x[0] === v); return o ? o[1] : v; }
+function relaxOn(r, a) {
+  if (r.k === '_brands') return !!(a._brands && a._brands.length);
+  if (r.k === 'size') return !!poolCalc(a);
+  if (r.k === 'psu') return a.power !== 'cordless' && !!a.psu && a.psu !== 'unknown';
+  return !!a[r.k] && a[r.k] !== r.to;
+}
+function relaxApply(a, rs) {
+  const o = Object.assign({}, a);
+  rs.forEach(r => { if (r.k === 'size') { o.length = ''; o.width = ''; } else { o[r.k] = r.to; Object.assign(o, r.also || {}); } });
+  return o;
+}
+function relaxWhat(r, a) {
+  if (r.k === '_brands') return 'Only some brands are selected for this store';
+  if (r.k === 'size') return 'Pool size ' + fmt(+a.length) + ' × ' + fmt(+a.width) + ' m is larger than the remaining robots are rated for';
+  if (r.k === 'psu') return 'From the power supply (' + ansText('psu', a.psu).toLowerCase() + '), the remaining corded robots’ cables won’t reach the farthest point';
+  const q = QS.find(x => x.k === r.k);
+  return (q ? q.label.replace(/\?$/, '') : r.k) + ': ' + ansText(r.k, a[r.k]);
+}
+function fitList(res) { const n = res.length, nm = res.slice(0, 3).map(m => m.name).join(', '); return n + (n === 1 ? ' robot fits' : ' robots fit') + ' (' + nm + (n > 3 ? ' and ' + (n - 3) + ' more' : '') + ')'; }
+function whyNone(a) {
+  const out = [];
+  if (a.power === 'corded' && a.skimSurf === 'must') out.push('Every robot that skims the water surface is cordless, so “Corded (cable)” and “Yes, must skim” can’t both be met.');
+  if (a.power === 'corded' && a.poolType === 'above') out.push('Every above-ground robot in the range is cordless, so “Corded (cable)” and “Above-ground” can’t both be met.');
+  const on = RELAX.filter(r => relaxOn(r, a));
+  on.forEach(r => { const res = rank(relaxApply(a, [r])); if (!res.length) return; if (r.k === 'size') { out.push(relaxWhat(r, a) + '. Check the measurements.'); return; } out.push(relaxWhat(r, a) + '. ' + r.fix + ', ' + fitList(res) + (r.k === '_brands' ? ', but only quote brands this store ranges.' : '.')); });
+  if (out.length < 2 && !on.some(r => rank(relaxApply(a, [r])).length)) {
+    for (let i = 0; i < on.length; i++) for (let j = i + 1; j < on.length; j++) {
+      const res = rank(relaxApply(a, [on[i], on[j]]));
+      if (res.length) out.push('Change two answers together: ' + relaxWhat(on[i], a) + ' and ' + relaxWhat(on[j], a) + '. Changing both, ' + fitList(res) + '.');
+    }
+  }
+  return out.slice(0, 5);
+}
+
 const NOFIT = {areaTxt: '', allowTxt: '', ratingTxt: '', utilPct: 0, utilW: 0, utilColor: '#1C7C4A', utilTxt: '', powerK: '', powerV: '', powerNote: ''};
 function card(m) {
   const pct = Math.max(30, Math.min(98, Math.round(30 + Math.max(0, m.score) * 2.1)));
@@ -1042,6 +1094,7 @@ class Component extends DCLogic {
       return {t: x[1], pressed: on ? 'true' : 'false', bg: on ? accent : '#FFFFFF', fg: on ? '#FFFFFF' : '#0C2236', border: on ? accent : '#C5D2DC', pick: () => setBrands(x[0])};
     });
     const res = rank(Object.assign({}, av, {_brands: br})).map(card);
+    const noFitWhy = res.length ? [] : whyNone(Object.assign({}, av, {_brands: br}));
     const top = res[0];
     const leafy = (a.debrisQty === 'heavy' && a.debrisType !== 'fine') || a.debrisType === 'floating';
     const SK = SKIMMERS.filter(k => stocked(br, k.b));
@@ -1118,6 +1171,7 @@ class Component extends DCLogic {
       total: MODELS.filter(m => stocked(br, m.brand)).length,
       fitCount: res.length,
       noFit: res.length === 0,
+      noFitWhy: noFitWhy, hasWhy: noFitWhy.length > 0, noWhy: !noFitWhy.length,
       hasTop: res.length > 0,
       top: top || card(Object.assign({}, MODELS[0], {score: 0, why: [], chk: [], fit: null})),
       others: res.slice(isJoint ? 2 : 1, 4),
